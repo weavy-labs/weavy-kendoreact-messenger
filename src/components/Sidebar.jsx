@@ -1,138 +1,67 @@
-import { React, useState } from 'react';
-import { Drawer, DrawerContent } from "@progress/kendo-react-layout";
-import { Switch, Route, withRouter } from "react-router-dom";
-import { Chat, ChatMessage } from '@progress/kendo-react-conversational-ui';
+import { React } from 'react';
+import { NavLink } from "react-router-dom";
+import { ListView } from '@progress/kendo-react-listview';
+import { Avatar } from "@progress/kendo-react-layout";
 
 const Sidebar = (props) => {
 
-    const user = {
-        id: 1,
-        avatarUrl: "https://via.placeholder.com/24/008000/008000.png",
-    };
-
-    const items = [
+    const conversations = [
         {
-            text: "Home",
-            //icon: "k-i-inbox",
-            selected: true,
-            route: "/",
+            "id": 1,
+            "title": "Dev ops",
+            "image": "Jenson-Delaney",
         },
         {
-            text: "About",
-            //icon: "k-i-inbox",      
-            route: "/about",
+            "id": 2,
+            "title": "Markering",
+            "image": "Amaya-Coffey",
         },
-    ];
+        {
+            "id": 3,
+            "title": "Linus B",
+            "image": "Habib-Joyce",
+        },
+        {
+            "id": 4,
+            "title": "Johan J",
+            "image": "Lilly-Ann-Roche",
+        },
+    ]
 
-    const getSelectedItem = (pathName) => {
-        let currentPath = items.find(item => item.route === pathName);
-        if (currentPath.text) {
-            return currentPath.text;
-        }
-    }
+    const MyItemRender = (props) => {
+        let item = props.dataItem;
 
-    const onSelect = (e) => {
-        props.history.push(e.itemTarget.props.route);
-
-    };
-
-    let selected = getSelectedItem(props.location.pathname);
-
-    const [messages, setMessages] = useState([]);
-
-    const addNewMessage = (event) => {
-        //event.message.typing = true;
-        event.message.attachments = [
-            {
-                content: "A link to Google",
-                site: "https://google.com",
-                contentType: "link"
-            },
-
-            {
-                content: "A link to Weavy",
-                site: "https://weavy.com",
-                contentType: "link"
-            }
-        ]
-        setMessages([...messages, event.message]);
-    }
-
-    const CustomChatMessage = (props) => (
-        <ChatMessage {...props} dateFormat={"t"} />
-    );
-
-    const MessageTemplate = (props) => {
         return (
-            <div className="k-bubble">
-                <div>This is the message: {props.item.text}</div>
+            <div className="row p-2 border-bottom align-middle" style={{ margin: 0 }}>
+                <div className="col-2">
+                    <Avatar shape="circle" type="image">
+                        <img
+                            src={`https://gist.github.com/simonssspirit/0db46d4292ea8e335eb18544718e2624/raw/2a595679acdb061105c80bd5eeeef58bb90aa5af/${item.image}-round-40x40.png`}
+                        />
+                    </Avatar>
+                </div>
+                <div className="col-10">
+                    <NavLink to={"/conversation/" + item.id} activeClassName="selected">{item.title}</NavLink>
+                </div>
             </div>
         );
-    };
 
-    const AttachmentTemplate = (props) => {
-        let attachment = props.item;
-
-        if (attachment.contentType === "link") {
-            return (
-                <div className="k-card">
-                    <div className="k-card-body">
-                        <a
-                            href={attachment.site}
-                            target="_blank"
-                            draggable={false}
-                            tabIndex={-1}
-                            rel="noopener noreferrer"
-                        >
-                            {attachment.content}
-                        </a>
-                    </div>
-                </div>
-            );
-        } else if (attachment.contentType.match("^image/")) {
-            return <img src={attachment.content} draggable={false} />;
-        } else if (attachment.contentType === "text/plain") {
-            return attachment.content;
-        } else {
-            return null;
-        }
-    };
-
+    }
 
     return (
         <div>
 
-            <Drawer
-                expanded={true}
-                position={"start"}
-                mode={"push"}
-                items={items.map((item) => ({
-                    ...item,
-                    selected: item.text === selected,
-                }))}
-                onSelect={onSelect}>
-                <Switch>
+            <ListView
+                data={conversations}
+                item={MyItemRender}
+                style={{
+                    width: "300px"
+                }}
+            />
 
-                    <Route path="/" exact>
-                        <Chat
-                            user={user}
-                            messages={messages}
-                            onMessageSend={addNewMessage}
-                            placeholder={"Type a message..."}
-                            messageTemplate={MessageTemplate}
-                            message={CustomChatMessage}
-                            attachmentTemplate={AttachmentTemplate}
-                            width={600}
-                        />
-                    </Route>
 
-                    <Route path="/about">
-                        <div>About!</div>
-                    </Route>
-                </Switch>
-            </Drawer>
         </div>
     )
 }
 
-export default withRouter(Sidebar);
+export default Sidebar;

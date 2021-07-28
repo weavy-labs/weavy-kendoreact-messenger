@@ -1500,6 +1500,14 @@
     "@progress/kendo-react-popup" "4.7.0"
     prop-types "^15.6.0"
 
+"@progress/kendo-react-listview@^4.7.0":
+  version "4.7.0"
+  resolved "https://registry.yarnpkg.com/@progress/kendo-react-listview/-/kendo-react-listview-4.7.0.tgz#2286f585f1073b5ddc56f9125231bcf0c4bdd807"
+  integrity sha512-EY3mdUNPPANF6anw1jUmx/ECfJJUxex/je6WQA6HhwLVsXGdBA/rqbqS8V0eRiX87vTdZNgGe6o3nIvokGz14A==
+  dependencies:
+    "@progress/kendo-react-common" "4.7.0"
+    prop-types "^15.6.0"
+
 "@progress/kendo-react-popup@4.7.0":
   version "4.7.0"
   resolved "https://registry.yarnpkg.com/@progress/kendo-react-popup/-/kendo-react-popup-4.7.0.tgz#0f259a1d64be8dd2e15d2ef755a26783215abdee"
@@ -1516,6 +1524,11 @@
   dependencies:
     "@progress/kendo-react-common" "4.7.0"
     prop-types "^15.6.0"
+
+"@progress/kendo-theme-bootstrap@^4.40.0":
+  version "4.40.0"
+  resolved "https://registry.yarnpkg.com/@progress/kendo-theme-bootstrap/-/kendo-theme-bootstrap-4.40.0.tgz#9066e290b19010b25bd73e5a71fe15de33d20292"
+  integrity sha512-fMmt+A1L/nlcp/hzO6Yi41i1pzs2iG8IG6gzWK4mAq295/CGV5R63AtGbB7PRtUPXQNshVGZ0zSONeHMI5wi7w==
 
 "@progress/kendo-theme-default@^4.40.0":
   version "4.40.0"
