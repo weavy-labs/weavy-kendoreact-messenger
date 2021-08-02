@@ -30,6 +30,7 @@ const Sidebar = (props) => {
                 <div className="col-2">
                     <Avatar shape="circle" type="image">
                         <img
+                            alt=""
                             src={`https://showcase.weavycloud.com/${item.thumb.replace('{options}', '32')}`}
                         />
                     </Avatar>

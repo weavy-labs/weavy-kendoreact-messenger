@@ -2,13 +2,7 @@ import '@progress/kendo-theme-bootstrap/dist/all.css';
 import './App.css';
 import { BrowserRouter } from "react-router-dom";
 import { useEffect } from "react";
-import {
-  useQuery,
-  useMutation,
-  useQueryClient,
-  QueryClient,
-  QueryClientProvider,
-} from 'react-query';
+import { QueryClient, QueryClientProvider} from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 
 import Sidebar from "./components/Sidebar";

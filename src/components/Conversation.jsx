@@ -1,4 +1,4 @@
-import { React, useState, useEffect } from 'react';
+import { React } from 'react';
 import { Chat, ChatMessage } from '@progress/kendo-react-conversational-ui';
 import { useParams } from "react-router-dom";
 import { useQuery, useQueryClient, useMutation } from 'react-query';
@@ -102,13 +102,13 @@ const Conversation = () => {
         <ChatMessage {...props} dateFormat={"t"} />
     );
 
-    const MessageTemplate = (props) => {
-        return (
-            <div className="k-bubble">
-                <div>This is the message: {props.item.text}</div>
-            </div>
-        );
-    };
+    // const MessageTemplate = (props) => {
+    //     return (
+    //         <div className="k-bubble">
+    //             <div>This is the message: {props.item.text}</div>
+    //         </div>
+    //     );
+    // };
 
     const AttachmentTemplate = (props) => {
         let attachment = props.item;
