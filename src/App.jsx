@@ -8,25 +8,11 @@ import Content from "./components/Content";
 
 const App = (props) => {
 
- 
-
-
   return (
     <BrowserRouter>
-      <div className="app">
-        
+      <div className="app">        
         <Sidebar></Sidebar>
         <Content></Content>
-        {/* <NavLink to="/" activeClassName="selected">
-          Home
-        </NavLink>
-        <NavLink to="/about" activeClassName="selected">
-          About
-        </NavLink> */}
-
-       
-
-
       </div>
     </BrowserRouter>
   );
