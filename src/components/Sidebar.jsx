@@ -2,32 +2,26 @@ import { React } from 'react';
 import { NavLink } from "react-router-dom";
 import { ListView } from '@progress/kendo-react-listview';
 import { Avatar } from "@progress/kendo-react-layout";
+import { useQuery } from 'react-query';
 
 const Sidebar = (props) => {
 
-    const conversations = [
-        {
-            "id": 1,
-            "title": "Dev ops",
-            "image": "Jenson-Delaney",
-        },
-        {
-            "id": 2,
-            "title": "Markering",
-            "image": "Amaya-Coffey",
-        },
-        {
-            "id": 3,
-            "title": "Linus B",
-            "image": "Habib-Joyce",
-        },
-        {
-            "id": 4,
-            "title": "Johan J",
-            "image": "Lilly-Ann-Roche",
-        },
-    ]
+    const getConversations = async () => {
 
+        const response = await fetch("https://showcase.weavycloud.com/api/conversations", 
+        {
+            method: 'GET',
+            credentials: 'include'
+        });
+        
+        const conversations = await response.json();
+
+        return conversations;
+
+    }
+
+    const { isLoading, isError, data, error } = useQuery('conversations', getConversations)
+  
     const MyItemRender = (props) => {
         let item = props.dataItem;
 
@@ -36,30 +30,35 @@ const Sidebar = (props) => {
                 <div className="col-2">
                     <Avatar shape="circle" type="image">
                         <img
-                            src={`https://gist.github.com/simonssspirit/0db46d4292ea8e335eb18544718e2624/raw/2a595679acdb061105c80bd5eeeef58bb90aa5af/${item.image}-round-40x40.png`}
+                            src={`https://showcase.weavycloud.com/${item.thumb.replace('{options}', '32')}`}
                         />
                     </Avatar>
                 </div>
                 <div className="col-10">
-                    <NavLink to={"/conversation/" + item.id} activeClassName="selected">{item.title}</NavLink>
+                    <NavLink to={"/conversation/" + item.id} activeClassName="selected">{item.name || 'conversation'}</NavLink>
                 </div>
             </div>
         );
 
     }
 
+    if (isLoading) {
+        return <span>Loading...</span>
+      }
+    
+      if (isError) {
+        return <span>Error: {error.message}</span>
+      }
+
     return (
         <div>
-
             <ListView
-                data={conversations}
+                data={data}
                 item={MyItemRender}
                 style={{
                     width: "300px"
                 }}
             />
-
-
         </div>
     )
 }
