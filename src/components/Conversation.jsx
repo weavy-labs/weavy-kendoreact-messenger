@@ -205,14 +205,29 @@ const Conversation = () => {
     const CustomMessage = (props) => {
         return (
             <Fragment>
-                {UploadButton({
-                    icon: "k-i-image-insert",
-                })}
-                {props.messageInput}
-                {props.sendButton}
+                <div>
+                    Attachments:
+                    {attachments.map((a) => {
+                        return <div><img src={`https://showcase.weavycloud.com/${a.thumb.replace('{options}', '16')}`}/>{a.name}</div>;
+                    })}
+                </div>
+                <div style={{display:'flex', flex: 1}}>
+                    {UploadButton({
+                        icon: "k-i-image-insert",
+                    })}
+                    {props.messageInput}
+                    {props.sendButton}
 
 
+                </div>
             </Fragment>
+            // <Fragment>
+            //     {UploadButton({
+            //             icon: "k-i-image-insert",
+            //         })}
+            //         {props.messageInput}
+            //         {props.sendButton}  
+            // </Fragment>
         );
     };
 
@@ -228,29 +243,29 @@ const Conversation = () => {
         let attachment = props.item;
         return (
             <a
-              href={attachment.site}
-              target="_blank"
-              draggable={false}
-              tabIndex={-1}
-              rel="noopener noreferrer"
-            >
-              <img
-                style={{
-                  width: 250,
-                }}
-                src={"https://showcase.weavycloud.com/attachments/" + attachment + "/image.png"}
+                href={attachment.site}
+                target="_blank"
                 draggable={false}
-              />
+                tabIndex={-1}
+                rel="noopener noreferrer"
+            >
+                <img
+                    style={{
+                        width: 250,
+                    }}
+                    src={"https://showcase.weavycloud.com/attachments/" + attachment + "/image.png"}
+                    draggable={false}
+                />
             </a>
-          );
-            //  return (
-            //     <div className="k-card">
-            //         <div className="k-card-body">
-            //         <img alt="" src={"https://showcase.weavycloud.com/attachments/" + attachment + "/image.png"} draggable={false} rel="noopener noreferrer"/>;
-            //         </div>
-            //     </div>
-            // );
-        
+        );
+        //  return (
+        //     <div className="k-card">
+        //         <div className="k-card-body">
+        //         <img alt="" src={"https://showcase.weavycloud.com/attachments/" + attachment + "/image.png"} draggable={false} rel="noopener noreferrer"/>;
+        //         </div>
+        //     </div>
+        // );
+
         // if (attachment.contentType === "link") {
         //     return (
         //         <div className="k-card">

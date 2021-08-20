@@ -5,3 +5,8 @@
 .k-listview-content{
   overflow: hidden;
 }
+
+.k-message-box{
+  flex-direction: column;
+  align-items: flex-start;
+}
