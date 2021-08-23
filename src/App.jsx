@@ -4,6 +4,7 @@ import { BrowserRouter } from "react-router-dom";
 import { useEffect } from "react";
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
+import RealTimeProvider from './realtime-provider';
 import Container from "./components/Container";
 
 // Create a client
@@ -27,12 +28,14 @@ const App = (props) => {
   }, [])
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <BrowserRouter>
-        <Container />
-      </BrowserRouter>
-      <ReactQueryDevtools initialIsOpen={true} />
-    </QueryClientProvider>
+    <RealTimeProvider>
+      <QueryClientProvider client={queryClient}>
+        <BrowserRouter>
+          <Container />
+        </BrowserRouter>
+        <ReactQueryDevtools initialIsOpen={true} />
+      </QueryClientProvider>
+    </RealTimeProvider>
   );
 }
 

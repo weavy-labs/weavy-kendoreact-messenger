@@ -8,42 +8,6 @@ const Conversation = () => {
     let { id } = useParams();
     const queryClient = useQueryClient()
 
-    const { isLoading, isError, data, error } = useQuery(['messages', id], getMessages, { refetchOnWindowFocus: false });
-
-    const user = {
-        id: 3,
-        avatarUrl: "https://via.placeholder.com/24/008000/008000.png",
-    };
-    
-    const fileUpload = createRef();
-
-    const [attachments, setAttachments] = useState([]);
-
-    const addMessageMutation = useMutation(addMessage, {
-        // When mutate is called:
-        onMutate: async newMessage => {
-            // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
-            await queryClient.cancelQueries(['messages', id])
-
-            // Snapshot the previous value
-            const previousMessages = queryClient.getQueryData(['messages', id])
-
-            // Optimistically update to the new value
-            queryClient.setQueryData(['messages', id], old => [...old, newMessage])
-
-            // Return a context object with the snapshotted value
-            return { previousMessages }
-        },
-        // If the mutation fails, use the context returned from onMutate to roll back
-        onError: (err, newMessage, context) => {
-            queryClient.setQueryData(['messages', id], context.previousMessages)
-        },
-        // Always refetch after error or success:
-        onSettled: () => {
-            queryClient.invalidateQueries(['messages', id])
-        },
-    });
-
     const getMessages = async () => {
 
         const response = await fetch("https://showcase.weavycloud.com/api/conversations/" + id + "/messages",
@@ -73,6 +37,16 @@ const Conversation = () => {
             }
         });
     }
+    const { isLoading, isError, data, error } = useQuery(['messages', id], getMessages, { refetchOnWindowFocus: false });
+
+    const user = {
+        id: 3,
+        avatarUrl: "https://via.placeholder.com/24/008000/008000.png",
+    };
+    
+    const fileUpload = createRef();
+
+    const [attachments, setAttachments] = useState([]);
 
     const addMessage = async (message) => {
         
@@ -94,6 +68,35 @@ const Conversation = () => {
         });
     }
 
+    
+    const addMessageMutation = useMutation(addMessage, {
+        // When mutate is called:
+        onMutate: async newMessage => {
+            // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
+            await queryClient.cancelQueries(['messages', id])
+
+            // Snapshot the previous value
+            const previousMessages = queryClient.getQueryData(['messages', id])
+
+            // Optimistically update to the new value
+            queryClient.setQueryData(['messages', id], old => [...old, newMessage])
+
+            // Return a context object with the snapshotted value
+            return { previousMessages }
+        },
+        // If the mutation fails, use the context returned from onMutate to roll back
+        onError: (err, newMessage, context) => {
+            queryClient.setQueryData(['messages', id], context.previousMessages)
+        },
+        // Always refetch after error or success:
+        onSettled: () => {
+            queryClient.invalidateQueries(['messages', id])
+        },
+    });
+
+    
+
+  
     const uploadFiles = async (data) => {
         return fetch('https://showcase.weavycloud.com/a/blobs/', {
             method: 'POST',
