@@ -7,7 +7,7 @@ import { API_URL } from './constants';
 const RealTimeProvider = (props) => {
     const [proxy, setProxy] = useState(null);
 
-    const connect = () => {
+    const connect = () => {        
         const connection = hubConnection(API_URL);
         const hubProxy = connection.createHubProxy('rtm');
         hubProxy.on('init', (type, data) => { }); // dummy event to get signalR started...

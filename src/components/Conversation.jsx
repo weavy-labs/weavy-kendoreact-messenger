@@ -1,12 +1,40 @@
-import { React, Fragment, createRef, useState } from 'react';
+import { React, Fragment, createRef, useState, useContext, useEffect } from 'react';
 import { Chat, ChatMessage } from '@progress/kendo-react-conversational-ui';
 import { useParams } from "react-router-dom";
 import { useQuery, useQueryClient, useMutation } from 'react-query';
+import RealTimeContext from '../realtime-context';
 
 const Conversation = () => {
 
     let { id } = useParams();
     const queryClient = useQueryClient()
+    const { proxy } = useContext(RealTimeContext);
+
+
+    useEffect(() => {
+        if (!proxy) return;
+
+        // add event handler for message inserted. Triggered from server when a new message is added to one of the users conversations
+        proxy.on('eventReceived', (type, data) => {
+            switch (type) {
+
+                case "message-inserted.weavy":
+                    let message = JSON.parse(data);
+                    console.log(message)
+                    // if (message.createdBy.id !== user.id) {
+
+                    //     // add incoming message to messages list
+                    //     setMessages([...messagesRef.current, {
+                    //         text: message.text,
+                    //         timestamp: new Date(message.createdAt),
+                    //         author: { id: message.createdBy.id, name: message.createdBy.name }
+                    //     }]);
+                    // }
+                    break;
+                default:
+            }
+        });
+    }, [proxy]) // todo, add user.id as dependancy!!
 
     const getMessages = async () => {
 
@@ -17,7 +45,7 @@ const Conversation = () => {
             });
 
         const messages = await response.json();
-        
+
         return messages.data?.map((item) => {
             return {
                 text: item.text,
@@ -43,18 +71,18 @@ const Conversation = () => {
         id: 3,
         avatarUrl: "https://via.placeholder.com/24/008000/008000.png",
     };
-    
+
     const fileUpload = createRef();
 
     const [attachments, setAttachments] = useState([]);
 
     const addMessage = async (message) => {
-        
+
         let files = attachments.map((f) => {
 
             return f.id;
         })
-        
+
         let json = JSON.stringify({ text: message.text, blobs: files });
 
         return fetch('https://showcase.weavycloud.com/a/conversations/' + id + '/messages', {
@@ -68,7 +96,7 @@ const Conversation = () => {
         });
     }
 
-    
+
     const addMessageMutation = useMutation(addMessage, {
         // When mutate is called:
         onMutate: async newMessage => {
@@ -94,9 +122,9 @@ const Conversation = () => {
         },
     });
 
-    
 
-  
+
+
     const uploadFiles = async (data) => {
         return fetch('https://showcase.weavycloud.com/a/blobs/', {
             method: 'POST',
@@ -105,7 +133,7 @@ const Conversation = () => {
         });
     }
 
-    const insertMessage = (message) => {        
+    const insertMessage = (message) => {
         addMessageMutation.mutate(message);
     }
 
@@ -138,15 +166,15 @@ const Conversation = () => {
             // add files to formdata object
             var formData = new FormData();
             for (let index = 0; index < files.length; index++) {
-                const file = files[index];                
+                const file = files[index];
                 formData.append("file-" + index, file);
             }
 
             var response = await uploadFiles(formData);
             var json = await response.json();
 
-            setAttachments([...attachments, ...json.data]);            
-        }       
+            setAttachments([...attachments, ...json.data]);
+        }
     };
 
     const CustomChatMessage = (props) => (
@@ -186,10 +214,10 @@ const Conversation = () => {
                 <div>
                     Attachments:
                     {attachments.map((a) => {
-                        return <div><img src={`https://showcase.weavycloud.com/${a.thumb.replace('{options}', '16')}`}/>{a.name}</div>;
+                        return <div><img alt="" src={`https://showcase.weavycloud.com/${a.thumb.replace('{options}', '16')}`} />{a.name}</div>;
                     })}
                 </div>
-                <div style={{display:'flex', flex: 1}}>
+                <div style={{ display: 'flex', flex: 1 }}>
                     {CustomUploadButton({
                         icon: "k-i-image-insert",
                     })}
@@ -199,7 +227,7 @@ const Conversation = () => {
 
                 </div>
             </Fragment>
-         
+
         );
     };
 
@@ -214,6 +242,7 @@ const Conversation = () => {
                 rel="noopener noreferrer"
             >
                 <img
+                    alt=""
                     style={{
                         width: 250,
                     }}
@@ -271,21 +300,21 @@ const Conversation = () => {
     if (isError) {
         return <span>Error: {error.message}</span>
     }
-    
+
     return (
-        
-            <Chat
-                user={user}
-                messages={data}
-                onMessageSend={addNewMessage}
-                placeholder={"Type a message..."}
-                //messageTemplate={CustomMessageTemplate}
-                messageBox={CustomMessage}
-                message={CustomChatMessage}
-                attachmentTemplate={CustomAttachmentTemplate}
-                width={"100%"}
-            />
-        
+
+        <Chat
+            user={user}
+            messages={data}
+            onMessageSend={addNewMessage}
+            placeholder={"Type a message..."}
+            //messageTemplate={CustomMessageTemplate}
+            messageBox={CustomMessage}
+            message={CustomChatMessage}
+            attachmentTemplate={CustomAttachmentTemplate}
+            width={"100%"}
+        />
+
 
     )
 }
