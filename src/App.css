@@ -1,9 +1,171 @@
+
+body{
+  position:relative;
+}
+
+#root-container{
+  position:relative;
+}
+
+#sidebar {
+  min-height: 100vh
+}
+
+.pane {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  position: relative;
+}
+
+.pane-header {
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  height: 3rem;
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 3rem;
+  flex: 0 0 3rem;
+  border-bottom: 1px solid #e0e0e0;
+  padding: 0 .75rem;
+  background: #fcfcfc;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 1020
+}
+
+.pane-body {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
+  flex: 1
+}
+
+
+.one #main {
+  display: none
+}
+
+.two #sidebar {
+  display: none
+}
+
+
+@media(min-width: 768px) {
+  #root-container.dual {
+      display:-webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+      height: 100vh;
+      overflow: hidden
+  }
+
+  /* body.dual #root{
+    flex: 1;
+    display: flex;
+  } */
+
+  #root-container.dual .pane {
+      height: 100vh;
+      overflow: hidden
+  }
+
+  #root-container.dual .pane-header {
+      position: static;
+      top: auto;
+      z-index: unset
+  }
+
+  #root-container.dual .pane-actions .btn-avatar {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex
+  }
+
+  #root-container.dual .pane-actions .btn-back {
+      display: none
+  }
+
+  #root-container.dual .pane-actions .badge {
+      display: none
+  }
+
+  #root-container.dual #conversation {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+      flex-direction: column;
+      -webkit-box-flex: 1;
+      -ms-flex: 1;
+      flex: 1;
+      height: 100%
+  }
+
+  #root-container.dual.one #sidebar,#root-container.dual.two #sidebar {
+      border-right: 1px solid #e0e0e0;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-flex: 0;
+      -ms-flex: 0 0 40%;
+      flex: 0 0 40%;
+      max-width: 420px
+  }
+
+  #root-container.dual.one #main,#root-container.dual.two #main {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-flex: 3;
+      -ms-flex: 3;
+      flex: 3
+  }
+
+  #root-container.dual.one #main .pane-body,#root-container.dual.two #main .pane-body {
+      height: 100%;
+      overflow: hidden
+  }
+
+  .k-chat{   
+    height: 100%;   
+  }
+}
+
+
 .app {
   display: flex;
 }
 
+
 .k-listview-content{
   overflow: hidden;
+}
+
+.k-chat{
+  max-width: none; 
+  min-height: calc(100vh - 3rem);
 }
 
 .k-message-box{

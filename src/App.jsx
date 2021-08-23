@@ -2,11 +2,9 @@ import '@progress/kendo-theme-bootstrap/dist/all.css';
 import './App.css';
 import { BrowserRouter } from "react-router-dom";
 import { useEffect } from "react";
-import { QueryClient, QueryClientProvider} from 'react-query';
+import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
-
-import Sidebar from "./components/Sidebar";
-import Content from "./components/Content";
+import Container from "./components/Container";
 
 // Create a client
 const queryClient = new QueryClient()
@@ -24,18 +22,14 @@ const App = (props) => {
       },
     }).then(res => res.json())
       .then((user) => {
-        
+
       });
   }, [])
-
 
   return (
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
-        <div className="app">
-          <Sidebar></Sidebar>
-          <Content></Content>
-        </div>
+        <Container />
       </BrowserRouter>
       <ReactQueryDevtools initialIsOpen={true} />
     </QueryClientProvider>

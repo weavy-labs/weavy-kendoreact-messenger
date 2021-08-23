@@ -301,7 +301,7 @@ const Conversation = () => {
 
     console.log("Render conversation")
     return (
-        <div>
+        
             <Chat
                 user={user}
                 messages={data}
@@ -311,9 +311,9 @@ const Conversation = () => {
                 messageBox={CustomMessage}
                 message={CustomChatMessage}
                 attachmentTemplate={AttachmentTemplate}
-                width={400}
+                width={"100%"}
             />
-        </div>
+        
 
     )
 }

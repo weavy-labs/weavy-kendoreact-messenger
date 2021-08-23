@@ -56,9 +56,7 @@ const Sidebar = (props) => {
             <ListView
                 data={data}
                 item={MyItemRender}
-                style={{
-                    width: "300px"
-                }}
+                
             />
         </div>
     )
