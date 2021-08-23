@@ -11,3 +11,13 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/* Conversations list */
+.k-listview .k-avatar-md {
+  height: 3rem;
+  width: 3rem;
+}
+
+.k-listview .row {
+  
+}
