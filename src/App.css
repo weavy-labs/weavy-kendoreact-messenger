@@ -12,29 +12,16 @@ body{
 }
 
 .pane {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: column;
   flex-direction: column;
   position: relative;
 }
 
 .pane-header {
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: justify;
-  -ms-flex-pack: justify;
   justify-content: space-between;
   height: 3rem;
-  -webkit-box-flex: 0;
-  -ms-flex: 0 0 3rem;
   flex: 0 0 3rem;
   border-bottom: 1px solid #e0e0e0;
   padding: 0 .75rem;
@@ -46,18 +33,10 @@ body{
 }
 
 .pane-body {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: column;
   flex-direction: column;
-  -webkit-box-flex: 1;
-  -ms-flex: 1;
   flex: 1
 }
-
 
 .one #main {
   display: none
@@ -70,10 +49,7 @@ body{
 
 @media(min-width: 768px) {
   #root-container.dual {
-      display:-webkit-box;
-      display: -ms-flexbox;
       display: flex;
-      -ms-flex-wrap: wrap;
       flex-wrap: wrap;
       height: 100vh;
       overflow: hidden
@@ -96,8 +72,6 @@ body{
   }
 
   #root-container.dual .pane-actions .btn-avatar {
-      display: -webkit-box;
-      display: -ms-flexbox;
       display: flex
   }
 
@@ -110,36 +84,21 @@ body{
   }
 
   #root-container.dual #conversation {
-      display: -webkit-box;
-      display: -ms-flexbox;
       display: flex;
-      -webkit-box-orient: vertical;
-      -webkit-box-direction: normal;
-      -ms-flex-direction: column;
       flex-direction: column;
-      -webkit-box-flex: 1;
-      -ms-flex: 1;
       flex: 1;
       height: 100%
   }
 
   #root-container.dual.one #sidebar,#root-container.dual.two #sidebar {
       border-right: 1px solid #e0e0e0;
-      display: -webkit-box;
-      display: -ms-flexbox;
       display: flex;
-      -webkit-box-flex: 0;
-      -ms-flex: 0 0 40%;
       flex: 0 0 40%;
       max-width: 420px
   }
 
   #root-container.dual.one #main,#root-container.dual.two #main {
-      display: -webkit-box;
-      display: -ms-flexbox;
       display: flex;
-      -webkit-box-flex: 3;
-      -ms-flex: 3;
       flex: 3
   }
 
