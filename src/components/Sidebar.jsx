@@ -23,24 +23,27 @@ const Sidebar = (props) => {
     const { isLoading, isError, data, error } = useQuery('conversations', getConversations)
   
     const MyItemRender = (props) => {
+        console.log(props);
+
         let item = props.dataItem;
 
         return (
+            <NavLink to={"/conversation/" + item.id} activeClassName="active">
             <div className="row p-2 border-bottom align-middle" style={{ margin: 0 }}>
                 <div className="col-2">
                     <Avatar shape="circle" type="image">
                         <img
                             alt=""
-                            src={`https://showcase.weavycloud.com/${item.thumb.replace('{options}', '32')}`}
+                            src={`https://showcase.weavycloud.com/${item.thumb.replace('{options}', '48')}`}
                         />
                     </Avatar>
                 </div>
                 <div className="col-10">
-                    <NavLink to={"/conversation/" + item.id} activeClassName="selected">{item.name || 'conversation'}</NavLink>
+                    {item.name || 'conversation'}
                 </div>
             </div>
+            </NavLink>
         );
-
     }
 
     if (isLoading) {
