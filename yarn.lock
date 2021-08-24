@@ -1458,6 +1458,15 @@
     prop-types "^15.6.0"
     react-transition-group "^4.4.2"
 
+"@progress/kendo-react-animation@^4.8.0":
+  version "4.8.0"
+  resolved "https://registry.yarnpkg.com/@progress/kendo-react-animation/-/kendo-react-animation-4.8.0.tgz#71827cb1698872fdab7f85e0bcfba6cef6780f41"
+  integrity sha512-UpR3QvHRaPFKoIFUKYYwvlClULFjcI/CsSo53Iw56VWjoAGFAqMggWQ+xCRNZSsYjGUab1FTHQMfS2QkgMT2WA==
+  dependencies:
+    "@progress/kendo-react-common" "4.8.0"
+    prop-types "^15.6.0"
+    react-transition-group "^4.4.2"
+
 "@progress/kendo-react-buttons@^4.7.0":
   version "4.7.0"
   resolved "https://registry.yarnpkg.com/@progress/kendo-react-buttons/-/kendo-react-buttons-4.7.0.tgz#d99a5ae3a35c17f53ce8a305c64b3bc189cb85de"
@@ -1475,6 +1484,14 @@
     "@telerik/kendo-draggable" "^2.2.1"
     prop-types "^15.6.0"
 
+"@progress/kendo-react-common@4.8.0":
+  version "4.8.0"
+  resolved "https://registry.yarnpkg.com/@progress/kendo-react-common/-/kendo-react-common-4.8.0.tgz#472d6b58fae6c91e6db8210f3821986cde071d6d"
+  integrity sha512-svw5L1iFYr/dfkvc8QfAAnwe9j3KQlfJot3nn4FnXpTNmAiWi+2EbmHjW2XmQpNFn09QWmDHAuo3c19NE3P0+w==
+  dependencies:
+    "@telerik/kendo-draggable" "^2.2.1"
+    prop-types "^15.6.0"
+
 "@progress/kendo-react-conversational-ui@^4.7.0":
   version "4.7.0"
   resolved "https://registry.yarnpkg.com/@progress/kendo-react-conversational-ui/-/kendo-react-conversational-ui-4.7.0.tgz#cc7f165c6bd2eb3ce8517db0c45259a8c9ec23ff"
@@ -1482,12 +1499,38 @@
   dependencies:
     "@progress/kendo-react-common" "4.7.0"
 
+"@progress/kendo-react-dialogs@^4.7.0":
+  version "4.8.0"
+  resolved "https://registry.yarnpkg.com/@progress/kendo-react-dialogs/-/kendo-react-dialogs-4.8.0.tgz#8e74fddc24222ddf08cd23ee23c2138c8d53b024"
+  integrity sha512-e4EE+MQ1Facbvu/Ih3ihswHAgQ/WxyBhgE+tKO6dv7HsTrYdmZQmwtTGhznaT4TtHawXnt6km2NqzQItFFUuBA==
+  dependencies:
+    "@progress/kendo-react-common" "4.8.0"
+    prop-types "^15.6.0"
+
+"@progress/kendo-react-dropdowns@^4.7.0":
+  version "4.8.0"
+  resolved "https://registry.yarnpkg.com/@progress/kendo-react-dropdowns/-/kendo-react-dropdowns-4.8.0.tgz#b5a36d1df6bb230e790747c96c0d6fbcee94e31e"
+  integrity sha512-K5rOD/8spCd7DBGyOyzxLQJKv9FdAgv1hcsqYd/IqrVroGfGhC18UJWsM11AkTm6lXXWN0GZJYdaj1CQl48BBQ==
+  dependencies:
+    "@progress/kendo-react-common" "4.8.0"
+    "@progress/kendo-react-labels" "4.8.0"
+    "@progress/kendo-react-popup" "4.8.0"
+    prop-types "^15.6.0"
+
 "@progress/kendo-react-intl@^4.7.0":
   version "4.7.0"
   resolved "https://registry.yarnpkg.com/@progress/kendo-react-intl/-/kendo-react-intl-4.7.0.tgz#85f83d668979a5475b5bab32c91754b5c49f8bc0"
   integrity sha512-f/fPrEW8ZBtm7Fw2TZPYEddWSCc6m1zLNk0SdwJmZ1gMFTmNUigquL4DcO69Oc/n9rfqxhDUWnE8UV76+1Wmeg==
   dependencies:
     "@telerik/kendo-intl" "^2.1.0"
+    prop-types "^15.6.0"
+
+"@progress/kendo-react-labels@4.8.0":
+  version "4.8.0"
+  resolved "https://registry.yarnpkg.com/@progress/kendo-react-labels/-/kendo-react-labels-4.8.0.tgz#c9d4f9e560f649d3c85037905b09e9a12dc2f869"
+  integrity sha512-JzF5/mVV5IYAdDQ0YtnHcdQYAe2gKcyzAFPQuWWziIaQEU/+oWa8W0029Ju/0NSPKzGdmkU0Uyuxr5+diGTBqg==
+  dependencies:
+    "@progress/kendo-react-common" "4.8.0"
     prop-types "^15.6.0"
 
 "@progress/kendo-react-layout@^4.7.0":
@@ -1517,12 +1560,29 @@
     "@progress/kendo-react-common" "4.7.0"
     prop-types "^15.6.0"
 
+"@progress/kendo-react-popup@4.8.0":
+  version "4.8.0"
+  resolved "https://registry.yarnpkg.com/@progress/kendo-react-popup/-/kendo-react-popup-4.8.0.tgz#4220777682c699c1f18495f93c8d2e5e95b58c0b"
+  integrity sha512-zz/TfvZCC0s8EfrcRWflgqx2q7k/1yWFiBgyLC+z7HH4cJo8F2dKWcpzC7IcMAr/nicCU0kgHUk11YEr2GWWqA==
+  dependencies:
+    "@progress/kendo-popup-common" "^1.2.2"
+    "@progress/kendo-react-common" "4.8.0"
+    prop-types "^15.6.0"
+
 "@progress/kendo-react-progressbars@^4.7.0":
   version "4.7.0"
   resolved "https://registry.yarnpkg.com/@progress/kendo-react-progressbars/-/kendo-react-progressbars-4.7.0.tgz#7c358aba4e861feb0631a900de55751850c23b2a"
   integrity sha512-3Wu7jVkS6jslRnTaCh5cc24UvckvmxoSLUzLOmA1YAQztxU7YkXvacKe1h+iefzUWfipeQvGnX6BlOskAz0QCg==
   dependencies:
     "@progress/kendo-react-common" "4.7.0"
+    prop-types "^15.6.0"
+
+"@progress/kendo-react-treeview@^4.7.0":
+  version "4.8.0"
+  resolved "https://registry.yarnpkg.com/@progress/kendo-react-treeview/-/kendo-react-treeview-4.8.0.tgz#f4c4f7fcf9fecdb893e8c6772e0432f33bf18dc3"
+  integrity sha512-zjhheD9uXHcuV4w2UBN3QEed3D0GG9lnH+uOdwKwM+ft3uOvhRfb2HSK3cYzImjiA2sIYur3y19rHQM75thGEQ==
+  dependencies:
+    "@progress/kendo-react-common" "4.8.0"
     prop-types "^15.6.0"
 
 "@progress/kendo-theme-bootstrap@^4.40.0":
