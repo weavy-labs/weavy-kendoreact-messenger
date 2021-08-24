@@ -7,7 +7,6 @@ const Content = () => {
     return (
 
         <Switch>
-
             <Route path="/" exact>
                 <Conversation></Conversation>
             </Route>
@@ -20,8 +19,6 @@ const Content = () => {
                 <div>About!</div>
             </Route>
         </Switch>
-
-
     )
 }
 

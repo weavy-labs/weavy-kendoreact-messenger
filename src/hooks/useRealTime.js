@@ -11,9 +11,10 @@ function useRealTime(updateFn, message) {
         const handleReceiveMessage = (type, data) => {
             switch (type) {
                 case message:
-                    setLastMessage(JSON.parse(data));
+                    const json = JSON.parse(data)
+                    setLastMessage(json);
                     if(updateFn){
-                        updateFn.call(this, data);
+                        updateFn.call(this, json);
                     }
                     
                     break;
