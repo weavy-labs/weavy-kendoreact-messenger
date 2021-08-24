@@ -14,7 +14,13 @@ const Conversation = () => {
         queryClient.invalidateQueries(['messages', id])
     }
 
+    const handleTyping = (data) => {
+        console.log("Typing...", data)
+    }
+
     const lastMessage = useRealTime(invalidate, "message-inserted.weavy");
+    const typing = useRealTime(handleTyping, "typing.weavy");
+    
     
     const getMessages = async () => {
 
