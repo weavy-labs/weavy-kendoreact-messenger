@@ -24,8 +24,6 @@ const Sidebar = (props) => {
     const { isLoading, isError, data, error } = useQuery('conversations', getConversations)
   
     const MyItemRender = (props) => {
-        console.log(props);
-
         let item = props.dataItem;
 
         return (
