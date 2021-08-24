@@ -1,4 +1,5 @@
 import { React, useEffect, useState, useRef, useCallback } from "react";
+import { Redirect } from "react-router-dom";
 import { Button } from "@progress/kendo-react-buttons";
 
 import { Dialog, DialogActionsBar } from "@progress/kendo-react-dialogs";
@@ -30,6 +31,9 @@ const init = {
 };
 
 const NewMessage = () => {
+  const [visible, setVisible] = useState(false);
+  const [disabled, setDisabled] = useState(true);
+  const [redirectToConversation, setRedirectToConversation] = useState(null);
   const dataCaching = useRef([]);
   const pendingRequest = useRef();
   const requestStarted = useRef(false);
@@ -39,7 +43,11 @@ const NewMessage = () => {
   const [filter, setFilter] = useState("");
   const skipRef = useRef(0);
 
-  const resetCach = () => {
+  const toggleDialog = () => {
+    setVisible(!visible);
+  };
+
+  const resetCache = () => {
     dataCaching.current.length = 0;
   };
 
@@ -60,8 +68,6 @@ const NewMessage = () => {
     fetch(url, init)
       .then((response) => response.json())
       .then((json) => {
-        console.log(json);
-
         const total = json["count"];
         const items = [];
 
@@ -82,16 +88,36 @@ const NewMessage = () => {
         requestStarted.current = false;
       });
   }, []);
+
+  const createConversation = async () => {
+    const response = await fetch(API_URL + "/api/conversations", {
+      method: "POST",
+      credentials: "include",
+      body: JSON.stringify({ members: value.map(x=>x.id) }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    const newConversation = await response.json();
+    
+    // reset
+    setValue(null);
+    toggleDialog();
+
+    // redirect to conversation
+    setRedirectToConversation("/conversation/" + newConversation.id);
+  };
+
   useEffect(() => {
     requestData(0, filter);
     return () => {
-      resetCach();
+      resetCache();
     };
   }, [filter, requestData]);
   const onFilterChange = useCallback(
     (event) => {
       const filter = event.filter.value;
-      resetCach();
+      resetCache();
       requestData(0, filter);
       setData(loadingData);
       skipRef.current = 0;
@@ -99,14 +125,13 @@ const NewMessage = () => {
     },
     [requestData]
   );
+
   const shouldRequestData = useCallback((skip) => {
-    console.log(skip, pageSize);
     for (let i = 0; i < pageSize; i++) {
       if (!dataCaching.current[skip + i]) {
         return true;
       }
     }
-
     return false;
   }, []);
   const getCachedData = useCallback((skip) => {
@@ -122,8 +147,6 @@ const NewMessage = () => {
     (event) => {
       const newSkip = event.page.skip;
 
-      console.log(newSkip);
-
       if (shouldRequestData(newSkip)) {
         requestData(newSkip, filter);
       }
@@ -138,85 +161,61 @@ const NewMessage = () => {
     const value = event.target.value;
 
     if (value && value[textField] === emptyItem[textField]) {
+      setDisabled(true);
       return;
+    } else {
+      setDisabled(false);
     }
 
     setValue(value);
   }, []);
-  return (
-    <MultiSelect
-      data={data}
-      value={value}
-      onChange={onChange}
-      dataItemKey={keyField}
-      textField={textField}
-      filterable={true}
-      onFilterChange={onFilterChange}
-      virtual={{
-        pageSize: pageSize,
-        skip: skipRef.current,
-        total: total,
-      }}
-      onPageChange={pageChange}
-      style={{
-        width: "200px",
-      }}
-    />
+  return (    
+    <div>
+      {redirectToConversation && (
+        <Redirect to={redirectToConversation} />
+      )}        
+      <button className="k-button" onClick={toggleDialog}>
+        New message...
+      </button>
+      {visible && (
+        <Dialog title="New message" onClose={toggleDialog}>
+          <div>
+            <MultiSelect
+              data={data}
+              value={value}
+              onChange={onChange}
+              dataItemKey={keyField}
+              textField={textField}
+              filterable={true}
+              onFilterChange={onFilterChange}
+              virtual={{
+                pageSize: pageSize,
+                skip: skipRef.current,
+                total: total,
+              }}
+              onPageChange={pageChange}
+              style={{
+                width: "400px",
+              }}
+            />
+            <DialogActionsBar>
+              <button className="k-button" onClick={toggleDialog}>
+                Cancel
+              </button>
+              <button
+                className="k-button"
+                onClick={createConversation}
+                disabled={disabled}
+              >
+                Create
+              </button>
+            </DialogActionsBar>
+          </div>
+        </Dialog>
+      )}
+    </div>
   );
 };
 
 export default NewMessage;
 
-//   const [visible, setVisible] = useState(false);
-
-//   const toggleDialog = () => {
-//     setVisible(!visible);
-//   };
-
-//   const state = {
-//       data: {}
-//   }
-
-//   const searchMembers = async (event) => {
-//     const response = await fetch(API_URL + "/api/users?text=" + event.filter, {
-//       method: "GET",
-//       credentials: "include",
-//     });
-
-//     this.setState({
-//         data: await response.json()
-//     });
-
-//   };
-
-//   return (
-//     <div>
-//       <button className="k-button" onClick={toggleDialog}>
-//         New message...
-//       </button>
-//       {visible && (
-//         <Dialog title="New message" onClose={toggleDialog}>
-//           <p
-//             style={{
-//               margin: "25px",
-//               textAlign: "center",
-//             }}
-//           >
-//             <MultiSelect
-//               data={this.state.data}
-//               filterable={true}
-//               onFilterChange={searchMembers}
-//             />
-//           </p>
-//           <DialogActionsBar>
-//             <button className="k-button" onClick={toggleDialog}>
-//               Cancel
-//             </button>
-//             <button className="k-button" onClick={toggleDialog} disabled>
-//               Create
-//             </button>
-//           </DialogActionsBar>
-//         </Dialog>
-//       )}
-//     </div>
-//   );
