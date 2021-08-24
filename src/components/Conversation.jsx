@@ -2,40 +2,20 @@ import { React, Fragment, createRef, useState, useContext, useEffect } from 'rea
 import { Chat, ChatMessage } from '@progress/kendo-react-conversational-ui';
 import { useParams } from "react-router-dom";
 import { useQuery, useQueryClient, useMutation } from 'react-query';
-import RealTimeContext from '../realtime-context';
+import useRealTime from '../hooks/useRealTime';
+//import RealTimeContext from '../realtime-context';
 
 const Conversation = () => {
 
     let { id } = useParams();
-    const queryClient = useQueryClient()
-    const { proxy } = useContext(RealTimeContext);
+    const queryClient = useQueryClient();
 
+    const invalidate = () => {        
+        queryClient.invalidateQueries(['messages', id])
+    }
 
-    useEffect(() => {
-        if (!proxy) return;
-
-        // add event handler for message inserted. Triggered from server when a new message is added to one of the users conversations
-        proxy.on('eventReceived', (type, data) => {
-            switch (type) {
-
-                case "message-inserted.weavy":
-                    let message = JSON.parse(data);
-                    console.log(message)
-                    // if (message.createdBy.id !== user.id) {
-
-                    //     // add incoming message to messages list
-                    //     setMessages([...messagesRef.current, {
-                    //         text: message.text,
-                    //         timestamp: new Date(message.createdAt),
-                    //         author: { id: message.createdBy.id, name: message.createdBy.name }
-                    //     }]);
-                    // }
-                    break;
-                default:
-            }
-        });
-    }, [proxy]) // todo, add user.id as dependancy!!
-
+    const lastMessage = useRealTime(invalidate, "message-inserted.weavy");
+    
     const getMessages = async () => {
 
         const response = await fetch("https://showcase.weavycloud.com/api/conversations/" + id + "/messages",
