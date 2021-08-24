@@ -13,13 +13,8 @@ const Conversation = () => {
     queryClient.invalidateQueries(["messages", id]);
   };
 
-  const handleTyping = (data) => {
-    console.log("Typing...", data);
-  };
-
   useRealTime(invalidate, "message-inserted.weavy");
-  useRealTime(handleTyping, "typing.weavy");
-
+  
   const getMessages = async () => {
     const response = await fetch(
       API_URL + "/api/conversations/" + id + "/messages",
