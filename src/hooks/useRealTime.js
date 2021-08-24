@@ -13,7 +13,7 @@ function useRealTime(updateFn, message) {
                 case message:
                     setLastMessage(JSON.parse(data));
                     if(updateFn){
-                        updateFn.call();
+                        updateFn.call(this, data);
                     }
                     
                     break;

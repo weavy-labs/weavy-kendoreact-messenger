@@ -1,4 +1,4 @@
-import { React, Fragment, createRef, useState, useContext, useEffect } from 'react';
+import { React, Fragment, createRef, useState } from 'react';
 import { Chat, ChatMessage } from '@progress/kendo-react-conversational-ui';
 import { useParams } from "react-router-dom";
 import { useQuery, useQueryClient, useMutation } from 'react-query';
@@ -18,9 +18,8 @@ const Conversation = () => {
         console.log("Typing...", data)
     }
 
-    const lastMessage = useRealTime(invalidate, "message-inserted.weavy");
-    const typing = useRealTime(handleTyping, "typing.weavy");
-    
+    useRealTime(invalidate, "message-inserted.weavy");
+    useRealTime(handleTyping, "typing.weavy");    
     
     const getMessages = async () => {
 
