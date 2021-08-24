@@ -3,7 +3,7 @@ import { Chat, ChatMessage } from '@progress/kendo-react-conversational-ui';
 import { useParams } from "react-router-dom";
 import { useQuery, useQueryClient, useMutation } from 'react-query';
 import useRealTime from '../hooks/useRealTime';
-//import RealTimeContext from '../realtime-context';
+import { API_URL } from '../constants';
 
 const Conversation = () => {
 
@@ -18,7 +18,7 @@ const Conversation = () => {
     
     const getMessages = async () => {
 
-        const response = await fetch("https://showcase.weavycloud.com/api/conversations/" + id + "/messages",
+        const response = await fetch(API_URL + "/api/conversations/" + id + "/messages",
             {
                 method: 'GET',
                 credentials: 'include'
@@ -33,7 +33,7 @@ const Conversation = () => {
                 author: {
                     id: item.created_by.id,
                     name: item.created_by.name,
-                    avatarUrl: `https://showcase.weavycloud.com/${item.created_by.thumb.replace('{options}', '32')}`
+                    avatarUrl: API_URL + `${item.created_by.thumb.replace('{options}', '32')}`
                 },
                 attachments: item.attachments
                 // attachments: item.attachments.map((a) => {
@@ -65,7 +65,7 @@ const Conversation = () => {
 
         let json = JSON.stringify({ text: message.text, blobs: files });
 
-        return fetch('https://showcase.weavycloud.com/a/conversations/' + id + '/messages', {
+        return fetch(API_URL + '/a/conversations/' + id + '/messages', {
             method: 'POST',
             credentials: 'include',
             headers: {
@@ -106,7 +106,7 @@ const Conversation = () => {
 
 
     const uploadFiles = async (data) => {
-        return fetch('https://showcase.weavycloud.com/a/blobs/', {
+        return fetch(API_URL + '/a/blobs/', {
             method: 'POST',
             credentials: 'include',
             body: data
@@ -194,7 +194,7 @@ const Conversation = () => {
                 <div>
                     Attachments:
                     {attachments.map((a) => {
-                        return <div><img alt="" src={`https://showcase.weavycloud.com/${a.thumb.replace('{options}', '16')}`} />{a.name}</div>;
+                        return <div><img alt="" src={API_URL + `/${a.thumb.replace('{options}', '16')}`} />{a.name}</div>;
                     })}
                 </div>
                 <div style={{ display: 'flex', flex: 1 }}>
@@ -226,7 +226,7 @@ const Conversation = () => {
                     style={{
                         width: 250,
                     }}
-                    src={"https://showcase.weavycloud.com/attachments/" + attachment + "/image.png"}
+                    src={API_URL + "/attachments/" + attachment + "/image.png"}
                     draggable={false}
                 />
             </a>

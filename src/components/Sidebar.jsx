@@ -3,12 +3,13 @@ import { NavLink } from "react-router-dom";
 import { ListView } from '@progress/kendo-react-listview';
 import { Avatar } from "@progress/kendo-react-layout";
 import { useQuery } from 'react-query';
+import { API_URL } from '../constants';
 
 const Sidebar = (props) => {
 
     const getConversations = async () => {
 
-        const response = await fetch("https://showcase.weavycloud.com/api/conversations", 
+        const response = await fetch(API_URL + "/api/conversations", 
         {
             method: 'GET',
             credentials: 'include'
@@ -23,8 +24,6 @@ const Sidebar = (props) => {
     const { isLoading, isError, data, error } = useQuery('conversations', getConversations)
   
     const MyItemRender = (props) => {
-        console.log(props);
-
         let item = props.dataItem;
 
         return (
@@ -34,7 +33,7 @@ const Sidebar = (props) => {
                     <Avatar shape="circle" type="image">
                         <img
                             alt=""
-                            src={`https://showcase.weavycloud.com/${item.thumb.replace('{options}', '48')}`}
+                            src={API_URL + `/${item.thumb.replace('{options}', '48')}`}
                         />
                     </Avatar>
                 </div>
