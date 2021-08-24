@@ -13,12 +13,9 @@ const Sidebar = (props) => {
         {
             method: 'GET',
             credentials: 'include'
-        });
-        
+        });        
         const conversations = await response.json();
-
         return conversations;
-
     }
 
     const { isLoading, isError, data, error } = useQuery('conversations', getConversations)

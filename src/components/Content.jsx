@@ -5,7 +5,6 @@ import Conversation from "./Conversation"
 const Content = () => {
 
     return (
-
         <Switch>
             <Route path="/" exact>
                 <Conversation></Conversation>
