@@ -21,7 +21,7 @@ const ConversationHeader = (props) => {
     }
 
     useRealTime(handleTyping, "typing.weavy");
-    const { title } = useMetaData(id);
+    const { id: cid, title } = useMetaData(id);
 
     return (
 
