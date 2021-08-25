@@ -4,6 +4,8 @@ import { useParams } from "react-router-dom";
 import { useQuery, useQueryClient, useMutation } from "react-query";
 import useRealTime from "../hooks/useRealTime";
 import { API_URL } from "../constants";
+import ConversationHeader from "./ConversationHeader";
+import { Route, NavLink, useRouteMatch } from "react-router-dom";
 
 const Conversation = () => {
   let { id } = useParams();
@@ -14,7 +16,7 @@ const Conversation = () => {
   };
 
   useRealTime(invalidate, "message-inserted.weavy");
-  
+
   const getMessages = async () => {
     const response = await fetch(
       API_URL + "/api/conversations/" + id + "/messages",
@@ -287,17 +289,25 @@ const Conversation = () => {
   }
 
   return (
-    <Chat
-      user={user}
-      messages={data}
-      onMessageSend={addNewMessage}
-      placeholder={"Type a message..."}
-      //messageTemplate={CustomMessageTemplate}
-      messageBox={CustomMessage}
-      message={CustomChatMessage}
-      attachmentTemplate={CustomAttachmentTemplate}
-      width={"100%"}
-    />
+    <Fragment>
+      <header className="pane-header">
+        <NavLink to="/">Back</NavLink>       
+        <ConversationHeader />
+      </header>
+      <div className="pane-body">
+        <Chat
+          user={user}
+          messages={data}
+          onMessageSend={addNewMessage}
+          placeholder={"Type a message..."}
+          //messageTemplate={CustomMessageTemplate}
+          messageBox={CustomMessage}
+          message={CustomChatMessage}
+          attachmentTemplate={CustomAttachmentTemplate}
+          width={"100%"}
+        />
+      </div>
+    </Fragment>
   );
 };
 

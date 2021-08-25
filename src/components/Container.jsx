@@ -1,9 +1,8 @@
 import { React, useEffect, useContext } from 'react';
-import { Route, NavLink, useRouteMatch } from "react-router-dom";
+import { useRouteMatch } from "react-router-dom";
 import RealTimeContext from "../realtime-context";
 import Sidebar from "./Sidebar";
 import Content from "./Content";
-import ConversationHeader from "./ConversationHeader";
 import NewMessage from "./NewMessage"
 import { API_URL } from '../constants';
 
@@ -50,16 +49,7 @@ const Container = (props) => {
             </div>
 
             <main id="main" className="pane conversation">
-                <header className="pane-header">
-                    <NavLink to="/">Back</NavLink>
-                    <Route path="/conversation/:id">
-                        <ConversationHeader />
-                    </Route>
-
-                </header>
-                <div className="pane-body">
-                    <Content></Content>
-                </div>
+                <Content></Content>
             </main>
         </div>
     )
