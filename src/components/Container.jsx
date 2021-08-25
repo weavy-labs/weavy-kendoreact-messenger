@@ -1,8 +1,9 @@
-import { React, useEffect, useContext  } from 'react';
-import { NavLink, useRouteMatch } from "react-router-dom";
+import { React, useEffect, useContext } from 'react';
+import { Route, NavLink, useRouteMatch } from "react-router-dom";
 import RealTimeContext from "../realtime-context";
 import Sidebar from "./Sidebar";
 import Content from "./Content";
+import ConversationHeader from "./ConversationHeader";
 import NewMessage from "./NewMessage"
 import { API_URL } from '../constants';
 
@@ -13,18 +14,18 @@ const Container = (props) => {
     const { connect } = useContext(RealTimeContext);
     const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJvbGl2ZXIiLCJuYW1lIjoiT2xpdmVyIFdpbnRlciIsImV4cCI6MjUxNjIzOTAyMiwiaXNzIjoic3RhdGljLWZvci1kZW1vIiwiY2xpZW50X2lkIjoiV2VhdnlEZW1vIiwiZGlyIjoiY2hhdC1kZW1vLWRpciIsImVtYWlsIjoib2xpdmVyLndpbnRlckBleGFtcGxlLmNvbSIsInVzZXJuYW1lIjoib2xpdmVyIn0.VuF_YzdhzSr5-tordh0QZbLmkrkL6GYkWfMtUqdQ9FM";
     useEffect(() => {
-      fetch(API_URL + '/client/sign-in', {
-        method: 'GET',
-        credentials: 'include',
-        headers: {
-          'Accept': 'application/json',
-          'Authorization': 'Bearer ' + token
-        },
-      }).then(res => res.json())
-        .then((user) => {
-            console.log("CALL CONNECT")
-            connect();
-        });
+        fetch(API_URL + '/client/sign-in', {
+            method: 'GET',
+            credentials: 'include',
+            headers: {
+                'Accept': 'application/json',
+                'Authorization': 'Bearer ' + token
+            },
+        }).then(res => res.json())
+            .then((user) => {
+                console.log("CALL CONNECT")
+                connect();
+            });
     }, [])
 
     const newMessage = (event) => {
@@ -49,9 +50,12 @@ const Container = (props) => {
             </div>
 
             <main id="main" className="pane conversation">
-                <header className="pane-header">                    
-                    <NavLink to="/">Back</NavLink>                       
-                    Conversation Header
+                <header className="pane-header">
+                    <NavLink to="/">Back</NavLink>
+                    <Route path="/conversation/:id">
+                        <ConversationHeader />
+                    </Route>
+
                 </header>
                 <div className="pane-body">
                     <Content></Content>
