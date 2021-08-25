@@ -1,5 +1,6 @@
 import { Fragment, React, useEffect, useState } from 'react';
 import useRealTime from '../hooks/useRealTime';
+import useMetaData from '../hooks/useMetaData';
 import { useParams, withRouter } from "react-router-dom";
 
 const ConversationHeader = (props) => {
@@ -13,13 +14,14 @@ const ConversationHeader = (props) => {
 
     const handleTyping = (data) => {
         const conversationId = data.conversation;
-        console.log("ID=", id, conversationId)
+        
         if (conversationId == id) {
             setIsTyping(true);
         }
     }
 
     useRealTime(handleTyping, "typing.weavy");
+    const { title } = useMetaData(id);
 
     return (
 
@@ -28,7 +30,7 @@ const ConversationHeader = (props) => {
                 <div>Typing...</div>
             }
             {!isTyping &&
-                <div>Conversation Header</div>
+                <div>{title} - {cid}</div>
             }
         </Fragment>
 
@@ -37,4 +39,4 @@ const ConversationHeader = (props) => {
 
 }
 
-export default withRouter(ConversationHeader);
+export default ConversationHeader;
