@@ -15,6 +15,7 @@ const Sidebar = (props) => {
             credentials: 'include'
         });        
         const conversations = await response.json();
+        console.log(conversations);
         return conversations;
     }
 
@@ -30,12 +31,13 @@ const Sidebar = (props) => {
                     <Avatar shape="circle" type="image">
                         <img
                             alt=""
-                            src={API_URL + `/${item.thumb.replace('{options}', '48')}`}
+                            src={API_URL + `/${item.avatar_url.replace('{options}', '48')}`}
                         />
                     </Avatar>
                 </div>
                 <div className="col-10">
-                    {item.name || 'conversation'}
+                    <div className="text-truncate">{item.title}</div> 
+                    <div className="text-truncate">{item.excerpt}</div> 
                 </div>
             </div>
             </NavLink>
@@ -54,8 +56,7 @@ const Sidebar = (props) => {
         <div>
             <ListView
                 data={data}
-                item={MyItemRender}
-                
+                item={MyItemRender}                
             />
         </div>
     )

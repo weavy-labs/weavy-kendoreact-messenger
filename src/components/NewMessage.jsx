@@ -1,5 +1,5 @@
 import { React, useEffect, useState, useRef, useCallback } from "react";
-import { Redirect } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { Button } from "@progress/kendo-react-buttons";
 
 import { Dialog, DialogActionsBar } from "@progress/kendo-react-dialogs";
@@ -33,7 +33,6 @@ const init = {
 const NewMessage = () => {
   const [visible, setVisible] = useState(false);
   const [disabled, setDisabled] = useState(true);
-  const [redirectToConversation, setRedirectToConversation] = useState(null);
   const dataCaching = useRef([]);
   const pendingRequest = useRef();
   const requestStarted = useRef(false);
@@ -42,6 +41,7 @@ const NewMessage = () => {
   const [total, setTotal] = useState(0);
   const [filter, setFilter] = useState("");
   const skipRef = useRef(0);
+  let history = useHistory();
 
   const toggleDialog = () => {
     setVisible(!visible);
@@ -93,19 +93,19 @@ const NewMessage = () => {
     const response = await fetch(API_URL + "/api/conversations", {
       method: "POST",
       credentials: "include",
-      body: JSON.stringify({ members: value.map(x=>x.id) }),
+      body: JSON.stringify({ members: value.map((x) => x.id) }),
       headers: {
-        'Content-Type': 'application/json'
-      }
+        "Content-Type": "application/json",
+      },
     });
+
     const newConversation = await response.json();
-    
+
     // reset
     setValue(null);
     toggleDialog();
 
-    // redirect to conversation
-    setRedirectToConversation("/conversation/" + newConversation.id);
+    history.push("/conversation/" + newConversation.id);
   };
 
   useEffect(() => {
@@ -169,11 +169,8 @@ const NewMessage = () => {
 
     setValue(value);
   }, []);
-  return (    
+  return (
     <div>
-      {redirectToConversation && (
-        <Redirect to={redirectToConversation} />
-      )}        
       <button className="k-button" onClick={toggleDialog}>
         New message...
       </button>
@@ -218,4 +215,3 @@ const NewMessage = () => {
 };
 
 export default NewMessage;
-
