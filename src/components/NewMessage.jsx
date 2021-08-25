@@ -1,12 +1,9 @@
-import { React, useEffect, useState, useRef, useCallback } from "react";
+import { React, useEffect, useState, useRef, useCallback, Fragment } from "react";
 import { useHistory } from "react-router-dom";
 import { Button } from "@progress/kendo-react-buttons";
-
 import { Dialog, DialogActionsBar } from "@progress/kendo-react-dialogs";
 import { MultiSelect } from "@progress/kendo-react-dropdowns";
-
 import { API_URL } from "../constants";
-// import Conversation from "./Conversation";
 
 const textField = "name";
 const keyField = "id";
@@ -160,17 +157,15 @@ const NewMessage = () => {
   const onChange = useCallback((event) => {
     const value = event.target.value;
 
-    if (value && value[textField] === emptyItem[textField]) {
-      setDisabled(true);
-      return;
-    } else {
-      setDisabled(false);
-    }
+    setDisabled(value.length == 0);
 
+    if (value && value[textField] === emptyItem[textField]) {
+      return;
+    }
     setValue(value);
   }, []);
   return (
-    <div>
+    <Fragment>
       <button className="k-button" onClick={toggleDialog}>
         New message...
       </button>
@@ -210,7 +205,7 @@ const NewMessage = () => {
           </div>
         </Dialog>
       )}
-    </div>
+    </Fragment>
   );
 };
 
