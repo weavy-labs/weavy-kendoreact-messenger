@@ -1,12 +1,10 @@
-import { React, useEffect, useState, useRef, useCallback } from "react";
-import { Redirect } from "react-router-dom";
+import { React, useEffect, useState, useRef, useCallback, Fragment } from "react";
+import { useHistory } from "react-router-dom";
+import { useQuery, useQueryClient, useMutation } from "react-query";
 import { Button } from "@progress/kendo-react-buttons";
-
 import { Dialog, DialogActionsBar } from "@progress/kendo-react-dialogs";
 import { MultiSelect } from "@progress/kendo-react-dropdowns";
-
 import { API_URL } from "../constants";
-// import Conversation from "./Conversation";
 
 const textField = "name";
 const keyField = "id";
@@ -33,7 +31,6 @@ const init = {
 const NewMessage = () => {
   const [visible, setVisible] = useState(false);
   const [disabled, setDisabled] = useState(true);
-  const [redirectToConversation, setRedirectToConversation] = useState(null);
   const dataCaching = useRef([]);
   const pendingRequest = useRef();
   const requestStarted = useRef(false);
@@ -42,8 +39,11 @@ const NewMessage = () => {
   const [total, setTotal] = useState(0);
   const [filter, setFilter] = useState("");
   const skipRef = useRef(0);
+  let history = useHistory();
+  const queryClient = useQueryClient();
 
   const toggleDialog = () => {
+    setValue(null);
     setVisible(!visible);
   };
 
@@ -93,19 +93,20 @@ const NewMessage = () => {
     const response = await fetch(API_URL + "/api/conversations", {
       method: "POST",
       credentials: "include",
-      body: JSON.stringify({ members: value.map(x=>x.id) }),
+      body: JSON.stringify({ members: value.map((x) => x.id) }),
       headers: {
-        'Content-Type': 'application/json'
-      }
+        "Content-Type": "application/json",
+      },
     });
+
     const newConversation = await response.json();
-    
+
     // reset
     setValue(null);
     toggleDialog();
 
-    // redirect to conversation
-    setRedirectToConversation("/conversation/" + newConversation.id);
+    queryClient.invalidateQueries("conversations");
+    history.push("/conversation/" + newConversation.id);
   };
 
   useEffect(() => {
@@ -160,20 +161,15 @@ const NewMessage = () => {
   const onChange = useCallback((event) => {
     const value = event.target.value;
 
-    if (value && value[textField] === emptyItem[textField]) {
-      setDisabled(true);
-      return;
-    } else {
-      setDisabled(false);
-    }
+    setDisabled(value.length == 0);
 
+    if (value && value[textField] === emptyItem[textField]) {
+      return;
+    }
     setValue(value);
   }, []);
-  return (    
-    <div>
-      {redirectToConversation && (
-        <Redirect to={redirectToConversation} />
-      )}        
+  return (
+    <Fragment>
       <button className="k-button" onClick={toggleDialog}>
         New message...
       </button>
@@ -213,9 +209,8 @@ const NewMessage = () => {
           </div>
         </Dialog>
       )}
-    </div>
+    </Fragment>
   );
 };
 
 export default NewMessage;
-

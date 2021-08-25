@@ -1,1 +1,1 @@
-export const API_URL = "https://showcase.weavycloud.com";
+export const API_URL = "https://weavy.test";
