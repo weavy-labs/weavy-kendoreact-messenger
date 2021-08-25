@@ -1,5 +1,6 @@
 import { React, useEffect, useState, useRef, useCallback, Fragment } from "react";
 import { useHistory } from "react-router-dom";
+import { useQuery, useQueryClient, useMutation } from "react-query";
 import { Button } from "@progress/kendo-react-buttons";
 import { Dialog, DialogActionsBar } from "@progress/kendo-react-dialogs";
 import { MultiSelect } from "@progress/kendo-react-dropdowns";
@@ -39,8 +40,10 @@ const NewMessage = () => {
   const [filter, setFilter] = useState("");
   const skipRef = useRef(0);
   let history = useHistory();
+  const queryClient = useQueryClient();
 
   const toggleDialog = () => {
+    setValue(null);
     setVisible(!visible);
   };
 
@@ -102,6 +105,7 @@ const NewMessage = () => {
     setValue(null);
     toggleDialog();
 
+    queryClient.invalidateQueries("conversations");
     history.push("/conversation/" + newConversation.id);
   };
 

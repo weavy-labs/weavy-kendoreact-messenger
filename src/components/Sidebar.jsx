@@ -15,7 +15,6 @@ const Sidebar = (props) => {
             credentials: 'include'
         });        
         const conversations = await response.json();
-        console.log(conversations);
         return conversations;
     }
 
