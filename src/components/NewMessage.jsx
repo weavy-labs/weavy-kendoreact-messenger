@@ -60,9 +60,7 @@ const NewMessage = () => {
       return;
     }
 
-    const url =
-      API_URL +
-      `/api/users?q=${filter}&skip=${skip}&top=${pageSize}&count=true`;
+    const url = `${API_URL}/api/users?q=${filter}&skip=${skip}&top=${pageSize}&count=true`;
     requestStarted.current = true;
 
     fetch(url, init)
