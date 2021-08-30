@@ -7,15 +7,58 @@ import { API_URL } from "../constants";
 import ConversationHeader from "./ConversationHeader";
 import { Route, NavLink, useRouteMatch } from "react-router-dom";
 
-const Conversation = () => {
+const Conversation = ({user}) => {
   let { id } = useParams();
   const queryClient = useQueryClient();
 
-  const invalidate = () => {
-    queryClient.invalidateQueries(["messages", id]);
+  const invalidate = (message) => {
+    //queryClient.invalidateQueries(["messages", id]);
+    addMessageFromRealTimeMutation.mutate(message)
   };
 
   useRealTime(invalidate, "message-inserted.weavy");
+
+  const getTelerikMessage = (item) => {
+    console.log(item)
+    return {
+      text: item.text,
+      timestamp: new Date(item.created_at),
+      author: {
+        id: item.created_by.id,
+        name: item.created_by.name,
+        avatarUrl:
+          API_URL + `${item.created_by.thumb.replace("{options}", "32")}`,
+      },
+      attachments: item.attachments,
+      // attachments: item.attachments.map((a) => {
+      //     return {
+      //         content: "https://showcase.weavycloud.com/attachments/" + a + "/image.png",
+      //         contentType: "image",
+      //     }
+      // })
+    };
+  }
+
+  const getTelerikMessageFromRealTime = (item) => {
+    console.log(item)
+    return {
+      text: item.text,
+      timestamp: new Date(item.createdAt),
+      author: {
+        id: item.createdBy.id,
+        name: item.createdBy.name,
+        avatarUrl:
+          API_URL + `${item.createdBy.thumb.replace("{options}", "32")}`,
+      },
+      attachments: item.attachments,
+      // attachments: item.attachments.map((a) => {
+      //     return {
+      //         content: "https://showcase.weavycloud.com/attachments/" + a + "/image.png",
+      //         contentType: "image",
+      //     }
+      // })
+    };
+  }
 
   const getMessages = async () => {
     const response = await fetch(
@@ -29,35 +72,15 @@ const Conversation = () => {
     const messages = await response.json();
 
     return messages.data?.map((item) => {
-      return {
-        text: item.text,
-        timestamp: new Date(item.created_at),
-        author: {
-          id: item.created_by.id,
-          name: item.created_by.name,
-          avatarUrl:
-            API_URL + `${item.created_by.thumb.replace("{options}", "32")}`,
-        },
-        attachments: item.attachments,
-        // attachments: item.attachments.map((a) => {
-        //     return {
-        //         content: "https://showcase.weavycloud.com/attachments/" + a + "/image.png",
-        //         contentType: "image",
-        //     }
-        // })
-      };
+     return getTelerikMessage(item);
     });
   };
-  const { isLoading, isError, data, error } = useQuery(
-    ["messages", id],
-    getMessages,
-    { refetchOnWindowFocus: false }
-  );
+  const { isLoading, isError, data, error } = useQuery(["messages", id], getMessages, { refetchOnWindowFocus: false });
 
-  const user = {
-    id: 3,
-    avatarUrl: "https://via.placeholder.com/24/008000/008000.png",
-  };
+  // const user = {
+  //   id: 1009,
+  //   avatarUrl: "https://via.placeholder.com/24/008000/008000.png",
+  // };
 
   const fileUpload = createRef();
 
@@ -81,6 +104,14 @@ const Conversation = () => {
     });
   };
 
+  const addMessageFromRealTimeMutation = useMutation(newMessage => {
+
+    queryClient.setQueryData(["messages", id], (old) => [
+      ...old,
+      getTelerikMessageFromRealTime(newMessage),
+    ]);
+  });
+  
   const addMessageMutation = useMutation(addMessage, {
     // When mutate is called:
     onMutate: async (newMessage) => {
@@ -301,7 +332,7 @@ const Conversation = () => {
           onMessageSend={addNewMessage}
           placeholder={"Type a message..."}
           //messageTemplate={CustomMessageTemplate}
-          messageBox={CustomMessage}
+          //messageBox={CustomMessage}
           message={CustomChatMessage}
           attachmentTemplate={CustomAttachmentTemplate}
           width={"100%"}
