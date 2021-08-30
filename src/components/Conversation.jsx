@@ -11,7 +11,7 @@ const Conversation = ({user}) => {
   let { id } = useParams();
   const queryClient = useQueryClient();
 
-  const invalidate = (message) => {
+  const addFromRealTime = (message) => {
     
     // don't add messages from real time from the current user
     if(message.createdBy.id == user.id) return;
@@ -20,7 +20,7 @@ const Conversation = ({user}) => {
     addMessageFromRealTimeMutation.mutate(message)
   };
 
-  useRealTime(invalidate, "message-inserted.weavy");
+  useRealTime(addFromRealTime, "message-inserted.weavy");
 
   const getTelerikMessage = (item) => {
     
