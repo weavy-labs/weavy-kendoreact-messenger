@@ -1,5 +1,6 @@
 import { React, useEffect, useContext } from 'react';
 import { useRouteMatch } from "react-router-dom";
+import { useQuery } from "react-query";
 import RealTimeContext from "../realtime-context";
 import Sidebar from "./Sidebar";
 import Content from "./Content";
@@ -12,6 +13,20 @@ const Container = (props) => {
 
     const { connect } = useContext(RealTimeContext);
     const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJvbGl2ZXIiLCJuYW1lIjoiT2xpdmVyIFdpbnRlciIsImV4cCI6MjUxNjIzOTAyMiwiaXNzIjoic3RhdGljLWZvci1kZW1vIiwiY2xpZW50X2lkIjoiV2VhdnlEZW1vIiwiZGlyIjoiY2hhdC1kZW1vLWRpciIsImVtYWlsIjoib2xpdmVyLndpbnRlckBleGFtcGxlLmNvbSIsInVzZXJuYW1lIjoib2xpdmVyIn0.VuF_YzdhzSr5-tordh0QZbLmkrkL6GYkWfMtUqdQ9FM";
+
+    const getUser = async () => {
+        const response = await fetch(
+            API_URL + "/api/users/me",
+            {
+              method: "GET",
+              credentials: "include",
+            }
+          );
+      
+          const me = await response.json();
+          return me;
+    }
+
     useEffect(() => {
         fetch(API_URL + '/client/sign-in', {
             method: 'GET',
@@ -25,11 +40,21 @@ const Container = (props) => {
                 console.log("CALL CONNECT")
                 connect();
             });
-    }, [])
+    }, []);
+
+    const { isLoading, isError, data, error } = useQuery(["user"], getUser, { refetchOnWindowFocus: false });
 
     const newMessage = (event) => {
         console.log("show popup");
     };
+
+    if (isLoading) {
+        return <span>Loading...</span>;
+    }
+
+    if (isError) {
+        return <span>Error: {error.message}</span>;
+    }
 
     return (
         <div id="root-container" className={"dual" + (match ? " two" : " one")}>
@@ -49,7 +74,7 @@ const Container = (props) => {
             </div>
 
             <main id="main" className="pane conversation">
-                <Content></Content>
+                <Content user={ {id: data.id, avatarUrl: API_URL + `${data.thumb.replace("{options}", "32")}`,}}></Content>
             </main>
         </div>
     )
