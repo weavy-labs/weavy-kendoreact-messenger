@@ -14,8 +14,7 @@ function useMetaData(id) {
             }
         );
 
-        const data = await response.json();
-        console.log(data);
+        const data = await response.json();        
         return data
 
     };
@@ -26,7 +25,7 @@ function useMetaData(id) {
         { refetchOnWindowFocus: false }
     );
 
-    return data ? { id: id, title: data.name } : {};
+    return data ? { id: id, title: data.title } : {};
 }
 
 export default useMetaData;
