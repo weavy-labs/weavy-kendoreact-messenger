@@ -44,10 +44,6 @@ const Container = (props) => {
 
     const { isLoading, isError, data, error } = useQuery(["user"], getUser, { refetchOnWindowFocus: false });
 
-    const newMessage = (event) => {
-        console.log("show popup");
-    };
-
     if (isLoading) {
         return <span>Loading...</span>;
     }

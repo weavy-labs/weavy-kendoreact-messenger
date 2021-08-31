@@ -5,7 +5,7 @@ import { useQuery, useQueryClient, useMutation } from "react-query";
 import useRealTime from "../hooks/useRealTime";
 import { API_URL } from "../constants";
 import ConversationHeader from "./ConversationHeader";
-import { Route, NavLink, useRouteMatch } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const Conversation = ({user}) => {
   let { id } = useParams();

@@ -2,6 +2,7 @@ import { React } from 'react';
 import { NavLink } from "react-router-dom";
 import { ListView } from '@progress/kendo-react-listview';
 import { Avatar } from "@progress/kendo-react-layout";
+import ConversationExcerpt from './ConversationExcerpt';
 import { useQuery } from 'react-query';
 import { API_URL } from '../constants';
 
@@ -18,7 +19,7 @@ const Sidebar = (props) => {
         return conversations;
     }
 
-    const { isLoading, isError, data, error } = useQuery('conversations', getConversations)
+    const { isLoading, isError, data, error } = useQuery('conversations', getConversations,  { refetchOnWindowFocus: false })
   
     const MyItemRender = (props) => {
         let item = props.dataItem;
@@ -36,7 +37,8 @@ const Sidebar = (props) => {
                 </div>
                 <div className="col-10">
                     <div className="text-truncate">{item.title}</div> 
-                    <div className="text-truncate">{item.excerpt}</div> 
+                    <ConversationExcerpt id={item.id} excerpt={item.excerpt}></ConversationExcerpt>
+                    
                 </div>
             </div>
             </NavLink>

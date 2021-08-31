@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import { useQuery, useQueryClient, useMutation } from "react-query";
+import { useQuery } from "react-query";
 import { API_URL } from "../constants";
 
 function useMetaData(id) {
@@ -19,7 +18,7 @@ function useMetaData(id) {
 
     };
 
-    const { isLoading, isError, data, error } = useQuery(
+    const { data } = useQuery(
         ["metadata", id],
         getMetaData,
         { refetchOnWindowFocus: false }
