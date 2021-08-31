@@ -81,11 +81,6 @@ const Conversation = ({user}) => {
   };
   const { isLoading, isError, data, error } = useQuery(["messages", id], getMessages, { refetchOnWindowFocus: false });
 
-  // const user = {
-  //   id: 1009,
-  //   avatarUrl: "https://via.placeholder.com/24/008000/008000.png",
-  // };
-
   const fileUpload = createRef();
 
   const [attachments, setAttachments] = useState([]);
