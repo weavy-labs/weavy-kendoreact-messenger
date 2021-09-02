@@ -138,6 +138,8 @@ const Conversation = ({user}) => {
     // Always refetch after error or success:
     onSettled: () => {
       queryClient.invalidateQueries(["messages", id]);
+      // TODO: should probably only invalidate the specific conversation - not all of them
+      queryClient.invalidateQueries(["conversations"]);
     },
   });
 
