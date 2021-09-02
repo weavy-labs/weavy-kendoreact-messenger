@@ -1,8 +1,7 @@
 import { Fragment, React, useEffect, useState } from 'react';
 import useTyping from '../hooks/useTyping';
 
-const ConversationExcerpt = ({id, excerpt}) => {
-   
+const ConversationExcerpt = ({id, excerpt}) => {   
     const isTyping = useTyping(id);
 
     return (
@@ -14,12 +13,7 @@ const ConversationExcerpt = ({id, excerpt}) => {
             {!isTyping && 
                 <div className="text-truncate">{excerpt}</div> 
             }
-        </Fragment>
-        
-
-
+        </Fragment>        
     );
-
 }
-
 export default ConversationExcerpt;
