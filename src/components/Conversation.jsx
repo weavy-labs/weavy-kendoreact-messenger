@@ -12,15 +12,15 @@ const Conversation = ({user}) => {
   const queryClient = useQueryClient();
 
   const addFromRealTime = (message) => {
-    
-    // don't add messages from real time from the current user
-    if(message.createdBy.id == user.id) return;
+    console.log(message)
+    // don't add messages from real time from the current user or if a different conversation
+    if(message.createdBy.id == user.id || message.conversation != id) return;
     
     //queryClient.invalidateQueries(["messages", id]);
     addMessageFromRealTimeMutation.mutate(message)
   };
 
-  useRealTime(addFromRealTime, "message-inserted.weavy");
+  useRealTime("message-inserted.weavy", addFromRealTime);
 
   const getTelerikMessage = (item) => {
     
