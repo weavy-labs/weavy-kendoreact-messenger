@@ -38,7 +38,7 @@ code {
   position: relative;
 }
 
-.conversation-list .k-dropdown-button, .k-button {
+.conversation-list .actions {
   position: absolute;  
   right: 0;
   bottom: 0;
