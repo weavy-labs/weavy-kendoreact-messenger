@@ -1,4 +1,4 @@
-import { React } from 'react';
+import { React } from "react";
 import { NavLink } from "react-router-dom";
 import { ListView } from "@progress/kendo-react-listview";
 import { Avatar } from "@progress/kendo-react-layout";
@@ -49,32 +49,31 @@ const Sidebar = (props) => {
     });
   };
 
-  const onClick = (event) => {
-    console.log(event);
+  const onAction = (item) => {
     const actions = ["pin", "unpin", "star", "unstar", "read", "unread"];
 
-    if (actions.includes(event.item.action)) {
-      fetch(`${API_URL}/api/conversations/${event.item.id}/${event.item.action}`, {
+    if (actions.includes(item.action)) {
+      fetch(`${API_URL}/api/conversations/${item.id}/${item.action}`, {
         method: "POST",
-        credentials: "include"
+        credentials: "include",
       }).then((response) => {
         if (response.ok) {
           // TODO: better way of doing this?
           queryClient.invalidateQueries(["conversations"]);
         } else {
-          console.error(`Failed to ${event.item.action} conversation: ${response.statusText} (${response.status})`);
+          console.error(`Failed to ${item.action} conversation: ${response.statusText} (${response.status})`);
         }
       });
     } else {
-        console.error("Unsupported action: " + event.item.action);
+      console.error("Unsupported action: " + item.action);
     }
   };
 
   const MyItemRender = (props) => {
     let item = props.dataItem;
 
-    return (        
-      <div className= {!item.is_read ? "conversation-list unread" : "conversation-list"}>
+    return (
+      <div className={!item.is_read ? "conversation-list unread" : "conversation-list"}>
         <NavLink to={"/conversation/" + item.id} activeClassName="active">
           <div className="row p-2 border-bottom align-middle" style={{ margin: 0 }}>
             <div className="col-2">
@@ -91,14 +90,14 @@ const Sidebar = (props) => {
             </div>
           </div>
         </NavLink>
-        {/* {item.is_starred &&
-            <Button icon="star" onClick={onClick} id={item.id} action="unstar"></Button>
-        } */}
-        <DropDownButton icon={item.is_pinned ? "pin" : "cog"} onItemClick={onClick}>
-          {item.is_starred ? <DropDownButtonItem id={item.id} action="unstar" text="Unstar" icon="star-outline"></DropDownButtonItem> : <DropDownButtonItem id={item.id} action="star" text="Star" icon="star"></DropDownButtonItem>}
-          {item.is_pinned ? <DropDownButtonItem id={item.id} action="unpin" text="Unpin" icon="unpin"></DropDownButtonItem> : <DropDownButtonItem id={item.id} action="pin" text="Pin" icon="pin"></DropDownButtonItem>}
-          {!item.is_read ? <DropDownButtonItem id={item.id} action="read" text="Mark as read" icon="checkbox"></DropDownButtonItem> : typeof item.last_message_at !== "undefined" ? <DropDownButtonItem id={item.id} action="unread" text="Mark as unread" icon="checkbox-checked"></DropDownButtonItem> : ""}            
-        </DropDownButton>
+        <div className="actions">
+          {item.is_starred && <Button icon="star" onClick={() => onAction({ id: item.id, action: "unstar" })}></Button>}
+          <DropDownButton icon={item.is_pinned ? "pin" : "cog"} onItemClick={(event) => onAction(event.item)}>
+            {item.is_starred ? <DropDownButtonItem id={item.id} action="unstar" text="Unstar" icon="star-outline"></DropDownButtonItem> : <DropDownButtonItem id={item.id} action="star" text="Star" icon="star"></DropDownButtonItem>}
+            {item.is_pinned ? <DropDownButtonItem id={item.id} action="unpin" text="Unpin" icon="unpin"></DropDownButtonItem> : <DropDownButtonItem id={item.id} action="pin" text="Pin" icon="pin"></DropDownButtonItem>}
+            {!item.is_read ? (<DropDownButtonItem id={item.id} action="read" text="Mark as read" icon="checkbox"></DropDownButtonItem>) : typeof item.last_message_at !== "undefined" ? (<DropDownButtonItem id={item.id} action="unread" text="Mark as unread" icon="checkbox-checked"></DropDownButtonItem>) : ("")}
+          </DropDownButton>
+        </div>
       </div>
     );
   };
