@@ -1,15 +1,28 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+}
+
+/* general */
+.transparent,
+.transparent:active,
+.transparent:hover,
+.transparent:focus,
+.transparent button,
+.transparent button:active,
+.transparent button:hover,
+.transparent button:focus,
+.transparent span {
+  border: none !important;
+  background-color: transparent !important;
+  outline: none !important;
+  box-shadow: none !important;
 }
 
 /* conversations list */
@@ -18,7 +31,9 @@ code {
   width: 3rem;
 }
 
-.k-listview .k-listview-content a, .k-listview .k-listview-content a:hover, .k-listview .k-listview-content a:visited {
+.k-listview .k-listview-content a,
+.k-listview .k-listview-content a:hover,
+.k-listview .k-listview-content a:visited {
   text-decoration: none !important;
   color: #545454;
   display: block;
@@ -39,16 +54,9 @@ code {
 }
 
 .conversation-list .actions {
-  position: absolute;  
+  position: absolute;
   right: 0;
   bottom: 0;
-}
-
-.conversation-list .k-button-icon, .conversation-list .k-button-icon:active, .conversation-list .k-button-icon:hover, .conversation-list .k-button-icon:focus, .conversation-list .k-button-icon span {
-  border: none !important;
-  background-color: transparent !important;
-  outline: none !important;
-  box-shadow: none;
 }
 
 .conversation-list.unread .text-truncate {
@@ -58,4 +66,17 @@ code {
 /* new message */
 .k-animation-container {
   z-index: 10002 !important;
+}
+
+/* search */
+.search {
+  margin: 0.5rem;
+  position: relative;
+}
+
+.search button {
+  position: absolute;
+  right: 0;
+  top: -2px;
+  padding: 5px;  
 }

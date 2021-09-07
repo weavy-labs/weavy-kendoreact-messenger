@@ -4,6 +4,7 @@ import { ListView } from "@progress/kendo-react-listview";
 import { Avatar } from "@progress/kendo-react-layout";
 import { DropDownButton, DropDownButtonItem, Button } from "@progress/kendo-react-buttons";
 import ConversationExcerpt from "./ConversationExcerpt";
+import Search from "./Search";
 import { useQuery, useQueryClient } from "react-query";
 import { API_URL } from "../constants";
 
@@ -20,34 +21,6 @@ const Sidebar = (props) => {
   };
 
   const { isLoading, isError, data, error } = useQuery("conversations", getConversations, { refetchOnWindowFocus: false });
-
-  const onPin = (id) => {
-    fetch(`${API_URL}/api/conversations/${id}/pin`, {
-      method: "POST",
-      credentials: "include",
-    }).then((response) => {
-      if (response.ok) {
-        // TODO: better way of doing this?
-        queryClient.invalidateQueries(["conversations"]);
-      } else {
-        console.error(`Failed to pin conversation: ${response.statusText} (${response.status})`);
-      }
-    });
-  };
-
-  const onUnPin = (id) => {
-    fetch(`${API_URL}/api/conversations/${id}/pin`, {
-      method: "DELETE",
-      credentials: "include",
-    }).then((response) => {
-      if (response.ok) {
-        // TODO: better way of doing this?
-        queryClient.invalidateQueries(["conversations"]);
-      } else {
-        console.error(`Failed to unpin conversation: HTTP ${response.status}`);
-      }
-    });
-  };
 
   const onAction = (item) => {
     const actions = ["pin", "unpin", "star", "unstar", "read", "unread"];
@@ -73,32 +46,32 @@ const Sidebar = (props) => {
     let item = props.dataItem;
 
     return (
-      <div className={!item.is_read ? "conversation-list unread" : "conversation-list"}>
-        <NavLink to={"/conversation/" + item.id} activeClassName="active">
-          <div className="row p-2 border-bottom align-middle" style={{ margin: 0 }}>
-            <div className="col-2">
-              <Avatar shape="circle" type="image">
-                <img alt="" src={`${API_URL}/${item.avatar_url.replace("{options}", "48")}`} />
-              </Avatar>
+        <div className={!item.is_read ? "conversation-list unread" : "conversation-list"}>
+          <NavLink to={"/conversation/" + item.id} activeClassName="active">
+            <div className="row p-2 border-bottom align-middle" style={{ margin: 0 }}>
+              <div className="col-2">
+                <Avatar shape="circle" type="image">
+                  <img alt="" src={`${API_URL}/${item.avatar_url.replace("{options}", "48")}`} />
+                </Avatar>
+              </div>
+              <div className="col-10">
+                <time className="text-muted" dateTime="{item.last_message_at}" title="{item.last_message_at}">
+                  {item.last_message_at_string}
+                </time>
+                <div className="text-truncate">{item.title}</div>
+                <ConversationExcerpt id={item.id} excerpt={item.excerpt}></ConversationExcerpt>
+              </div>
             </div>
-            <div className="col-10">
-              <time className="text-muted" dateTime="{item.last_message_at}" title="{item.last_message_at}">
-                {item.last_message_at_string}
-              </time>
-              <div className="text-truncate">{item.title}</div>
-              <ConversationExcerpt id={item.id} excerpt={item.excerpt}></ConversationExcerpt>
-            </div>
+          </NavLink>
+          <div className="actions">
+            {item.is_starred && <Button className="transparent" icon="star" onClick={() => onAction({ id: item.id, action: "unstar" })}></Button>}
+            <DropDownButton className="transparent" icon={item.is_pinned ? "pin" : "cog"} onItemClick={(event) => onAction(event.item)}>
+              {item.is_starred ? <DropDownButtonItem id={item.id} action="unstar" text="Unstar" icon="star-outline"></DropDownButtonItem> : <DropDownButtonItem id={item.id} action="star" text="Star" icon="star"></DropDownButtonItem>}
+              {item.is_pinned ? <DropDownButtonItem id={item.id} action="unpin" text="Unpin" icon="unpin"></DropDownButtonItem> : <DropDownButtonItem id={item.id} action="pin" text="Pin" icon="pin"></DropDownButtonItem>}
+              {!item.is_read ? (<DropDownButtonItem id={item.id} action="read" text="Mark as read" icon="checkbox"></DropDownButtonItem>) : typeof item.last_message_at !== "undefined" ? (<DropDownButtonItem id={item.id} action="unread" text="Mark as unread" icon="checkbox-checked"></DropDownButtonItem>) : ("")}
+            </DropDownButton>
           </div>
-        </NavLink>
-        <div className="actions">
-          {item.is_starred && <Button icon="star" onClick={() => onAction({ id: item.id, action: "unstar" })}></Button>}
-          <DropDownButton icon={item.is_pinned ? "pin" : "cog"} onItemClick={(event) => onAction(event.item)}>
-            {item.is_starred ? <DropDownButtonItem id={item.id} action="unstar" text="Unstar" icon="star-outline"></DropDownButtonItem> : <DropDownButtonItem id={item.id} action="star" text="Star" icon="star"></DropDownButtonItem>}
-            {item.is_pinned ? <DropDownButtonItem id={item.id} action="unpin" text="Unpin" icon="unpin"></DropDownButtonItem> : <DropDownButtonItem id={item.id} action="pin" text="Pin" icon="pin"></DropDownButtonItem>}
-            {!item.is_read ? (<DropDownButtonItem id={item.id} action="read" text="Mark as read" icon="checkbox"></DropDownButtonItem>) : typeof item.last_message_at !== "undefined" ? (<DropDownButtonItem id={item.id} action="unread" text="Mark as unread" icon="checkbox-checked"></DropDownButtonItem>) : ("")}
-          </DropDownButton>
         </div>
-      </div>
     );
   };
 
@@ -112,6 +85,7 @@ const Sidebar = (props) => {
 
   return (
     <div>
+      <Search />
       <ListView data={data} item={MyItemRender} />
     </div>
   );
