@@ -31,7 +31,7 @@ const Search = (props) => {
 
   return (
     <div className="form-group search">
-      <input type="text" name="q" class="form-control form-control-sm" placeholder="Search..." autocomplete="off" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
+      <input type="text" name="q" className="form-control form-control-sm" placeholder="Search..." autoComplete="off" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
       {showClear && <Button className="transparent" icon="close" onClick={handleClear}></Button>}
       {!showClear && <Button className="transparent" icon="search"></Button>}
     </div>
