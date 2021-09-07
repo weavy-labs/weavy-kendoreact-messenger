@@ -1,17 +1,12 @@
 import { React, useEffect, useState, useRef, useCallback, Fragment } from "react";
 import { useHistory } from "react-router-dom";
-import { useQuery, useQueryClient, useMutation } from "react-query";
-import { Button } from "@progress/kendo-react-buttons";
+import { useQueryClient } from "react-query";
 import { Dialog, DialogActionsBar } from "@progress/kendo-react-dialogs";
 import { MultiSelect } from "@progress/kendo-react-dropdowns";
 import { API_URL } from "../constants";
 
 const textField = "name";
 const keyField = "id";
-const defaultItem = {
-  [textField]: "Select customer...",
-  [keyField]: null,
-};
 const emptyItem = {
   [textField]: "loading ...",
 };
@@ -159,7 +154,7 @@ const NewMessage = () => {
   const onChange = useCallback((event) => {
     const value = event.target.value;
 
-    setDisabled(value.length == 0);
+    setDisabled(value.length === 0);
 
     if (value && value[textField] === emptyItem[textField]) {
       return;
