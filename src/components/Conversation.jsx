@@ -1,5 +1,6 @@
 import { React, Fragment, createRef, useState } from "react";
 import { Chat, ChatMessage } from "@progress/kendo-react-conversational-ui";
+import { Avatar } from "@progress/kendo-react-layout";
 import { useParams } from "react-router-dom";
 import { useQuery, useQueryClient, useMutation } from "react-query";
 import useRealTime from "../hooks/useRealTime";
@@ -7,33 +8,40 @@ import { API_URL } from "../constants";
 import ConversationHeader from "./ConversationHeader";
 import { NavLink } from "react-router-dom";
 
-const Conversation = ({user}) => {
+const Conversation = ({ user }) => {
   let { id } = useParams();
   const queryClient = useQueryClient();
 
   const addFromRealTime = (message) => {
     console.log(message)
     // don't add messages from real time from the current user or if a different conversation
-    if(message.createdBy.id == user.id || message.conversation != id) return;
-    
+    if (message.createdBy.id == user.id || message.conversation != id) return;
+
     //queryClient.invalidateQueries(["messages", id]);
     addMessageFromRealTimeMutation.mutate(message)
   };
 
+  const updateConversation = () => {
+    queryClient.invalidateQueries(["messages", id]);
+  }
+
   useRealTime("message-inserted.weavy", addFromRealTime);
 
+  useRealTime("conversation-read.weavy", updateConversation);
+
   const getTelerikMessage = (item) => {
-    
+
     return {
       text: item.text,
       timestamp: new Date(item.created_at),
       author: {
-        id: item.created_by.id,
-        name: item.created_by.name,
+        id: item.created_by_id,
+        name: item.created_by_name,
         avatarUrl:
-          API_URL + `${item.created_by.thumb.replace("{options}", "32")}`,
+          API_URL + `${item.created_by_thumb.replace("{options}", "32")}`,
       },
       attachments: item.attachments,
+      seenBy: item.seen_by
       // attachments: item.attachments.map((a) => {
       //     return {
       //         content: "https://showcase.weavycloud.com/attachments/" + a + "/image.png",
@@ -44,7 +52,7 @@ const Conversation = ({user}) => {
   }
 
   const getTelerikMessageFromRealTime = (item) => {
-    
+
     return {
       text: item.text,
       timestamp: new Date(item.createdAt),
@@ -76,7 +84,7 @@ const Conversation = ({user}) => {
     const messages = await response.json();
 
     return messages.data?.map((item) => {
-     return getTelerikMessage(item);
+      return getTelerikMessage(item);
     });
   };
   const { isLoading, isError, data, error } = useQuery(["messages", id], getMessages, { refetchOnWindowFocus: false });
@@ -110,7 +118,7 @@ const Conversation = ({user}) => {
       getTelerikMessageFromRealTime(newMessage),
     ]);
   });
-  
+
   const addMessageMutation = useMutation(addMessage, {
     // When mutate is called:
     onMutate: async (newMessage) => {
@@ -304,13 +312,19 @@ const Conversation = ({user}) => {
     // }
   };
 
-  // const CustomMessageTemplate = (props) => {
-  //     return (
-  //         <div className="k-bubble">
-  //             <div>This is the message: {props.item.text}</div>
-  //         </div>
-  //     );
-  // };
+  const CustomMessageTemplate = (props) => {
+    return (
+      <div>
+        <div className="k-bubble">
+          <div>{props.item.text}</div>
+        </div>
+        {props.item.seenBy && props.item.seenBy.map(m => {
+          return <img style={{borderRadius: '50%'}} src={API_URL + `${m.thumb.replace("{options}", "16")}`} title={"Seen by " + m.name + " " + new Date(m.read_at).toLocaleString()}/>
+        })}
+      </div>
+
+    );
+  };
 
   if (isLoading) {
     return <span>Loading...</span>;
@@ -323,7 +337,7 @@ const Conversation = ({user}) => {
   return (
     <Fragment>
       <header className="pane-header">
-        <NavLink to="/">Back</NavLink>       
+        <NavLink to="/">Back</NavLink>
         <ConversationHeader />
       </header>
       <div className="pane-body">
@@ -332,7 +346,7 @@ const Conversation = ({user}) => {
           messages={data}
           onMessageSend={addNewMessage}
           placeholder={"Type a message..."}
-          //messageTemplate={CustomMessageTemplate}
+          messageTemplate={CustomMessageTemplate}
           //messageBox={CustomMessage}
           message={CustomChatMessage}
           attachmentTemplate={CustomAttachmentTemplate}
