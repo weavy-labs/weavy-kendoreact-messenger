@@ -36,8 +36,7 @@ const Container = (props) => {
                 'Authorization': 'Bearer ' + token
             },
         }).then(res => res.json())
-            .then((user) => {
-                console.log("CALL CONNECT")
+            .then((user) => {                
                 connect();
             });
     }, []);

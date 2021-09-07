@@ -1,19 +1,19 @@
-import { Fragment, React, useEffect, useState } from 'react';
+import React, { Fragment } from 'react';
 import useTyping from '../hooks/useTyping';
 
-const ConversationExcerpt = ({id, excerpt}) => {   
-    const isTyping = useTyping(id);
+const ConversationExcerpt = (props) => {
+    const { isTyping, typers } = useTyping(props.id);
 
     return (
         <Fragment>
-            {isTyping && 
-                <div>Typing...</div>
+            {isTyping &&
+                <small><em>{typers.join(", ")} {typers.length > 1 ? "are" : "is"} typing...</em></small>
             }
 
-            {!isTyping && 
-                <div className="text-truncate">{excerpt}</div> 
+            {!isTyping &&
+                <div className="text-truncate">{props.excerpt}</div>
             }
-        </Fragment>        
+        </Fragment>
     );
 }
-export default ConversationExcerpt;
+export default React.memo(ConversationExcerpt);

@@ -8,13 +8,13 @@ const ConversationHeader = (props) => {
     let { id } = useParams();
    
     const { id: cid, title } = useMetaData(id);
-    const isTyping = useTyping(id);
+    const { isTyping, typers } = useTyping(id);
 
     return (
 
         <Fragment>
             {isTyping &&
-                <div>Typing...</div>
+               <small><em>{typers.join(", ")} {typers.length > 1 ? "are" : "is"} typing...</em></small>
             }
             {!isTyping &&
                 <div>{title} - {cid}</div>

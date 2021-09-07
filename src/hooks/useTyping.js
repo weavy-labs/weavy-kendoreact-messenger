@@ -1,25 +1,33 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useRealTime from '../hooks/useRealTime';
 
 function useTyping(id) {
 
     const [isTyping, setIsTyping] = useState(null);
-    const [typers, setTypers] = useState([]);
+    const [typers, setTypers] = useState([]);    
+    const message = useRealTime("typing.weavy");
+    
 
+    useEffect(() => {                
+        let tid = null;
+        if (message && message.conversation == id) {                          
+            setIsTyping(true);                            
+            if(typers.indexOf(message.user.name) === -1){
+                setTypers([...typers, message.user.name]);            
+            }                
 
-    const handleTyping = (data) => {        
-        const conversationId = data.conversation;
-        
-        if (conversationId == id) {            
-            setIsTyping(true);
-
-            // todo: set typers
+            tid = window.setTimeout(() => {
+                setIsTyping(false);
+            }, 5000);
         }
-    }
 
-    useRealTime(handleTyping, "typing.weavy");
-
-    return isTyping;
+        return () => {    
+            window.clearTimeout(tid)
+        }
+    
+    }, [message, id, typers]);    
+    
+    return { isTyping, typers };
    
 }
 
