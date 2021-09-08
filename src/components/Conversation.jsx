@@ -13,7 +13,6 @@ const Conversation = ({ user }) => {
   const queryClient = useQueryClient();
 
   const addFromRealTime = (message) => {
-    console.log(message)
     // don't add messages from real time from the current user or if a different conversation
     if (message.createdBy.id == user.id || message.conversation != id) return;
 

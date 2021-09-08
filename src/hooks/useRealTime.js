@@ -9,8 +9,6 @@ function useRealTime( messageName, callback) {
         if (!proxy) return;
 
         const handleReceiveMessage = (type, data) => {
-console.log(type, data);
-
             switch (type) {
                 case messageName:
                     const json = JSON.parse(data)

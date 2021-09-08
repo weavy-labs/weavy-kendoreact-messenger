@@ -63,6 +63,19 @@ code {
   font-weight: bold;
 }
 
+.presence.active:after {
+  content: "";
+  background-color: #45d391;
+  display: inline-block;
+  width: .625rem;
+  height: .625rem;
+  border-radius: 50%;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  border: 1px solid rgba(252,252,252,.5);
+}
+
 /* new message */
 .k-animation-container {
   z-index: 10002 !important;

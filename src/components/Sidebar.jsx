@@ -22,8 +22,12 @@ const Sidebar = (props) => {
   };
 
   const updatePresence = (message) => {
-    console.log(message);
-    console.log(document.querySelectorAll(`img[src^="${API_URL}/people/${message.user}/avatar"]`));
+    var avatars = document.querySelectorAll(`img.has-presence[src^="${API_URL}/people/${message.user}/avatar"]`);
+    (avatars).forEach(e => {
+      var container = e.closest(".presence");
+      container.classList.remove("away", "active");
+      container.classList.add(message.status);
+    });
   };
 
   useRealTime("presence-update.weavy", updatePresence);
@@ -59,7 +63,7 @@ const Sidebar = (props) => {
             <div className="row p-2 border-bottom align-middle" style={{ margin: 0 }}>
               <div className="col-2">
                 <Avatar shape="circle" type="image" className={typeof item.presence === "undefined" ? "presence" : "presence " + item.presence}>
-                  <img alt="" src={`${API_URL}${item.avatar_url.replace("{options}", "48")}`} />
+                  <img alt="" className="has-presence" src={`${API_URL}${item.avatar_url.replace("{options}", "48")}`} />
                 </Avatar>
               </div>
               <div className="col-10">
