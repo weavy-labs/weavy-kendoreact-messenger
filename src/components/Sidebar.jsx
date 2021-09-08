@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import { ListView } from "@progress/kendo-react-listview";
 import { Avatar } from "@progress/kendo-react-layout";
 import { DropDownButton, DropDownButtonItem, Button } from "@progress/kendo-react-buttons";
+import useRealTime from "../hooks/useRealTime";
 import ConversationExcerpt from "./ConversationExcerpt";
 import Search from "./Search";
 import { useQuery, useQueryClient } from "react-query";
@@ -10,7 +11,7 @@ import { API_URL } from "../constants";
 
 const Sidebar = (props) => {
   const queryClient = useQueryClient();
-
+  
   const getConversations = async () => {
     const response = await fetch(API_URL + "/api/conversations", {
       method: "GET",
@@ -19,6 +20,13 @@ const Sidebar = (props) => {
     const conversations = await response.json();
     return conversations;
   };
+
+  const updatePresence = (message) => {
+    console.log(message);
+    console.log(document.querySelectorAll(`img[src^="${API_URL}/people/${message.user}/avatar"]`));
+  };
+
+  useRealTime("presence-update.weavy", updatePresence);
 
   const { isLoading, isError, data, error } = useQuery("conversations", getConversations, { refetchOnWindowFocus: false });
 
@@ -40,7 +48,7 @@ const Sidebar = (props) => {
     } else {
       console.error("Unsupported action: " + item.action);
     }
-  };
+  };  
 
   const MyItemRender = (props) => {
     let item = props.dataItem;
@@ -50,12 +58,12 @@ const Sidebar = (props) => {
           <NavLink to={"/conversation/" + item.id} activeClassName="active">
             <div className="row p-2 border-bottom align-middle" style={{ margin: 0 }}>
               <div className="col-2">
-                <Avatar shape="circle" type="image">
-                  <img alt="" src={`${API_URL}/${item.avatar_url.replace("{options}", "48")}`} />
+                <Avatar shape="circle" type="image" className={typeof item.presence === "undefined" ? "presence" : "presence " + item.presence}>
+                  <img alt="" src={`${API_URL}${item.avatar_url.replace("{options}", "48")}`} />
                 </Avatar>
               </div>
               <div className="col-10">
-                <time className="text-muted" dateTime="{item.last_message_at}" title="{item.last_message_at}">
+                <time className="text-muted" dateTime={item.last_message_at} title={item.last_message_at}>
                   {item.last_message_at_string}
                 </time>
                 <div className="text-truncate">{item.title}</div>
