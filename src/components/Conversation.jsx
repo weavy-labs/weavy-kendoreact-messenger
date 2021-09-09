@@ -1,57 +1,40 @@
-import { React, Fragment, createRef, useState } from "react";
-import { Chat, ChatMessage } from "@progress/kendo-react-conversational-ui";
-import { Avatar } from "@progress/kendo-react-layout";
-import { useParams } from "react-router-dom";
-import { useQuery, useQueryClient, useMutation } from "react-query";
-import useRealTime from "../hooks/useRealTime";
-import { API_URL } from "../constants";
+import { React, Fragment, useState } from "react";
+import { Chat } from "@progress/kendo-react-conversational-ui";
+import { useParams, NavLink } from "react-router-dom";
+import { useQueryClient, useMutation } from "react-query";
 import ConversationHeader from "./ConversationHeader";
-import { NavLink } from "react-router-dom";
+import { CustomChatMessage, CustomAttachmentTemplate } from "./ConversationalUI";
+import useRealTime from "../hooks/useRealTime";
+import useMessages from "../hooks/useMessages";
+import useMessageBox from "../hooks/useMessageBox";
+import { API_URL } from "../constants";
+
 
 const Conversation = ({ user }) => {
   let { id } = useParams();
   const queryClient = useQueryClient();
+  const [attachments, setAttachments] = useState([]);
+  const { isLoading, isError, data, error } = useMessages(id);
 
+  // todo: use this when implementing attachments...
+  const customMessageBox = useMessageBox(attachments, setAttachments);
+
+  // add incoming message from realtime
   const addFromRealTime = (message) => {
-    // don't add messages from real time from the current user or if a different conversation
-    if (message.createdBy.id == user.id || message.conversation != id) return;
-
-    //queryClient.invalidateQueries(["messages", id]);
+    if (message.createdBy.id == user.id || message.conversation != id) return;    
     addMessageFromRealTimeMutation.mutate(message)
   };
 
+  /// update the whole conversation
   const updateConversation = () => {
     queryClient.invalidateQueries(["messages", id]);
   }
 
   useRealTime("message-inserted.weavy", addFromRealTime);
-
   useRealTime("conversation-read.weavy", updateConversation);
 
-  const getTelerikMessage = (item) => {
-
-    return {
-      text: item.text,
-      timestamp: new Date(item.created_at),
-      author: {
-        id: item.created_by_id,
-        name: item.created_by_name,
-        avatarUrl:
-          API_URL + `${item.created_by_thumb.replace("{options}", "32")}`,
-      },
-      attachments: item.attachments,
-      seenBy: item.seen_by
-      // attachments: item.attachments.map((a) => {
-      //     return {
-      //         content: "https://showcase.weavycloud.com/attachments/" + a + "/image.png",
-      //         contentType: "image",
-      //     }
-      // })
-    };
-  }
-
-  const getTelerikMessageFromRealTime = (item) => {
-
+  /// map a Weavy realtime message to the expected message model format
+  const mapMessageFromRealTime = (item) => {
     return {
       text: item.text,
       timestamp: new Date(item.createdAt),
@@ -71,28 +54,8 @@ const Conversation = ({ user }) => {
     };
   }
 
-  const getMessages = async () => {
-    const response = await fetch(
-      API_URL + "/api/conversations/" + id + "/messages",
-      {
-        method: "GET",
-        credentials: "include",
-      }
-    );
-
-    const messages = await response.json();
-
-    return messages.data?.map((item) => {
-      return getTelerikMessage(item);
-    });
-  };
-  const { isLoading, isError, data, error } = useQuery(["messages", id], getMessages, { refetchOnWindowFocus: false });
-
-  const fileUpload = createRef();
-
-  const [attachments, setAttachments] = useState([]);
-
-  const addMessage = async (message) => {
+  /// post a new message to Weavy
+  const postMessage = async (message) => {
     let files = attachments.map((f) => {
       return f.id;
     });
@@ -110,15 +73,13 @@ const Conversation = ({ user }) => {
     });
   };
 
+  /// add message from realtime mutation
   const addMessageFromRealTimeMutation = useMutation(newMessage => {
-
-    queryClient.setQueryData(["messages", id], (old) => [
-      ...old,
-      getTelerikMessageFromRealTime(newMessage),
-    ]);
+    queryClient.setQueryData(["messages", id], (old) => [...old, mapMessageFromRealTime(newMessage)]);
   });
 
-  const addMessageMutation = useMutation(addMessage, {
+  /// add message mutation
+  const addMessageMutation = useMutation(postMessage, {
     // When mutate is called:
     onMutate: async (newMessage) => {
       // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
@@ -150,167 +111,12 @@ const Conversation = ({ user }) => {
     },
   });
 
-  const uploadFiles = async (data) => {
-    return fetch(API_URL + "/a/blobs/", {
-      method: "POST",
-      credentials: "include",
-      body: data,
-    });
+  /// send message event handler
+  const handleMessageSend = (event) => {
+    addMessageMutation.mutate(event.message);
   };
 
-  const insertMessage = (message) => {
-    addMessageMutation.mutate(message);
-  };
-
-  const addNewMessage = (event) => {
-    insertMessage(event.message);
-
-    // //event.message.typing = true;
-    // event.message.attachments = [
-    //     {
-    //         content: "A link to Google",
-    //         site: "https://google.com",
-    //         contentType: "link"
-    //     },
-
-    //     {
-    //         content: "A link to Weavy",
-    //         site: "https://weavy.com",
-    //         contentType: "link"
-    //     }
-    // ]
-    // setMessages([...messages, event.message]);
-  };
-
-  const handleInputChange = async (e) => {
-    var files = e.target.files;
-
-    if (files.length > 0) {
-      // add files to formdata object
-      var formData = new FormData();
-      for (let index = 0; index < files.length; index++) {
-        const file = files[index];
-        formData.append("file-" + index, file);
-      }
-
-      var response = await uploadFiles(formData);
-      var json = await response.json();
-
-      setAttachments([...attachments, ...json.data]);
-    }
-  };
-
-  const CustomChatMessage = (props) => (
-    <ChatMessage {...props} dateFormat={"t"} />
-  );
-
-  const CustomUploadButton = (props) => {
-    return (
-      <Fragment>
-        <input
-          type="file"
-          onChange={handleInputChange}
-          style={{
-            display: "none",
-          }}
-          ref={fileUpload}
-        />
-        <button
-          className={"k-button k-flat k-button-icon"}
-          onClick={() => fileUpload.current.click()}
-        >
-          <span
-            className={"k-icon " + props.icon}
-            style={{
-              fontSize: "20px",
-            }}
-          />
-        </button>
-      </Fragment>
-    );
-  };
-
-  const CustomMessage = (props) => {
-    return (
-      <Fragment>
-        <div>
-          Attachments:
-          {attachments.map((a) => {
-            return (
-              <div>
-                <img
-                  alt=""
-                  src={API_URL + `/${a.thumb.replace("{options}", "16")}`}
-                />
-                {a.name}
-              </div>
-            );
-          })}
-        </div>
-        <div style={{ display: "flex", flex: 1 }}>
-          {CustomUploadButton({
-            icon: "k-i-image-insert",
-          })}
-          {props.messageInput}
-          {props.sendButton}
-        </div>
-      </Fragment>
-    );
-  };
-
-  const CustomAttachmentTemplate = (props) => {
-    let attachment = props.item;
-    return (
-      <a
-        href={attachment.site}
-        target="_blank"
-        draggable={false}
-        tabIndex={-1}
-        rel="noopener noreferrer"
-      >
-        <img
-          alt=""
-          style={{
-            width: 250,
-          }}
-          src={API_URL + "/attachments/" + attachment + "/image.png"}
-          draggable={false}
-        />
-      </a>
-    );
-    //  return (
-    //     <div className="k-card">
-    //         <div className="k-card-body">
-    //         <img alt="" src={"https://showcase.weavycloud.com/attachments/" + attachment + "/image.png"} draggable={false} rel="noopener noreferrer"/>;
-    //         </div>
-    //     </div>
-    // );
-
-    // if (attachment.contentType === "link") {
-    //     return (
-    //         <div className="k-card">
-    //             <div className="k-card-body">
-    //                 <a
-    //                     href={attachment.site}
-    //                     target="_blank"
-    //                     draggable={false}
-    //                     tabIndex={-1}
-    //                     rel="noopener noreferrer"
-    //                 >
-    //                     {attachment.content}
-    //                 </a>
-    //             </div>
-    //         </div>
-    //     );
-    // } else if (attachment.contentType.match("^image")) {
-    //     return <img alt="" src={attachment.content} draggable={false} />;
-    // } else if (attachment.contentType === "text/plain") {
-    //     return attachment.content;
-    // } else {
-    //     return null;
-    // }
-  };
-
+  /// TODO: Why can't this template be moved outside and imported. Investigate!!
   const CustomMessageTemplate = (props) => {
     return (
       <div>
@@ -318,7 +124,7 @@ const Conversation = ({ user }) => {
           <div>{props.item.text}</div>
         </div>
         {props.item.seenBy && props.item.seenBy.map(m => {
-          return <img style={{borderRadius: '50%'}} src={API_URL + `${m.thumb.replace("{options}", "16")}`} title={"Seen by " + m.name + " " + new Date(m.read_at).toLocaleString()}/>
+          return <img alt="" key={m.id} style={{ borderRadius: '50%' }} src={API_URL + `${m.thumb.replace("{options}", "16")}`} title={"Seen by " + m.name + " " + new Date(m.read_at).toLocaleString()} />
         })}
       </div>
 
@@ -343,10 +149,10 @@ const Conversation = ({ user }) => {
         <Chat
           user={user}
           messages={data}
-          onMessageSend={addNewMessage}
+          onMessageSend={handleMessageSend}
           placeholder={"Type a message..."}
           messageTemplate={CustomMessageTemplate}
-          //messageBox={CustomMessage}
+          //messageBox={customMessageBox}
           message={CustomChatMessage}
           attachmentTemplate={CustomAttachmentTemplate}
           width={"100%"}
