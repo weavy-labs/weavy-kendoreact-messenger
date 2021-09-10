@@ -16,8 +16,7 @@ function useTyping(id) {
     }, [id, typers])
 
     const handleStopTyping = useCallback((data) => {
-        if (data && data.conversation == id) {
-            console.log("YES; STOP TYPING!")
+        if (data && data.conversation == id) {            
             setIsTyping(false);
             setTypers([]);
         }
@@ -42,8 +41,7 @@ function useTyping(id) {
         }
 
     }, [id, isTyping]);
-
-    //console.log("CONVERSATION: ", id, { isTyping, typers })
+    
     return { isTyping, typers };
 
 }
