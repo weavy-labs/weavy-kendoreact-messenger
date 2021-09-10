@@ -1,20 +1,17 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
 import RealTimeContext from '../realtime-context';
 
 function useRealTime( messageName, callback) {
     const { proxy } = useContext(RealTimeContext);
-    const [ message, setMessage ] = useState(null)
-
+    
     useEffect(() => {        
         if (!proxy) return;
 
         const handleReceiveMessage = (type, data) => {
             switch (type) {
-                case messageName:
-                    const json = JSON.parse(data)
-                    setMessage(json);       
+                case messageName:                    
                     if(callback){
-                        callback.call(this, json);
+                        callback.call(this, JSON.parse(data));
                     }             
                     break;
                 default:
@@ -27,8 +24,6 @@ function useRealTime( messageName, callback) {
             proxy.off('eventReceived', handleReceiveMessage);
         }
     }, [proxy, messageName, callback]);
-
-    return message;
 }
 
 export default useRealTime;
