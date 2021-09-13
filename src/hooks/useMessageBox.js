@@ -1,3 +1,4 @@
+import { Button } from "@progress/kendo-react-buttons";
 import { createRef, Fragment, useCallback, useEffect } from "react";
 import { API_URL } from "../constants";
 
@@ -91,19 +92,23 @@ function useMessageBox(id, attachments, setAttachments) {
       }
     }, []);
 
+    const handleRemoveItem = (attachmentId) => {
+      setAttachments(attachments.filter(item => item.id !== attachmentId));
+    }
+
 
     return (
       <Fragment>
-        <div>
-          Attachments:
+        <div className="attachments">          
           {attachments.map((a) => {
             return (
-              <div key={a.id}>
+              <div key={a.id} className="attachment">
                 <img
                   alt=""
-                  src={API_URL + `/${a.thumb.replace("{options}", "16")}`}
+                  src={API_URL + `/${a.thumb.replace("{options}", "64")}`}
                 />
-                {a.name}
+                <span>{a.name}</span>
+                <Button icon="delete" look="flat" onClick={handleRemoveItem.bind(this, a.id)}></Button>
               </div>
             );
           })}

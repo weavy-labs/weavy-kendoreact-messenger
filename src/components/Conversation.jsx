@@ -108,6 +108,9 @@ const Conversation = ({ user }) => {
       queryClient.invalidateQueries(["messages", id]);
       // TODO: should probably only invalidate the specific conversation - not all of them
       queryClient.invalidateQueries(["conversations"]);
+
+      // clear attachments
+      setAttachments([]);
     },
   });
 
