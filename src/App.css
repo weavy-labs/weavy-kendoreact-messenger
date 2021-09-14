@@ -1,10 +1,9 @@
-
-body{
-  position:relative;
+body {
+  position: relative;
 }
 
-#root-container{
-  position:relative;
+#root-container {
+  position: relative;
 }
 
 #sidebar {
@@ -46,88 +45,89 @@ body{
   display: none
 }
 
-
 @media(min-width: 768px) {
   #root-container.dual {
-      display: flex;
-      flex-wrap: wrap;
-      height: 100vh;
-      overflow: hidden
+    display: flex;
+    flex-wrap: wrap;
+    height: 100vh;
+    overflow: hidden
   }
-
   /* body.dual #root{
     flex: 1;
     display: flex;
   } */
-
   #root-container.dual .pane {
-      height: 100vh;
-      overflow: hidden
+    height: 100vh;
+    overflow: hidden
   }
-
   #root-container.dual .pane-header {
-      position: static;
-      top: auto;
-      z-index: unset
+    position: static;
+    top: auto;
+    z-index: unset
   }
-
   #root-container.dual .pane-actions .btn-avatar {
-      display: flex
+    display: flex
   }
-
   #root-container.dual .pane-actions .btn-back {
-      display: none
+    display: none
   }
-
   #root-container.dual .pane-actions .badge {
-      display: none
+    display: none
   }
-
   #root-container.dual #conversation {
-      display: flex;
-      flex-direction: column;
-      flex: 1;
-      height: 100%
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    height: 100%
   }
-
-  #root-container.dual.one #sidebar,#root-container.dual.two #sidebar {
-      border-right: 1px solid #e0e0e0;
-      display: flex;
-      flex: 0 0 40%;
-      max-width: 420px
+  #root-container.dual.one #sidebar, #root-container.dual.two #sidebar {
+    border-right: 1px solid #e0e0e0;
+    display: flex;
+    flex: 0 0 40%;
+    max-width: 420px
   }
-
-  #root-container.dual.one #main,#root-container.dual.two #main {
-      display: flex;
-      flex: 3
+  #root-container.dual.one #main, #root-container.dual.two #main {
+    display: flex;
+    flex: 3
   }
-
-  #root-container.dual.one #main .pane-body,#root-container.dual.two #main .pane-body {
-      height: 100%;
-      overflow: hidden
+  #root-container.dual.one #main .pane-body, #root-container.dual.two #main .pane-body {
+    height: 100%;
+    overflow: hidden
   }
-
-  .k-chat{   
-    height: 100%;   
+  .k-chat {
+    height: 100%;
   }
 }
-
 
 .app {
   display: flex;
 }
 
-
-.k-listview-content{
+.k-listview-content {
   overflow: hidden;
 }
 
-.k-chat{
-  max-width: none; 
+.k-chat {
+  max-width: none;
   min-height: calc(100vh - 3rem);
 }
 
-/* .k-message-box{
+.k-message-box {
   flex-direction: column;
   align-items: inherit;
-} */
+}
+
+.attachment {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.attachment img {
+  width: 32px;
+  height: 32px;
+}
+
+.attachment span {
+  margin-left: 0.5rem;
+}

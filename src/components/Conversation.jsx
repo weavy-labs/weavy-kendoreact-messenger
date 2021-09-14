@@ -17,7 +17,7 @@ const Conversation = ({ user }) => {
   const { isLoading, isError, data, error } = useMessages(id);
 
   // todo: use this when implementing attachments...
-  const customMessageBox = useMessageBox(attachments, setAttachments);
+  const customMessageBox = useMessageBox(id, attachments, setAttachments);
 
   // add incoming message from realtime
   const addFromRealTime = (message) => {
@@ -108,6 +108,9 @@ const Conversation = ({ user }) => {
       queryClient.invalidateQueries(["messages", id]);
       // TODO: should probably only invalidate the specific conversation - not all of them
       queryClient.invalidateQueries(["conversations"]);
+
+      // clear attachments
+      setAttachments([]);
     },
   });
 
@@ -152,7 +155,7 @@ const Conversation = ({ user }) => {
           onMessageSend={handleMessageSend}
           placeholder={"Type a message..."}
           messageTemplate={CustomMessageTemplate}
-          //messageBox={customMessageBox}
+          messageBox={customMessageBox}
           message={CustomChatMessage}
           attachmentTemplate={CustomAttachmentTemplate}
           width={"100%"}
