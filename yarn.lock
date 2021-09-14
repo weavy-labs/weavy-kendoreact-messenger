@@ -1437,6 +1437,13 @@
     schema-utils "^2.6.5"
     source-map "^0.7.3"
 
+"@progress/kendo-drawing@^1.11.0":
+  version "1.11.0"
+  resolved "https://registry.yarnpkg.com/@progress/kendo-drawing/-/kendo-drawing-1.11.0.tgz#564bfe0b6be65edb0c7eff4177295ee12f8163a7"
+  integrity sha512-MzvjUHE43c6c1T1EUCV6vOjJqCeomc4A+4x99+67BNpkfv5YIu4yXRcFIv6RFsfcM2Mz5wbDRnQkTZsW6fa8Pg==
+  dependencies:
+    "@progress/pako-esm" "^1.0.1"
+
 "@progress/kendo-licensing@^1.2.0":
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/@progress/kendo-licensing/-/kendo-licensing-1.2.0.tgz#949c5b954efa609ddfa389c714e5d315a6d8852b"
@@ -1517,12 +1524,46 @@
     "@progress/kendo-react-popup" "4.8.0"
     prop-types "^15.6.0"
 
+"@progress/kendo-react-form@4.7.0":
+  version "4.7.0"
+  resolved "https://registry.yarnpkg.com/@progress/kendo-react-form/-/kendo-react-form-4.7.0.tgz#a5bf63988e0117197daffb6e3eb1cb2170f6674d"
+  integrity sha512-OrlGmpFjSvZNEmHhqLrIKiKDTb79ZrsWMOiw+dZM64MVc4084xDzZd1PBBnwCdSzzUOfHTvU4E1t8JuEEi3y6A==
+  dependencies:
+    "@progress/kendo-react-common" "4.7.0"
+    prop-types "^15.6.0"
+
+"@progress/kendo-react-indicators@4.7.0":
+  version "4.7.0"
+  resolved "https://registry.yarnpkg.com/@progress/kendo-react-indicators/-/kendo-react-indicators-4.7.0.tgz#c6ad05a0dde07323c1be81adec4400770172630a"
+  integrity sha512-yYwPZ1J73PRBxqj6FwpA+vr/tu4hBgyexzjLTOPt65Nm5XSgPnJUE4Fzx7+i1FcVtSmbUp4Uf2jAZeiE7zy7HA==
+  dependencies:
+    "@progress/kendo-react-common" "4.7.0"
+    prop-types "^15.6.0"
+
+"@progress/kendo-react-inputs@4.7.0":
+  version "4.7.0"
+  resolved "https://registry.yarnpkg.com/@progress/kendo-react-inputs/-/kendo-react-inputs-4.7.0.tgz#475bedcd25c34866bc66168b6876cd51d7da148b"
+  integrity sha512-sqAehwiX683JDIXNkJLEF9A0hr/45TcwEVXLH3lkuTGcrY5T8uVkoq8Jo4jehJIdkGMAKpis895i2Et8yrVAWA==
+  dependencies:
+    "@progress/kendo-react-common" "4.7.0"
+    "@progress/kendo-react-labels" "4.7.0"
+    "@progress/kendo-react-popup" "4.7.0"
+    prop-types "^15.6.0"
+
 "@progress/kendo-react-intl@^4.7.0":
   version "4.7.0"
   resolved "https://registry.yarnpkg.com/@progress/kendo-react-intl/-/kendo-react-intl-4.7.0.tgz#85f83d668979a5475b5bab32c91754b5c49f8bc0"
   integrity sha512-f/fPrEW8ZBtm7Fw2TZPYEddWSCc6m1zLNk0SdwJmZ1gMFTmNUigquL4DcO69Oc/n9rfqxhDUWnE8UV76+1Wmeg==
   dependencies:
     "@telerik/kendo-intl" "^2.1.0"
+    prop-types "^15.6.0"
+
+"@progress/kendo-react-labels@4.7.0":
+  version "4.7.0"
+  resolved "https://registry.yarnpkg.com/@progress/kendo-react-labels/-/kendo-react-labels-4.7.0.tgz#099d12404299685a4bba9cb2e1781433e5cb414f"
+  integrity sha512-TZVzSt6Pll7ARl1elhaVaTCYZeK9t2BW7I6WrZIHBYO4iIC12B23rgOO/yhfHAK32VCKdWnUb0MYEsxa1/Srew==
+  dependencies:
+    "@progress/kendo-react-common" "4.7.0"
     prop-types "^15.6.0"
 
 "@progress/kendo-react-labels@4.8.0":
@@ -1594,6 +1635,11 @@
   version "4.40.0"
   resolved "https://registry.yarnpkg.com/@progress/kendo-theme-default/-/kendo-theme-default-4.40.0.tgz#e4fb10e1700aa9a198cd44d3c4e5ca7bf222307d"
   integrity sha512-jLW2oGRiInX6YEVWsXrI45RTA2Dw1PIMwDfMph97iHjcPNKce8pgRmW+lJkG3Tj4Dir9e7kREekb32IK85zsbw==
+
+"@progress/pako-esm@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@progress/pako-esm/-/pako-esm-1.0.1.tgz#eeb7d2c3f8e865198edf23fb42645bd8cb513a11"
+  integrity sha512-O4A3b1EuE9Xe1pC3Xz9Tcn1M/CYrL71f4y/5TXeytOVTkmkzBgYW97fYP2f+54H0e0erWRaqV/kUUB/a8Uxfbw==
 
 "@rollup/plugin-node-resolve@^7.1.1":
   version "7.1.3"

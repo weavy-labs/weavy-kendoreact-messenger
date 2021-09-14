@@ -6,7 +6,7 @@ function useMessageBox(attachments, setAttachments) {
     const fileUpload = createRef();
 
     const uploadFiles = async (data) => {
-        return fetch(API_URL + "/a/blobs/", {
+        return fetch(`${API_URL}/api/blobs`, {
           method: "POST",
           credentials: "include",
           body: data,

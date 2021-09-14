@@ -5,6 +5,7 @@ import RealTimeContext from "../realtime-context";
 import Sidebar from "./Sidebar";
 import Content from "./Content";
 import NewMessage from "./NewMessage"
+import Settings from "./Settings"
 import { API_URL } from '../constants';
 
 const Container = (props) => {
@@ -59,9 +60,7 @@ const Container = (props) => {
                     <div className="pane-title text-truncate">
                         Telerik Messenger
                     </div>
-                    <div className="dropdown-menu dropdown-menu-right" x-placement="bottom-end">
-                        <button type="button" className="dropdown-item" data-toggle="modal" data-target="#settings-modal">Inställningar</button>
-                    </div>
+                    <Settings></Settings>
                 </header>
                 <div className="pane-body">
                     <Sidebar></Sidebar>

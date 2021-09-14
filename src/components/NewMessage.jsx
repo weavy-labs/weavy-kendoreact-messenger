@@ -2,6 +2,7 @@ import { React, useEffect, useState, useRef, useCallback, Fragment } from "react
 import { useHistory } from "react-router-dom";
 import { useQueryClient } from "react-query";
 import { Dialog, DialogActionsBar } from "@progress/kendo-react-dialogs";
+import { Button } from "@progress/kendo-react-buttons";
 import { MultiSelect } from "@progress/kendo-react-dropdowns";
 import { API_URL } from "../constants";
 
@@ -83,7 +84,7 @@ const NewMessage = () => {
   }, []);
 
   const createConversation = async () => {
-    const response = await fetch(API_URL + "/api/conversations", {
+    const request = await fetch(API_URL + "/api/conversations", {
       method: "POST",
       credentials: "include",
       body: JSON.stringify({ members: value.map((x) => x.id) }),
@@ -92,7 +93,7 @@ const NewMessage = () => {
       },
     });
 
-    const newConversation = await response.json();
+    const newConversation = await request.json();
 
     // reset
     setValue(null);
@@ -108,6 +109,7 @@ const NewMessage = () => {
       resetCache();
     };
   }, [filter, requestData]);
+  
   const onFilterChange = useCallback(
     (event) => {
       const filter = event.filter.value;
@@ -128,6 +130,7 @@ const NewMessage = () => {
     }
     return false;
   }, []);
+
   const getCachedData = useCallback((skip) => {
     const data = [];
 
@@ -137,6 +140,7 @@ const NewMessage = () => {
 
     return data;
   }, []);
+
   const pageChange = useCallback(
     (event) => {
       const newSkip = event.page.skip;
@@ -151,6 +155,7 @@ const NewMessage = () => {
     },
     [filter, getCachedData, requestData, shouldRequestData]
   );
+
   const onChange = useCallback((event) => {
     const value = event.target.value;
 
@@ -161,11 +166,10 @@ const NewMessage = () => {
     }
     setValue(value);
   }, []);
+
   return (
     <Fragment>
-      <button className="k-button" onClick={toggleDialog}>
-        New message...
-      </button>
+      <Button icon="plus" look="clear" onClick={toggleDialog}></Button>
       {visible && (
         <Dialog title="New message" onClose={toggleDialog}>
           <div>
