@@ -126,6 +126,7 @@ const Conversation = ({ user }) => {
 
   /// TODO: Why can't this template be moved outside and imported. Investigate!!
   const CustomMessageTemplate = (props) => {
+    if(!props.item.text ) return (<Fragment></Fragment>)
     return (
       <div>
         <div className="k-bubble">
