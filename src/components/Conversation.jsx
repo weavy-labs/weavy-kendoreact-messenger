@@ -35,6 +35,7 @@ const Conversation = ({ user }) => {
 
   /// map a Weavy realtime message to the expected message model format
   const mapMessageFromRealTime = (item) => {
+    console.log(item)
     return {
       text: item.text,
       timestamp: new Date(item.createdAt),
@@ -43,14 +44,17 @@ const Conversation = ({ user }) => {
         name: item.createdBy.name,
         avatarUrl:
           API_URL + `${item.createdBy.thumb.replace("{options}", "32")}`,
-      },
-      attachments: item.attachments,
-      // attachments: item.attachments.map((a) => {
-      //     return {
-      //         content: "https://showcase.weavycloud.com/attachments/" + a + "/image.png",
-      //         contentType: "image",
-      //     }
-      // })
+      },      
+       attachments: item.attachments.map((a) => {
+           return {
+             id: a,
+             download: "",
+             thumb: "",
+              kind: "document",
+               kind: "https://showcase.weavycloud.com/attachments/" + a + "/image.png",
+               contentType: "image",
+           }
+       })
     };
   }
 
@@ -75,7 +79,8 @@ const Conversation = ({ user }) => {
 
   /// add message from realtime mutation
   const addMessageFromRealTimeMutation = useMutation(newMessage => {
-    queryClient.setQueryData(["messages", id], (old) => [...old, mapMessageFromRealTime(newMessage)]);
+    queryClient.invalidateQueries(["messages", id]);
+    //queryClient.setQueryData(["messages", id], (old) => [...old, mapMessageFromRealTime(newMessage)]);
   });
 
   /// add message mutation
