@@ -3,10 +3,8 @@ import { API_URL } from "../constants";
 
 function useMetaData(id) {
 
-
     const getMetaData = async () => {
-        const response = await fetch(
-            API_URL + "/api/conversations/" + id,
+        const response = await fetch(API_URL + "/api/conversations/" + id,
             {
                 method: "GET",
                 credentials: "include",
@@ -15,7 +13,6 @@ function useMetaData(id) {
 
         const data = await response.json();        
         return data
-
     };
 
     const { data } = useQuery(
@@ -24,7 +21,8 @@ function useMetaData(id) {
         { refetchOnWindowFocus: false }
     );
 
-    return data ? { id: id, title: data.title } : {};
+    //return data ? { id: id, title: data.title, members: data.members } : {};
+    return data ?? {};
 }
 
 export default useMetaData;

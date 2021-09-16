@@ -81,6 +81,10 @@ code {
   z-index: 10002 !important;
 }
 
+.newMessage {
+  width: 400px;
+}
+
 /* search */
 .search {
   margin: 0.5rem;
@@ -136,4 +140,49 @@ code {
 
 .settings .field .k-textbox-container {
   width: 100%;
+}
+
+/* details */
+.details .k-dialog {
+  border: 0;
+}
+
+.details .k-dialog-content {
+  width: 25rem; 
+  padding: 0 !important;
+}
+
+.details .close {
+  position: absolute;
+  color: #fff;
+  right: .2rem;
+  top: .2rem;
+}
+
+.details .close:hover {
+  color: #fff;
+}
+
+.details .cover {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  background-image: linear-gradient(45deg, #216eb4, #28b7cf);
+}
+
+.details .cover img {
+  border-radius: 50%;
+  display: block;
+  width: 128px;
+  margin-bottom: 1rem;
+}
+
+.details .cover input[type="text"] {
+  width: 20rem;
+  text-align: center;
+}
+
+.details .cover span {
+  color: #fff;
 }
