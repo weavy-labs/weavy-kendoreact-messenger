@@ -16,13 +16,8 @@ function useMessages(id) {
           API_URL + `${item.created_by_thumb.replace("{options}", "32")}`,
       },
       attachments: item.attachments,
-      seenBy: item.seen_by
-      // attachments: item.attachments.map((a) => {
-      //     return {
-      //         content: "https://showcase.weavycloud.com/attachments/" + a + "/image.png",
-      //         contentType: "image",
-      //     }
-      // })
+      attachmentLayout: "list",
+      seenBy: item.seen_by     
     };
   }
 

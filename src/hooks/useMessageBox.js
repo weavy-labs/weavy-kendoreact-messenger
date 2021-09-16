@@ -1,6 +1,7 @@
 import { Button } from "@progress/kendo-react-buttons";
 import { createRef, Fragment, useCallback, useEffect } from "react";
 import { API_URL } from "../constants";
+import { mapIcon } from "../utilities";
 
 function useMessageBox(id, attachments, setAttachments) {
 
@@ -103,10 +104,11 @@ function useMessageBox(id, attachments, setAttachments) {
           {attachments.map((a) => {
             return (
               <div key={a.id} className="attachment">
-                <img
+                {a.kind !== "image" && mapIcon(a.icon.name, "medium")}
+                {a.kind === "image" && <img
                   alt=""
                   src={API_URL + `/${a.thumb.replace("{options}", "64")}`}
-                />
+                />}
                 <span>{a.name}</span>
                 <Button icon="delete" look="flat" onClick={handleRemoveItem.bind(this, a.id)}></Button>
               </div>

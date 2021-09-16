@@ -1,5 +1,6 @@
 import { API_URL } from "../../constants";
 
+// not in use, see Conversation.jsx!
 const CustomMessageTemplate = (props) => {
     return (
       <div>
