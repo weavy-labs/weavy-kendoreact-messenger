@@ -1,6 +1,8 @@
 import { API_URL } from "../../constants";
+import { mapIcon } from "../../utilities";
 
 const DocumentAttachment = (props) => {
+    
     return (
         <div className="k-card">
             <div className="k-card-body">
@@ -11,11 +13,7 @@ const DocumentAttachment = (props) => {
                     tabIndex={-1}
                     rel="noopener noreferrer"
                 >
-                     <img
-                        alt=""
-                        src={API_URL + `${props.item.thumb.replace("{options}", "32")}`}
-                        draggable={false}
-                    />
+                    {mapIcon(props.item.icon.name, "large")}
                     {props.item.name}
                 </a>
             </div>
