@@ -24,7 +24,7 @@ const Container = (props) => {
             }
           );
       
-          const me = await response.json();
+          const me = await response.json();          
           return me;
     }
 
@@ -68,7 +68,7 @@ const Container = (props) => {
             </div>
 
             <main id="main" className="pane conversation">
-                <Content user={ {id: data.id, avatarUrl: API_URL + `${data.thumb.replace("{options}", "32")}`, name: data.profile.name}}></Content>
+                <Content user={ {id: data.id, avatarUrl: API_URL + `${data.thumb.replace("{options}", "128")}`, name: data.profile.name}}></Content>
             </main>
         </div>
     )
