@@ -36,7 +36,7 @@ const Settings = () => {
   const saveSettings = async (event) => {
     event.preventDefault();
 
-    var values = { enter_to_send: enterToSend, time_zone: timezone.value, avatar_id: avatarId === "" ? null : avatarId };
+    var values = { enter_to_send: enterToSend, time_zone: timezone ? timezone.value : null, avatar_id: avatarId === "" ? null : avatarId };
 
     await fetch(`${API_URL}/api/conversations/settings`, {
       method: "POST",
