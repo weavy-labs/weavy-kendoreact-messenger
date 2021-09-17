@@ -138,6 +138,7 @@ a.attachment-link{
 
 .attachment-meta{
   margin-left: 0.5rem;  
+  text-align: left;
 }
 
 a.attachment-link:hover{
