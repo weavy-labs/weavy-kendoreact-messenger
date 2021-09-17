@@ -128,6 +128,18 @@ body {
   height: 32px;
 }
 
-.attachment span {
+.attachment .attachmentTitle {
   margin-left: 0.5rem;
+}
+
+a.attachmentLink{
+  display:flex;
+}
+
+.attachmentMeta{
+  margin-left: 0.5rem;  
+}
+
+a.attachmentLink:hover{
+  text-decoration: none;
 }
