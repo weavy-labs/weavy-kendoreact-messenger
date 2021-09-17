@@ -47,25 +47,25 @@ const Details = () => {
       credentials: "include",
       headers: {
         "Content-Type": "application/json",
-      },      
+      },
     });
     invalidate();
   };
 
   const onAddMember = async () => {
     if (value && value.length > 0) {
-      var data = Array.from(value, x => x.id);
+      var data = Array.from(value, (x) => x.id);
       await fetch(`${API_URL}/api/conversations/${id}/members`, {
         method: "POST",
         credentials: "include",
         body: JSON.stringify(data),
         headers: {
           "Content-Type": "application/json",
-        },      
+        },
       });
       setValue(null);
       invalidate();
-    }    
+    }
   };
 
   const onChange = useCallback((event) => {
@@ -76,11 +76,9 @@ const Details = () => {
   const renderHeader = () => {
     return (
       <ListViewHeader style={{ color: "rgb(160, 160, 160)", fontSize: 14 }} className="pl-1 pb-2 pt-2">
-        {!isAddingMembers && (
-          <div className="row m-0 d-flex align-items-center">
-            <div className="col-12">Members</div>
-          </div>
-        )}
+        <div className="row m-0 d-flex align-items-center">
+          <div className="col-12">Members</div>
+        </div>
       </ListViewHeader>
     );
   };
@@ -123,18 +121,16 @@ const Details = () => {
     <Fragment>
       <Button icon="info" look="clear" onClick={toggleDialog}></Button>
       {visible && (
-        <Dialog onClose={toggleDialog} className="details">          
+        <Dialog onClose={toggleDialog} className="details">
           <Button className="close" icon="close" look="clear" onClick={toggleDialog}></Button>
-          <div className="cover">            
+          <div className="cover">
             <img alt="" src={`${API_URL}${avatar_url}`} />
-            {is_room &&
-              <input type="text" defaultValue={title} onBlur={setTitle} />
-            }
-            {!is_room &&
-              <span>{title}</span>
-            }            
+            {is_room && <input type="text" defaultValue={title} onBlur={setTitle} />}
+            {!is_room && <span>{title}</span>}
           </div>
-          <ListView data={members} item={renderMember} style={{ width: "100%" }} header={renderHeader} footer={renderFooter} />
+          {is_room && (
+            <ListView data={members} item={renderMember} style={{ width: "100%" }} header={renderHeader} footer={renderFooter} />
+          )}
         </Dialog>
       )}
     </Fragment>
