@@ -24,11 +24,11 @@ const Container = (props) => {
             }
           );
       
-          const me = await response.json();
+          const me = await response.json();          
           return me;
     }
 
-    useEffect(() => {
+    useEffect(() => {        
         fetch(API_URL + '/client/sign-in', {
             method: 'GET',
             credentials: 'include',
@@ -37,7 +37,7 @@ const Container = (props) => {
                 'Authorization': 'Bearer ' + token
             },
         }).then(res => res.json())
-            .then((user) => {                
+            .then((user) => {                     
                 connect();
             });
     }, []);
@@ -68,7 +68,7 @@ const Container = (props) => {
             </div>
 
             <main id="main" className="pane conversation">
-                <Content user={ {id: data.id, avatarUrl: API_URL + `${data.thumb.replace("{options}", "32")}`,}}></Content>
+                <Content user={ {id: data.id, avatarUrl: API_URL + `${data.thumb.replace("{options}", "128")}`, name: data.profile.name}}></Content>
             </main>
         </div>
     )

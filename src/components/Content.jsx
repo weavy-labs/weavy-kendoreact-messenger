@@ -1,21 +1,17 @@
 import { React } from 'react';
 import { Switch, Route, withRouter } from "react-router-dom";
-import Conversation from "./Conversation"
+import Conversation from "./Conversation";
+import Home from "./Home";
 
 const Content = (props) => {
 
     return (
         <Switch>
             <Route path="/" exact>
-                <Conversation></Conversation>
+                <Home user={props.user}></Home>
             </Route>
-
             <Route path="/conversation/:id" exact>
                 <Conversation user={props.user}></Conversation>
-            </Route>
-
-            <Route path="/about">
-                <div>About!</div>
             </Route>
         </Switch>
     )

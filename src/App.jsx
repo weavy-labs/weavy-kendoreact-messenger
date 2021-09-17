@@ -2,7 +2,6 @@ import '@progress/kendo-theme-bootstrap/dist/all.css';
 import './App.css';
 import { BrowserRouter } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { ReactQueryDevtools } from 'react-query/devtools';
 import RealTimeProvider from './realtime-provider';
 import Container from "./components/Container";
 
@@ -17,7 +16,6 @@ const App = (props) => {
         <BrowserRouter>
           <Container />
         </BrowserRouter>
-        <ReactQueryDevtools initialIsOpen={true} />
       </QueryClientProvider>
     </RealTimeProvider>
   );

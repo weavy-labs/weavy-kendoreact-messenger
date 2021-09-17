@@ -1,5 +1,5 @@
 import { Button } from "@progress/kendo-react-buttons";
-import { createRef, Fragment, useCallback, useEffect } from "react";
+import { createRef, Fragment, useEffect } from "react";
 import { API_URL } from "../constants";
 import { mapIcon } from "../utilities";
 
@@ -38,6 +38,7 @@ function useMessageBox(id, attachments, setAttachments) {
     return (
       <Fragment>
         <input
+          multiple="multiple"
           type="file"
           onChange={handleInputChange}
           style={{
@@ -91,7 +92,7 @@ function useMessageBox(id, attachments, setAttachments) {
           document.querySelector('.k-message-box').removeEventListener('keydown', handleKeyDown);
         }
       }
-    }, []);
+    }, [handleKeyDown]);
 
     const handleRemoveItem = (attachmentId) => {
       setAttachments(attachments.filter(item => item.id !== attachmentId));
@@ -100,17 +101,19 @@ function useMessageBox(id, attachments, setAttachments) {
 
     return (
       <Fragment>
-        <div className="attachments">          
+        <div className="attachments">
           {attachments.map((a) => {
             return (
               <div key={a.id} className="attachment">
-                {a.kind !== "image" && mapIcon(a.icon.name, "medium")}
-                {a.kind === "image" && <img
-                  alt=""
-                  src={API_URL + `/${a.thumb.replace("{options}", "64")}`}
-                />}
-                <span>{a.name}</span>
-                <Button icon="delete" look="flat" onClick={handleRemoveItem.bind(this, a.id)}></Button>
+                <span  className="attachment-icon">
+                  {a.kind !== "image" && mapIcon(a.icon.name, "medium")}
+                  {a.kind === "image" && <img
+                    alt=""
+                    src={API_URL + `/${a.thumb.replace("{options}", "64")}`}
+                  />}
+                </span>
+                <span className="attachment-title">{a.name}</span>
+                <Button icon="delete" className="k-color-error" look="flat" onClick={handleRemoveItem.bind(this, a.id)} title="Remove attachment"></Button>
               </div>
             );
           })}

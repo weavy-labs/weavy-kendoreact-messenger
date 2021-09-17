@@ -11,8 +11,7 @@ function useMetaData(id) {
             }
         );
 
-        const data = await response.json();        
-        return data
+        return await response.json();                
     };
 
     const { data } = useQuery(
@@ -21,7 +20,6 @@ function useMetaData(id) {
         { refetchOnWindowFocus: false }
     );
 
-    //return data ? { id: id, title: data.title, members: data.members } : {};
     return data ?? {};
 }
 

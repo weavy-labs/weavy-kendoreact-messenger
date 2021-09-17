@@ -57,7 +57,7 @@ const Sidebar = (props) => {
 
   const MyItemRender = (props) => {
     let item = props.dataItem;
-
+    
     return (
       <div className={!item.is_read ? "conversation-list unread" : "conversation-list"}>
         <NavLink to={"/conversation/" + item.id} activeClassName="active">
