@@ -17,8 +17,8 @@ const DocumentAttachment = (props) => {
                 >
                     {mapIcon(props.item.icon.name, "large")}
                     <div className="attachment-meta k-color-secondary">
-                        {props.item.name}
-                        <PrettyBytes bytes={props.item.size} />
+                        <div className="attachment-meta-title">{props.item.name}</div>
+                        <small><PrettyBytes bytes={props.item.size} /></small>
                     </div>
 
                 </a>

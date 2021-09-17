@@ -141,6 +141,11 @@ a.attachment-link{
   text-align: left;
 }
 
+.attachment-meta-title{
+  font-weight: bold;
+  padding-bottom: .125rem;
+}
+
 a.attachment-link:hover{
   text-decoration: none;
 }
