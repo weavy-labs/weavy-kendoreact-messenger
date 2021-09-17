@@ -68,7 +68,7 @@ const Container = (props) => {
             </div>
 
             <main id="main" className="pane conversation">
-                <Content user={ {id: data.id, avatarUrl: API_URL + `${data.thumb.replace("{options}", "32")}`,}}></Content>
+                <Content user={ {id: data.id, avatarUrl: API_URL + `${data.thumb.replace("{options}", "32")}`, name: data.profile.name}}></Content>
             </main>
         </div>
     )
