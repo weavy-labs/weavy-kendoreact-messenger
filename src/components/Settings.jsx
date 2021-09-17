@@ -1,6 +1,6 @@
 import { React, useState, Fragment, useRef } from "react";
 import { useQuery } from "react-query";
-import { Loader } from "@progress/kendo-react-indicators";
+import { Skeleton } from "@progress/kendo-react-indicators";
 import { Dialog } from "@progress/kendo-react-dialogs";
 import { Button } from "@progress/kendo-react-buttons";
 import { API_URL } from "../constants";
@@ -59,7 +59,7 @@ const Settings = () => {
     return fetch(`${API_URL}/api/blobs`, {
       method: "POST",
       credentials: "include",
-      body: data
+      body: data,
     });
   };
 
@@ -78,14 +78,14 @@ const Settings = () => {
         setThumbnailUrl(result.data[0].thumb.replace("{options}", "256"));
       } else {
         console.error("Failed to upload file.");
-      }      
+      }
     }
   };
 
   const clearAvatar = (event) => {
     event.preventDefault();
     event.cancelBubble = true;
-    setThumbnailUrl("/people/0/avatar-256.svg")
+    setThumbnailUrl("/people/0/avatar-256.svg");
     setAvatarId("");
   };
 
@@ -94,7 +94,17 @@ const Settings = () => {
       <Button icon="cog" look="clear" onClick={toggleDialog}></Button>
       {visible && (
         <Dialog title="Settings" onClose={toggleDialog}>
-          {isLoading && <Loader size="medium" />}
+          {isLoading && (
+            <Fragment>
+              <div className="d-flex justify-content-center" style={{width: "400px"}}>
+                <Skeleton shape={"circle"} style={{ width: 256, height: 256 }} />
+              </div>
+              <Skeleton shape={"rectangle"} style={{ width: "20%", height: "20px" }} />
+              <Skeleton shape={"text"} style={{ width: "100%", height: "60px" }} />
+              <Skeleton shape={"text"} style={{ width: "40%", height: "40px" }} />
+            </Fragment>
+          )}
+          {!isLoading && 
           <form onSubmit={saveSettings} className="settings">
             <div className="edit-avatar">
               <img alt="" src={`${API_URL}${thumbnailUrl}`} />
@@ -111,11 +121,15 @@ const Settings = () => {
               <Checkbox value={enterToSend} onChange={(event) => setEnterToSend(event.value)} label="Enter to send" />
             </div>
             <div className="k-form-buttons">
-              <Button type={"submit"} primary={true}>Save</Button>
-              <Button onClick={toggleDialog} look="outline">Cancel</Button>
+              <Button type={"submit"} primary={true}>
+                Save
+              </Button>
+              <Button onClick={toggleDialog} look="outline">
+                Cancel
+              </Button>
             </div>
-            {/* <input type="hidden" value={avatarId} /> */}
           </form>
+          }
         </Dialog>
       )}
     </Fragment>
