@@ -21,7 +21,7 @@ const ConversationHeader = () => {
       )}
       {!isTyping && (
         <div>
-          {title} - {cid}
+          {title}
         </div>
       )}
       <div>
