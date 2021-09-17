@@ -9,13 +9,8 @@ const Content = (props) => {
             <Route path="/" exact>
                 <Conversation></Conversation>
             </Route>
-
             <Route path="/conversation/:id" exact>
                 <Conversation user={props.user}></Conversation>
-            </Route>
-
-            <Route path="/about">
-                <div>About!</div>
             </Route>
         </Switch>
     )

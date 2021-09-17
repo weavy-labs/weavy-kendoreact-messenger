@@ -151,7 +151,7 @@ const Conversation = ({ user }) => {
   return (
     <Fragment>
       <header className="pane-header">
-        <NavLink to="/">Back</NavLink>
+        <NavLink className="navigate-back" to="/">Back</NavLink>
         <ConversationHeader />
       </header>
       <div className="pane-body">
