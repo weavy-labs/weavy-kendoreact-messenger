@@ -1,4 +1,4 @@
-import { Fragment, React, useEffect, useState } from "react";
+import { Fragment, React } from "react";
 import useMetaData from "../hooks/useMetaData";
 import useTyping from "../hooks/useTyping";
 import Details from "./Details";

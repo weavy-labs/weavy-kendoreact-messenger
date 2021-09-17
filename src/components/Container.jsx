@@ -28,7 +28,7 @@ const Container = (props) => {
           return me;
     }
 
-    useEffect(() => {
+    useEffect(() => {        
         fetch(API_URL + '/client/sign-in', {
             method: 'GET',
             credentials: 'include',
@@ -37,7 +37,7 @@ const Container = (props) => {
                 'Authorization': 'Bearer ' + token
             },
         }).then(res => res.json())
-            .then((user) => {                
+            .then((user) => {                     
                 connect();
             });
     }, []);

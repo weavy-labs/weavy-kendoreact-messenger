@@ -1,5 +1,5 @@
 import { Button } from "@progress/kendo-react-buttons";
-import { createRef, Fragment, useCallback, useEffect } from "react";
+import { createRef, Fragment, useEffect } from "react";
 import { API_URL } from "../constants";
 import { mapIcon } from "../utilities";
 
@@ -92,7 +92,7 @@ function useMessageBox(id, attachments, setAttachments) {
           document.querySelector('.k-message-box').removeEventListener('keydown', handleKeyDown);
         }
       }
-    }, []);
+    }, [handleKeyDown]);
 
     const handleRemoveItem = (attachmentId) => {
       setAttachments(attachments.filter(item => item.id !== attachmentId));

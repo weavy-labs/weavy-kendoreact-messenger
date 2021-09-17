@@ -7,7 +7,6 @@ import SelectMembers from "./SelectMembers";
 import { API_URL } from "../constants";
 
 const textField = "name";
-const keyField = "id";
 const emptyItem = {
   [textField]: "loading ...",
 };
@@ -17,12 +16,6 @@ const loadingData = [];
 while (loadingData.length < pageSize) {
   loadingData.push({ ...emptyItem });
 }
-
-const init = {
-  method: "GET",
-  accept: "application/json",
-  credentials: "include",
-};
 
 const NewMessage = () => {
   const [visible, setVisible] = useState(false);
