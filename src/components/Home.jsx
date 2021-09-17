@@ -1,7 +1,6 @@
 import { Avatar } from "@progress/kendo-react-layout";
 
-const Home = ({ user }) => {
-    console.log(user)
+const Home = ({ user }) => {    
     return (
         <div style={{padding:'2rem'}}>
             <div className="text-center">

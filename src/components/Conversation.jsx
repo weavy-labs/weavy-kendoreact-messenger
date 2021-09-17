@@ -34,8 +34,7 @@ const Conversation = ({ user }) => {
     useRealTime("conversation-read.weavy", updateConversation);
 
     /// map a Weavy realtime message to the expected message model format
-    const mapMessageFromRealTime = (item) => {
-        console.log(item)
+    const mapMessageFromRealTime = (item) => {        
         return {
             text: item.text,
             timestamp: new Date(item.createdAt),
