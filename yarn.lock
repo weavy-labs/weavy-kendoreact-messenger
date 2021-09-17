@@ -9380,6 +9380,13 @@ react-is@^17.0.1:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-17.0.1.tgz#5b3531bd76a645a4c9fb6e693ed36419e3301339"
   integrity sha512-NAnt2iGDXohE5LI7uBnLnqvLQMtzhkiAOLXTmv+qnF9Ky7xAPcX8Up/xWIhxvLVGJvuLiNc4xQLtuqDRzb4fSA==
 
+react-pretty-bytes@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/react-pretty-bytes/-/react-pretty-bytes-1.0.3.tgz#11ebee9e61ea336928ae85cde54f76a2150456f6"
+  integrity sha512-BYSP2yj9fiXKg0veEQTRYzX+RqyQJdbFczWmrt4HukEAP3W57AkTad4eN76yell1Mx54NyQvocVl7RAUNenSTA==
+  dependencies:
+    pretty-bytes "^5.3.0"
+
 react-query@^3.19.1:
   version "3.19.1"
   resolved "https://registry.yarnpkg.com/react-query/-/react-query-3.19.1.tgz#f3fbd5af48b6c47901ab230f7c028c6f845254ac"

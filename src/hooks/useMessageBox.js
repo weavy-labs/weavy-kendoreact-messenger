@@ -38,6 +38,7 @@ function useMessageBox(id, attachments, setAttachments) {
     return (
       <Fragment>
         <input
+          multiple="multiple"
           type="file"
           onChange={handleInputChange}
           style={{
@@ -100,17 +101,19 @@ function useMessageBox(id, attachments, setAttachments) {
 
     return (
       <Fragment>
-        <div className="attachments">          
+        <div className="attachments">
           {attachments.map((a) => {
             return (
               <div key={a.id} className="attachment">
-                {a.kind !== "image" && mapIcon(a.icon.name, "medium")}
-                {a.kind === "image" && <img
-                  alt=""
-                  src={API_URL + `/${a.thumb.replace("{options}", "64")}`}
-                />}
-                <span>{a.name}</span>
-                <Button icon="delete" look="flat" onClick={handleRemoveItem.bind(this, a.id)}></Button>
+                <span  className="attachmentIcon">
+                  {a.kind !== "image" && mapIcon(a.icon.name, "medium")}
+                  {a.kind === "image" && <img
+                    alt=""
+                    src={API_URL + `/${a.thumb.replace("{options}", "64")}`}
+                  />}
+                </span>
+                <span className="attachmentTitle">{a.name}</span>
+                <Button icon="delete" className="k-color-error" look="flat" onClick={handleRemoveItem.bind(this, a.id)} title="Remove attachment"></Button>
               </div>
             );
           })}

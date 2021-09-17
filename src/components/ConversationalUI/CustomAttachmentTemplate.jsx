@@ -1,12 +1,14 @@
 import { API_URL } from "../../constants";
 import { mapIcon } from "../../utilities";
+import PrettyBytes from 'react-pretty-bytes';
 
 const DocumentAttachment = (props) => {
-    
+
     return (
         <div className="k-card">
             <div className="k-card-body">
                 <a
+                    className="attachmentLink"
                     href={API_URL + props.item.download}
                     target="_blank"
                     draggable={false}
@@ -14,7 +16,11 @@ const DocumentAttachment = (props) => {
                     rel="noopener noreferrer"
                 >
                     {mapIcon(props.item.icon.name, "large")}
-                    {props.item.name}
+                    <div className="attachmentMeta k-color-secondary">
+                        {props.item.name}
+                        <PrettyBytes bytes={props.item.size} />
+                    </div>
+
                 </a>
             </div>
         </div>
