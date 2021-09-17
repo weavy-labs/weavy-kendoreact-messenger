@@ -17,7 +17,7 @@ const App = (props) => {
         <BrowserRouter>
           <Container />
         </BrowserRouter>
-        <ReactQueryDevtools initialIsOpen={true} />
+        {/* <ReactQueryDevtools initialIsOpen={true} /> */}
       </QueryClientProvider>
     </RealTimeProvider>
   );
