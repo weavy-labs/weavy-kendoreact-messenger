@@ -8,7 +8,7 @@ const DocumentAttachment = (props) => {
         <div className="k-card">
             <div className="k-card-body">
                 <a
-                    className="attachmentLink"
+                    className="attachment-link"
                     href={API_URL + props.item.download}
                     target="_blank"
                     draggable={false}
@@ -16,7 +16,7 @@ const DocumentAttachment = (props) => {
                     rel="noopener noreferrer"
                 >
                     {mapIcon(props.item.icon.name, "large")}
-                    <div className="attachmentMeta k-color-secondary">
+                    <div className="attachment-meta k-color-secondary">
                         {props.item.name}
                         <PrettyBytes bytes={props.item.size} />
                     </div>

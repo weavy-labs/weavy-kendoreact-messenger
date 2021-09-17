@@ -105,14 +105,14 @@ function useMessageBox(id, attachments, setAttachments) {
           {attachments.map((a) => {
             return (
               <div key={a.id} className="attachment">
-                <span  className="attachmentIcon">
+                <span  className="attachment-icon">
                   {a.kind !== "image" && mapIcon(a.icon.name, "medium")}
                   {a.kind === "image" && <img
                     alt=""
                     src={API_URL + `/${a.thumb.replace("{options}", "64")}`}
                   />}
                 </span>
-                <span className="attachmentTitle">{a.name}</span>
+                <span className="attachment-title">{a.name}</span>
                 <Button icon="delete" className="k-color-error" look="flat" onClick={handleRemoveItem.bind(this, a.id)} title="Remove attachment"></Button>
               </div>
             );
