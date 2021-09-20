@@ -26,30 +26,34 @@ code {
 }
 
 /* conversations list */
-.k-listview .k-avatar-md {
+.conversation-list .k-avatar-md {
   height: 3rem;
   width: 3rem;
 }
 
-.k-listview .k-listview-content a,
-.k-listview .k-listview-content a:hover,
-.k-listview .k-listview-content a:visited {
+.conversation-list .k-listview {
+  border-right: 0;
+  border-bottom: 0;
+}
+
+.conversation-list .k-listview-content a,
+.conversation-list .k-listview-content a:hover,
+.conversation-list .k-listview-content a:visited {
   text-decoration: none !important;
   color: #545454;
   display: block;
 }
 
-.k-listview .k-listview-content a.active {
+.conversation-list .k-listview-content a.active {
   background-color: #f5f5f5;
 }
 
-.k-listview .k-listview-content a time {
+.conversation-list .k-listview-content a time {
   float: right;
-  margin-right: -1rem;
   font-size: smaller;
 }
 
-.conversation-list {
+.conversation-list .conversation {
   position: relative;
 }
 
@@ -57,6 +61,26 @@ code {
   position: absolute;
   right: 0;
   bottom: 0;
+}
+
+.conversation-list .r {
+  display: flex;
+}
+
+.conversation-list .left {
+  width: 60px;
+  max-width: 60px;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.conversation-list .right {
+  flex: 1 1 100%;
+  overflow: hidden;
+}
+
+.conversation-list .text-truncate {
+  margin-right: 2rem;
 }
 
 .conversation-list.unread .text-truncate {
@@ -72,7 +96,7 @@ code {
   border-radius: 50%;
   position: absolute;
   bottom: 0;
-  right: 0;
+  right: 15px;
   border: 1px solid rgba(252, 252, 252, 0.5);
 }
 

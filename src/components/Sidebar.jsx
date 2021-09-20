@@ -59,15 +59,15 @@ const Sidebar = (props) => {
     let item = props.dataItem;
     
     return (
-      <div className={!item.is_read ? "conversation-list unread" : "conversation-list"}>
+      <div className={!item.is_read ? "conversation unread" : "conversation"}>
         <NavLink to={"/conversation/" + item.id} activeClassName="active">
-          <div className="row p-2 border-bottom align-middle" style={{ margin: 0 }}>
-            <div className="col-2">
+          <div className="p-2 border-bottom r">
+            <div className="left">
               <Avatar shape="circle" type="image" className={typeof item.presence === "undefined" ? "presence" : "presence " + item.presence}>
                 <img alt="" className="has-presence" src={`${API_URL}${item.avatar_url.replace("{options}", "48")}`} />
               </Avatar>
             </div>
-            <div className="col-10">
+            <div className="right">
               <time className="text-muted" dateTime={item.last_message_at} title={item.last_message_at}>
                 {item.last_message_at_string}
               </time>
@@ -136,7 +136,7 @@ const Sidebar = (props) => {
   }
 
   return (
-    <div>
+    <div className="conversation-list">
       <Search />
       <ListView data={data} item={MyItemRender} />
     </div>
