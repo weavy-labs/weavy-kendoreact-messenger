@@ -4,7 +4,6 @@ import { Dialog } from "@progress/kendo-react-dialogs";
 import { ListView, ListViewHeader } from "@progress/kendo-react-listview";
 import { Avatar } from "@progress/kendo-react-layout";
 import { useQueryClient } from "react-query";
-import NewMessage from "./NewMessage";
 import { useParams } from "react-router-dom";
 import useMetaData from "../hooks/useMetaData";
 import SelectMembers from "./SelectMembers";
@@ -17,8 +16,7 @@ const Details = () => {
   const queryClient = useQueryClient();
 
   const [visible, setVisible] = useState(false);
-  const [isAddingMembers, setIsAddingMembers] = useState(false);
-  const [value, setValue] = useState(null);
+    const [value, setValue] = useState(null);
 
   const toggleDialog = () => {
     setVisible(!visible);
@@ -89,7 +87,7 @@ const Details = () => {
       <div className="row p-1 border-bottom d-flex flex-row align-items-center m-0">
         <div className="col-2">
           <Avatar shape="circle" size="medium">
-            <img src={API_URL + item.thumb.replace("{options}", "48")} />
+            <img src={API_URL + item.thumb.replace("{options}", "48")} alt={item.name} />
           </Avatar>
         </div>
         <div className="col-8">

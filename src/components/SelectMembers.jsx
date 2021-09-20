@@ -1,6 +1,4 @@
-import { React, useEffect, useState, useRef, useCallback, Fragment } from "react";
-import { useHistory } from "react-router-dom";
-import { useQueryClient } from "react-query";
+import { React, useEffect, useState, useRef, useCallback } from "react";
 import { MultiSelect } from "@progress/kendo-react-dropdowns";
 import { API_URL } from "../constants";
 
@@ -23,6 +21,7 @@ const init = {
 };
 
 const SelectMembers = (props) => {
+  let OnMembersChange = props.onMembersChange;
   const dataCaching = useRef([]);
   const pendingRequest = useRef();
   const requestStarted = useRef(false);
@@ -127,7 +126,7 @@ const SelectMembers = (props) => {
   );
 
   const onChange = useCallback((event) => {
-    props.onMembersChange(event);
+    OnMembersChange(event);
 
     const value = event.target.value;
 
@@ -135,7 +134,7 @@ const SelectMembers = (props) => {
       return;
     }
     setValue(value);
-  }, []);
+  }, [OnMembersChange]);
 
   return (
     <MultiSelect

@@ -49,7 +49,7 @@ const Settings = () => {
     toggleDialog();
   };
 
-  const { isLoading, isError, data, error } = useQuery("settings", getSettings, { refetchOnWindowFocus: false });
+  const { isLoading, data } = useQuery("settings", getSettings, { refetchOnWindowFocus: false });
 
   const onTimezoneChanged = (event) => {
     setTimezone(event.target.value);
@@ -111,7 +111,7 @@ const Settings = () => {
               <span href="#">Select avatar...</span>
               <input type="file" name="avatar" onChange={onFileSelected} ref={fileInput} accept=".gif, .jpg, .jpeg, .png, .svg" />
             </div>
-            <a href="#" className={avatarId === "" ? "d-block text-center invisible" : "d-block text-center"} onClick={clearAvatar}>
+            <a href="/#" className={avatarId === "" ? "d-block text-center invisible" : "d-block text-center"} onClick={clearAvatar}>
               Clear avatar
             </a>
             <div className="field">
