@@ -58,7 +58,7 @@ const Container = (props) => {
                 <header className="pane-header">
                     <NewMessage></NewMessage>
                     <div className="pane-title text-truncate">
-                        Telerik Messenger
+                        Weavy Telerik Messenger
                     </div>
                     <Settings></Settings>
                 </header>

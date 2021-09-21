@@ -64,15 +64,15 @@ const NewMessage = () => {
     <Fragment>
       <Button icon="plus" look="clear" onClick={toggleDialog}></Button>
       {visible && (
-        <Dialog title="New message" onClose={toggleDialog} className="newMessage">
+        <Dialog title="New message" onClose={toggleDialog} className="dialog">
             <SelectMembers onMembersChange={onChange} value={value} />
             <DialogActionsBar>
-              <button className="k-button" onClick={toggleDialog}>
+              <Button look="outline" onClick={toggleDialog}>
                 Cancel
-              </button>
-              <button className="k-button" onClick={createConversation} disabled={disabled}>
+              </Button>
+              <Button  primary={true} onClick={createConversation} disabled={disabled}>
                 Create
-              </button>
+              </Button>
             </DialogActionsBar>
         </Dialog>
       )}

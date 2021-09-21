@@ -93,7 +93,7 @@ const Settings = () => {
     <Fragment>
       <Button icon="cog" look="clear" onClick={toggleDialog}></Button>
       {visible && (
-        <Dialog title="Settings" onClose={toggleDialog}>
+        <Dialog title="Settings" onClose={toggleDialog} className="dialog">
           {isLoading && (
             <Fragment>
               <div className="d-flex justify-content-center" style={{width: "400px"}}>

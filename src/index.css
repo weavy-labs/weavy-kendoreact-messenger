@@ -105,12 +105,12 @@ code {
 }
 
 /* new message */
-.newMessage .k-dialog {
+.dialog .k-dialog {
   width: 90%;
 }
 
 @media(min-width: 768px) {
-  .newMessage .k-dialog {
+  .dialog .k-dialog {
     width: 400px;
   } 
 }
@@ -133,9 +133,6 @@ code {
 }
 
 /* settings */
-.settings {
-  width: 25rem; 
-}
 
 .settings .edit-avatar {
   position: relative;
@@ -182,7 +179,7 @@ code {
 }
 
 .details .k-dialog-content {
-  width: 25rem; 
+  
   padding: 0 !important;
 }
 
