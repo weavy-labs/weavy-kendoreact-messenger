@@ -121,6 +121,10 @@ body {
   align-items: inherit;
 }
 
+.k-card img{
+  max-width: 100%;
+}
+
 .conversation-header{
   flex: 1;  
   text-align: center;
