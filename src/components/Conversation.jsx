@@ -34,27 +34,27 @@ const Conversation = ({ user }) => {
     useRealTime("conversation-read.weavy", updateConversation);
 
     /// map a Weavy realtime message to the expected message model format
-    const mapMessageFromRealTime = (item) => {        
-        return {
-            text: item.text,
-            timestamp: new Date(item.createdAt),
-            author: {
-                id: item.createdBy.id,
-                name: item.createdBy.name,
-                avatarUrl:
-                    API_URL + `${item.createdBy.thumb.replace("{options}", "32")}`,
-            },
-            attachments: item.attachments.map((a) => {
-                return {
-                    id: a,
-                    download: "",
-                    thumb: "",
-                    kind: "document",
-                    contentType: "image",
-                }
-            })
-        };
-    }
+    // const mapMessageFromRealTime = (item) => {        
+    //     return {
+    //         text: item.text,
+    //         timestamp: new Date(item.createdAt),
+    //         author: {
+    //             id: item.createdBy.id,
+    //             name: item.createdBy.name,
+    //             avatarUrl:
+    //                 API_URL + `${item.createdBy.thumb.replace("{options}", "32")}`,
+    //         },
+    //         attachments: item.attachments.map((a) => {
+    //             return {
+    //                 id: a,
+    //                 download: "",
+    //                 thumb: "",
+    //                 kind: "document",
+    //                 contentType: "image",
+    //             }
+    //         })
+    //     };
+    // }
 
     /// post a new message to Weavy
     const postMessage = async (message) => {
@@ -77,8 +77,13 @@ const Conversation = ({ user }) => {
 
     /// add message from realtime mutation
     const addMessageFromRealTimeMutation = useMutation(newMessage => {
-        queryClient.invalidateQueries(["messages", id]);
         //queryClient.setQueryData(["messages", id], (old) => [...old, mapMessageFromRealTime(newMessage)]);
+
+        queryClient.invalidateQueries(["messages", id]);
+
+        // TODO: should probably only invalidate the specific conversation - not all of them
+        queryClient.invalidateQueries(["conversations"]);
+        
     });
 
     /// add message mutation
