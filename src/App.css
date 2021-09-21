@@ -102,3 +102,63 @@ body {
     display: none;
   }
 }
+
+.app {
+  display: flex;
+}
+
+.k-listview-content {
+  overflow: hidden;
+}
+
+.k-chat {
+  max-width: none;
+  min-height: calc(100vh - 3rem);
+}
+
+.k-message-box {
+  flex-direction: column;
+  align-items: inherit;
+}
+
+.k-card img{
+  max-width: 100%;
+}
+
+.conversation-header{
+  flex: 1;  
+  text-align: center;
+}
+
+.attachment {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.attachment img {
+  width: 32px;
+  height: 32px;
+}
+
+.attachment .attachment-title {
+  margin-left: 0.5rem;
+}
+
+a.attachment-link{
+  display:flex;
+}
+
+.attachment-meta{
+  margin-left: 0.5rem;  
+  text-align: left;
+}
+
+.attachment-meta-title{
+  font-weight: bold;
+  padding-bottom: .125rem;
+}
+
+a.attachment-link:hover{
+  text-decoration: none;
+}
