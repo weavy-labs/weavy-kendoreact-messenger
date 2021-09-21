@@ -87,6 +87,10 @@ code {
   font-weight: bold;
 }
 
+.k-list .k-item {
+  box-shadow: none !important;
+} 
+
 .presence.active:after {
   content: "";
   background-color: #45d391;
