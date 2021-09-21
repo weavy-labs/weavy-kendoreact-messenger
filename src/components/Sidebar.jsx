@@ -102,7 +102,7 @@ const Sidebar = (props) => {
         </div>
         <div className="row m-0 mt-2">
           <div className="col-2">
-            <Skeleton shape={"circle"} style={{ width: 50, height: 50 }} />
+            <Skeleton shape={"circle"} style={{ width: "50px", height: "50px" }} />
           </div>
           <div className="col-10">
             <Skeleton shape={"text"} style={{ width: "60%", height: "20px" }} />
@@ -111,7 +111,7 @@ const Sidebar = (props) => {
         </div>
         <div className="row m-0 mt-2 d-flex justify-content-center">
           <div className="col-2">
-            <Skeleton shape={"circle"} style={{ width: 50, height: 50 }} />
+            <Skeleton shape={"circle"} style={{ width: "50px", height: "50px" }} />
           </div>
           <div className="col-10">
             <Skeleton shape={"text"} style={{ width: "60%", height: "20px" }} />
@@ -120,7 +120,7 @@ const Sidebar = (props) => {
         </div>
         <div className="row m-0 mt-2 d-flex justify-content-center">
           <div className="col-2">
-            <Skeleton shape={"circle"} style={{ width: 50, height: 50 }} />
+            <Skeleton shape={"circle"} style={{ width: "50px", height: "50px" }} />
           </div>
           <div className="col-10">
             <Skeleton shape={"text"} style={{ width: "60%", height: "20px" }} />

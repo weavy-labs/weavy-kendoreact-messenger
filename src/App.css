@@ -126,6 +126,10 @@ body {
   text-align: center;
 }
 
+.grow {
+  flex-grow: 1;
+}
+
 .attachment {
   display: flex;
   align-items: center;
