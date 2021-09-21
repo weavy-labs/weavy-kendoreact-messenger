@@ -6,8 +6,8 @@ function useTyping(id) {
     const [isTyping, setIsTyping] = useState(null);
     const [typers, setTypers] = useState([]);
 
-    const handleTyping = useCallback((data) => {
-        if (data && data.conversation == id) {
+    const handleTyping = useCallback((data) => {        
+        if (data && data.conversation === parseInt(id)) {
             setIsTyping(true);
             if (typers.indexOf(data.user.name) === -1) {
                 setTypers([...typers, data.user.name]);
@@ -16,7 +16,7 @@ function useTyping(id) {
     }, [id, typers])
 
     const handleStopTyping = useCallback((data) => {
-        if (data && data.conversation == id) {            
+        if (data && data.conversation === parseInt(id)) {            
             setIsTyping(false);
             setTypers([]);
         }
