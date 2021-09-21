@@ -119,7 +119,7 @@ const Details = () => {
     <Fragment>
       <Button icon="info" look="clear" onClick={toggleDialog}></Button>
       {visible && (
-        <Dialog onClose={toggleDialog} className="details">
+        <Dialog onClose={toggleDialog} className="details dialog">
           <Button className="close" icon="close" look="clear" onClick={toggleDialog}></Button>
           <div className="cover">
             <img alt="" src={`${API_URL}${avatar_url}`} />
