@@ -101,12 +101,18 @@ code {
 }
 
 /* new message */
-.k-animation-container {
-  z-index: 10002 !important;
+.newMessage .k-dialog {
+  width: 90%;
 }
 
-.newMessage {
-  width: 400px;
+@media(min-width: 768px) {
+  .newMessage .k-dialog {
+    width: 400px;
+  } 
+}
+
+.k-animation-container {
+  z-index: 10002 !important;
 }
 
 /* search */

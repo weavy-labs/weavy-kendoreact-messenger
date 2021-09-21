@@ -64,8 +64,7 @@ const NewMessage = () => {
     <Fragment>
       <Button icon="plus" look="clear" onClick={toggleDialog}></Button>
       {visible && (
-        <Dialog title="New message" onClose={toggleDialog}>
-          <div className="newMessage">
+        <Dialog title="New message" onClose={toggleDialog} className="newMessage">
             <SelectMembers onMembersChange={onChange} value={value} />
             <DialogActionsBar>
               <button className="k-button" onClick={toggleDialog}>
@@ -75,7 +74,6 @@ const NewMessage = () => {
                 Create
               </button>
             </DialogActionsBar>
-          </div>
         </Dialog>
       )}
     </Fragment>
