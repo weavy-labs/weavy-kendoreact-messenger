@@ -21,7 +21,7 @@ const Conversation = ({ user }) => {
 
     // add incoming message from realtime
     const addFromRealTime = (message) => {
-        if (message.createdBy.id == user.id || message.conversation != id) return;
+        if (message.createdBy.id === user.id || message.conversation !== parseInt(id)) return;        
         addMessageFromRealTimeMutation.mutate(message)
     };
 
