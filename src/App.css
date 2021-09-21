@@ -111,6 +111,10 @@ body {
   overflow: hidden;
 }
 
+.grow {
+  flex-grow: 2;
+}
+
 .k-chat {
   max-width: none;
   min-height: calc(100vh - 3rem);
