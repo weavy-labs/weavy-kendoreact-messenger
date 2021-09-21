@@ -31,6 +31,10 @@ body {
   z-index: 1020
 }
 
+.pane-header .k-icon{
+  font-size: 1.5rem;
+}
+
 .pane-body {
   display: flex;
   flex-direction: column;
