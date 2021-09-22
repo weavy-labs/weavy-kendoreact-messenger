@@ -101,6 +101,10 @@ body {
   .k-chat {
     height: 100%;
   }
+  .k-chat .eo {
+    width:20px;
+    height: 20px;
+  }
 
   .navigate-back{
     display: none;

@@ -7,7 +7,7 @@ function useMessages(id) {
   const mapMessage = (item) => {
 
     return {
-      text: item.text,
+      html: item.html,
       timestamp: new Date(item.created_at),
       author: {
         id: item.created_by_id,
