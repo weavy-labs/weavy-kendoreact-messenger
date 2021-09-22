@@ -83,7 +83,7 @@ code {
   margin-right: 4rem;
 }
 
-.conversation-list.unread .text-truncate {
+.conversation-list .conversation.unread .text-truncate {
   font-weight: bold;
 }
 

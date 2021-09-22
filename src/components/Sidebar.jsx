@@ -22,6 +22,10 @@ const Sidebar = (props) => {
     return conversations;
   };
 
+  const updateConversations = () => {
+    queryClient.invalidateQueries(["conversations"]);      
+  };
+
   const updatePresence = (message) => {
     var avatars = document.querySelectorAll(`img.has-presence[src^="${API_URL}/people/${message.user}/avatar"]`);
     avatars.forEach((e) => {
@@ -31,6 +35,7 @@ const Sidebar = (props) => {
     });
   };
 
+  useRealTime("message-inserted.weavy", updateConversations);
   useRealTime("presence-update.weavy", updatePresence);
 
   const { isLoading, isError, data, error } = useQuery("conversations", getConversations, { refetchOnWindowFocus: false });

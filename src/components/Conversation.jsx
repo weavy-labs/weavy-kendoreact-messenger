@@ -125,7 +125,6 @@ const Conversation = ({ user }) => {
 
   /// TODO: Why can't this template be moved outside and imported. Investigate!!
   const CustomMessageTemplate = (props) => {
-    console.log(props)
     if (!props.item.html) return <Fragment></Fragment>;
     return (
       <div>
