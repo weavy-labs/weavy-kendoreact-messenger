@@ -60,12 +60,19 @@ const Sidebar = (props) => {
     }
   };
 
+  const onBeforeNavigate = (id) => {
+    var i = data.findIndex((c => c.id == id));
+    if (i >= 0) {
+      data[i].is_read = true;
+    }
+  };
+
   const MyItemRender = (props) => {
     let item = props.dataItem;
     
     return (
       <div className={!item.is_read ? "conversation unread" : "conversation"}>
-        <NavLink to={"/conversation/" + item.id} activeClassName="active">
+        <NavLink to={"/conversation/" + item.id} activeClassName="active" onClick={() => onBeforeNavigate(item.id)}>
           <div className="p-2 border-bottom r">
             <div className="left">
               <Avatar shape="circle" type="image" className={typeof item.presence === "undefined" ? "presence" : "presence " + item.presence}>
