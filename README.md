@@ -49,7 +49,7 @@ For more details how to create the JWT, please take a look at the documentation 
 *More info how to pass on the token in the Chat app....*
 
 ## Setup a Weavy instance
-Ready to go live? Great! Head over to the [Weavy Getting Started](https://docs.weavy.com/server/get-started) to lean everything you need how to setup your own instance of Weavy.
+Ready to go live? Or maybe test against a local development instance? Great! Head over to the [Weavy Getting Started](https://docs.weavy.com/server/get-started) to lean everything you need how to setup your own instance of Weavy.
 The setup process is basically: 
 1. Clone the Weavy solution repo
 2. Create a database
