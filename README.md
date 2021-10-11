@@ -25,7 +25,13 @@ The build is minified and the filenames include the hashes.
 Your app is ready to be deployed!
 
 ### Weavy 
-Some text about Weavy...
+Weavy is <u>the</u> in-app  collaboration SDK & API that enables your users to engage each other to make faster, better decisions through contextual collaboration using in-app chat, activity feeds, secure file sharing, and more.
+
+Weavy allows developers to quickly add collaboration features to any app without the tedious groundwork.
+
+Whether you use our Client SDK with the Drop-in UI, or our Server SDK to completely customize every aspect of Weavy - **it's all designed for maximum impact with minimum effort.**
+
+For more information about Weavy, head over to https://weavy.com.
 
 ### KendoReact
 KenoReact by Progress is the only React component library you need. KendoReact is a professional UI kit on a mission to help you  design & build business apps with React much faster.
