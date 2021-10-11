@@ -34,7 +34,7 @@ Whether you use our Client SDK with the Drop-in UI, or our Server SDK to complet
 For more information about Weavy, head over to https://weavy.com.
 
 ## KendoReact
-KenoReact by Progress is the only React component library you need. KendoReact is a professional UI kit on a mission to help you  design & build business apps with React much faster.
+KendoReact by Progress is the only React component library you need. KendoReact is a professional UI kit on a mission to help you design & build business apps with React much faster.
 For more information, head over to the [KendoReact documentation](https://www.telerik.com/kendo-react-ui/).
 
 ## Weavy demo instance
