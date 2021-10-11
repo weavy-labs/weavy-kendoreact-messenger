@@ -74,7 +74,6 @@ const SelectMembers = (props) => {
   useEffect(() => {
     requestData(0, filter);
     return () => {
-      setValue({});
       resetCache();
     };
   }, [filter, requestData]);

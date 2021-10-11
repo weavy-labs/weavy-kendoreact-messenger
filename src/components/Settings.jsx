@@ -91,12 +91,17 @@ const Settings = () => {
 
   return (
     <Fragment>
-      <Button icon="cog" look="clear" onClick={toggleDialog}></Button>
+      <div>
+        <Button icon="cog" look="clear" onClick={toggleDialog} title="Settings"></Button>
+        <a href="/sign-in" className="k-button k-button-clear k-button-icon" title="Sign out">
+          <span role="presentation" className="k-icon k-i-logout"></span>
+        </a>
+      </div>
       {visible && (
         <Dialog title="Settings" onClose={toggleDialog} className="dialog">
           {isLoading && (
             <Fragment>
-              <div className="d-flex justify-content-center" style={{width: "400px"}}>
+              <div className="d-flex justify-content-center" style={{ width: "400px" }}>
                 <Skeleton shape={"circle"} style={{ width: 256, height: 256 }} />
               </div>
               <Skeleton shape={"rectangle"} style={{ width: "20%", height: "20px" }} />
@@ -104,32 +109,32 @@ const Settings = () => {
               <Skeleton shape={"text"} style={{ width: "40%", height: "40px" }} />
             </Fragment>
           )}
-          {!isLoading && 
-          <form onSubmit={saveSettings} className="settings">
-            <div className="edit-avatar">
-              <img alt="" src={`${API_URL}${thumbnailUrl}`} />
-              <span href="#">Select avatar...</span>
-              <input type="file" name="avatar" onChange={onFileSelected} ref={fileInput} accept=".gif, .jpg, .jpeg, .png, .svg" />
-            </div>
-            <a href="/#" className={avatarId === "" ? "d-block text-center invisible" : "d-block text-center"} onClick={clearAvatar}>
-              Clear avatar
-            </a>
-            <div className="field">
-              <DropDownList data={data.time_zones} value={timezone} textField="label" dataItemKey="value" label={"Timezone"} onChange={onTimezoneChanged} />
-            </div>
-            <div className="field py-3">
-              <Checkbox value={enterToSend} onChange={(event) => setEnterToSend(event.value)} label="Enter to send" />
-            </div>
-            <div className="k-form-buttons">
-              <Button type={"submit"} primary={true}>
-                Save
-              </Button>
-              <Button onClick={toggleDialog} look="outline">
-                Cancel
-              </Button>
-            </div>
-          </form>
-          }
+          {!isLoading && (
+            <form onSubmit={saveSettings} className="settings">
+              <div className="edit-avatar">
+                <img alt="" src={`${API_URL}${thumbnailUrl}`} />
+                <span href="#">Select avatar...</span>
+                <input type="file" name="avatar" onChange={onFileSelected} ref={fileInput} accept=".gif, .jpg, .jpeg, .png, .svg" />
+              </div>
+              <a href="/#" className={avatarId === "" ? "d-block text-center invisible" : "d-block text-center"} onClick={clearAvatar}>
+                Clear avatar
+              </a>
+              <div className="field">
+                <DropDownList data={data.time_zones} value={timezone} textField="label" dataItemKey="value" label={"Timezone"} onChange={onTimezoneChanged} />
+              </div>
+              <div className="field py-3">
+                <Checkbox value={enterToSend} onChange={(event) => setEnterToSend(event.value)} label="Enter to send" />
+              </div>
+              <div className="k-form-buttons">
+                <Button type={"submit"} primary={true}>
+                  Save
+                </Button>
+                <Button onClick={toggleDialog} look="outline">
+                  Cancel
+                </Button>
+              </div>
+            </form>
+          )}
         </Dialog>
       )}
     </Fragment>
