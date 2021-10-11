@@ -58,6 +58,10 @@ The setup process is basically:
 5. Create a Weavy Authentication Client
 6. Use the Weavy Authentication Client info when you create the user's JWTs.
 
+## Configuration
+The only configuration you need to change is the Weavy root url. In the `constants.js` file you need to change the `API_URL` to point to the Weavy instance you have setup. When cloning this repo, this setting will point to the Weavy demo instance at https://showcase.weavycloud.com.
+
+
 
 
 
