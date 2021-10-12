@@ -48,7 +48,7 @@ For more details how to create the JWT, please take a look at the documentation 
 
 In the `src\components\Container.jsx` file, the JWT is passed as a Bearer Token token to the `/client/sign-in` end point in Weavy. When authentication is successful, an authentication cookie is returned and set. This cookie is then used in all api calls to Weavy.
 
-> **A note about authentication in the app**
+> **A note about authentication in the app** - 
 > When you start the app you will be presented by a Sign In screen. This is **only** for demonstration purposes and lets you choose one of the four predefined users available in the Weavy demo instance (https://showcase.weavycloud.com). This Sign In screen should be replaced with your own authentication logic (username/password) or if you already have an authenticated user, removed all togheter. Once you have an authenticated user, you must create a JWT and pass on to Weavy.
 
 
