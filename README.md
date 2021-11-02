@@ -34,7 +34,7 @@ Whether you use our Client SDK with the Drop-in UI, or our Server SDK to complet
 For more information about Weavy, head over to https://weavy.com.
 
 ## KendoReact
-KendoReact by Progress is the only React component library you need. KendoReact is a professional UI kit on a mission to help you design & build business apps with React much faster.
+KenoReact by Progress is the only React component library you need. KendoReact is a professional UI kit on a mission to help you  design & build business apps with React much faster.
 For more information, head over to the [KendoReact documentation](https://www.telerik.com/kendo-react-ui/).
 
 ## Weavy demo instance
@@ -46,7 +46,12 @@ Authentication should be handled by the host application and user identity and p
 
 For more details how to create the JWT, please take a look at the documentation for [Weavy JWT tokens](docs.weavy.com/client/authentication#creating-the-json-web-token).
 
-*More info how to pass on the token in the Chat app....*
+In the `src\components\Container.jsx` file, the JWT is passed as a Bearer Token token to the `/client/sign-in` end point in Weavy. When authentication is successful, an authentication cookie is returned and set. This cookie is then used in all api calls to Weavy.
+
+> **A note about authentication in the app** - 
+> When you start the app you will be presented by a Sign In screen. This is **only** for demonstration purposes and lets you choose one of the four predefined users available in the Weavy demo instance (https://showcase.weavycloud.com). This Sign In screen should be replaced with your own authentication logic (username/password) or if you already have an authenticated user, removed all togheter. Once you have an authenticated user, you must create a JWT and pass on to Weavy.
+
+
 
 ## Setup a Weavy instance
 Ready to go live? Or maybe test against a local development instance? Great! Head over to the [Weavy Getting Started](https://docs.weavy.com/server/get-started) to lean everything you need how to setup your own instance of Weavy.
