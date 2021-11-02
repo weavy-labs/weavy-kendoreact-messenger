@@ -52,5 +52,5 @@ jobs:
         with:
           app-name: 'weavy-kendo-chat'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_564D84CC80B4447CA04250936C3FF3CD }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_1E29E1A2A4AC45DB80CAEE08D4D7A59C }}
           package: .
