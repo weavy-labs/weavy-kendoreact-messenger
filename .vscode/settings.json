@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/a0d86640-9453-49d9-897e-373a02d9baca/resourceGroups/appsvc_linux_centralus_basic/providers/Microsoft.Web/sites/weavy-kendo-chat",
+    "appService.deploySubpath": "."
+}
