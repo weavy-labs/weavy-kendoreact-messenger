@@ -1,10 +1,12 @@
-import { React, useState } from "react";
+import { React, useContext, useState } from "react";
 import { DropDownList } from "@progress/kendo-react-dropdowns";
+import UserContext from "../user-context";
 
 const SignIn = () => {
   const selectUserMessage = "Sign in by selecting a user from the list.";
 
   const [value, setValue] = useState(null);
+  const { login } = useContext(UserContext);
 
   const users = [
     { text: "Oliver Winter", id: "oliver" },
@@ -15,8 +17,9 @@ const SignIn = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    localStorage.setItem("usr", value.id);
-    window.location.href = "/";
+    login(value.id)
+    
+    //window.location.href = "/";
   };
 
   const handleChange = (event) => {

@@ -3,6 +3,7 @@ import './App.css';
 import { BrowserRouter } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from 'react-query';
 import RealTimeProvider from './realtime-provider';
+import UserProvider from './user-provider';
 import Container from "./components/Container";
 
 // Create a client
@@ -14,7 +15,9 @@ const App = (props) => {
     <RealTimeProvider>
       <QueryClientProvider client={queryClient}>
         <BrowserRouter>
-          <Container />
+          <UserProvider>
+            <Container />
+          </UserProvider>
         </BrowserRouter>
       </QueryClientProvider>
     </RealTimeProvider>

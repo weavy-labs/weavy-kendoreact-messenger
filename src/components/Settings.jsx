@@ -1,4 +1,4 @@
-import { React, useState, Fragment, useRef } from "react";
+import { React, useState, Fragment, useRef, useContext } from "react";
 import { useQuery } from "react-query";
 import { Skeleton } from "@progress/kendo-react-indicators";
 import { Dialog } from "@progress/kendo-react-dialogs";
@@ -6,6 +6,7 @@ import { Button } from "@progress/kendo-react-buttons";
 import { API_URL } from "../constants";
 import { DropDownList } from "@progress/kendo-react-dropdowns";
 import { Checkbox } from "@progress/kendo-react-inputs";
+import UserContext from "../user-context";
 
 const Settings = () => {
   const [visible, setVisible] = useState(false);
@@ -14,6 +15,7 @@ const Settings = () => {
   const [thumbnailUrl, setThumbnailUrl] = useState(null);
   const [enterToSend, setEnterToSend] = useState(false);
   const fileInput = useRef();
+  const { logout } = useContext(UserContext);
 
   const toggleDialog = () => {
     setVisible(!visible);
@@ -82,6 +84,10 @@ const Settings = () => {
     }
   };
 
+  const signOut = () => {
+    logout();
+  }
+
   const clearAvatar = (event) => {
     event.preventDefault();
     event.cancelBubble = true;
@@ -93,9 +99,8 @@ const Settings = () => {
     <Fragment>
       <div>
         <Button icon="cog" look="clear" onClick={toggleDialog} title="Settings"></Button>
-        <a href="/sign-in" className="k-button k-button-clear k-button-icon" title="Sign out">
-          <span role="presentation" className="k-icon k-i-logout"></span>
-        </a>
+        <Button icon="logout" look="clear" onClick={signOut} title="Sign out"></Button>
+        
       </div>
       {visible && (
         <Dialog title="Settings" onClose={toggleDialog} className="dialog">
