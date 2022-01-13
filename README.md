@@ -39,7 +39,10 @@ For more information, head over to the [KendoReact documentation](https://www.te
 
 ## Weavy demo instance
 The Weavy demo instance is setup at [https://showcase.weavycloud.com](https://showcase.weavycloud.com). This instance is **only** for demo and testing purposes and should never be used in a production environment. The demo instance is cleaned and reset every now and then.
+
 You are free to use the demo instance when you test and evaluate the **Weavy KendoReact Chat** for as long as you want. When you are ready to go live with the chat app, you should setup a new instance of Weavy as described below.
+
+If you want to see how it looks and works, check it out here [https://weavykendochat.weavycloud.com/](https://weavykendochat.weavycloud.com/)
 
 ## Authentication
 Authentication should be handled by the host application and user identity and profile information is passed on to Weavy with JSON Web Tokens (JWT). A [Weavy Authentication Client](https://docs.weavy.com/server/rest/authentication) must be created in the Weavy instance and the token you create must include a claim that references that authentication client.
