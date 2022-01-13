@@ -54,7 +54,7 @@ In the `src\components\Container.jsx` file, the JWT is passed as a Bearer Token 
 
 
 ## Setup a Weavy instance
-Ready to go live? Or maybe test against a local development instance? Great! Head over to the [Weavy Getting Started](https://docs.weavy.com/server/get-started) to lean everything you need how to setup your own instance of Weavy.
+Ready to go live? Or maybe test against a local development instance? Great! Set up the [Server SDK](https://www.weavy.com/docs/server/get-started) to get started.
 The setup process is basically: 
 1. Clone the Weavy solution repo
 2. Create a database
