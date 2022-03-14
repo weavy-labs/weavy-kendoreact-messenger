@@ -3,7 +3,7 @@ This project shows you how you can use the KendoReact UI components together wit
 
 Weavy Chat API is completely free; unlimited MAU, users, messages, storage. No cap. You can find out [what is included here](https://www.weavy.com/pricing).
 
-This is what we're going to build; [https://weavykendochat.weavycloud.com/](KendoReact Chat Demo)
+You want to see whare you're about to build? Go to the [KendoReact Chat Demo](https://weavykendochat.weavycloud.com/).
 
 ## Getting started with Weavy KendoReact Chat
 Just clone the repo and you should be up and running in no time. Everything is prepared with a demo instance up and running so you can start playing around with it instantly.
