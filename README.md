@@ -41,7 +41,7 @@ You can chooose from: `oliver`, `lilly`, `samara`, or `adam`.
 
 For example; `let username = "oliver";`
 
-By doing this you can add the chat to your app and sign in with different users, etc.
+By doing this you can automatically sign in with different users for demo purposes, for example, if you decide to repurpose this code to work with your existing app, etc.
 
 > NOTE: This is **only** for demonstration purposes and lets you easily play around with the Chat API.
 
