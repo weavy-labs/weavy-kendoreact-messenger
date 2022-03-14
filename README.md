@@ -3,6 +3,8 @@ This project shows you how you can use the KendoReact UI components together wit
 
 Weavy Chat API is completely free; unlimited MAU, users, messages, storage. No cap. You can find out [what is included here](https://www.weavy.com/pricing).
 
+This is what we're going to build; [https://weavykendochat.weavycloud.com/](KendoReact Chat Demo)
+
 ## Getting started with Weavy KendoReact Chat
 Just clone the repo and you should be up and running in no time. Everything is prepared with a demo instance up and running so you can start playing around with it instantly.
 
@@ -31,13 +33,11 @@ The Weavy Chat API demo instance is setup at [https://showcase.weavycloud.com](h
 
 You are free to use the demo instance when you test and evaluate the **Weavy KendoReact Chat** for as long as you want. When you are ready try the Weavy Chat API in your app and with your users [sign up](https://www.weavy.com/account/signup) to get your license.
 
-If you want to see how it looks and works, check it out here [https://weavykendochat.weavycloud.com/](https://weavykendochat.weavycloud.com/)
-
 ## Authentication
-For demo purposes, we've created for predefined users you can sign in with. When you start the app you will be presented by a Sign In screen. 
+For demo purposes, we've created four predefined users you can sign in with. When you start the app you will be presented by a Sign In screen. 
 
 If you would like to automatically sign in with one of the predefined users, update the `useEffect()` method in the `user-provider.js` file.
-You have four users to choose from: `oliver`, `lilly`, `samara`, or `adam`.
+You can chooose from: `oliver`, `lilly`, `samara`, or `adam`.
 
 For example; `let username = "oliver";`
 
