@@ -1,9 +1,12 @@
 # Weavy KendoReact Chat
-This project shows you how you can use the Kendo React UI components together with Weavy to build a complete, ready-to-use chat.
+This project shows you how you can use the KendoReact UI components together with the Weavy Chat API to build a complete, ready-to-use chat - either in you app, or stand-alone.
 
+Weavy Chat API is completely free; unlimited MAU, users, messages, storage. No cap. You can find out [what is included here](https://www.weavy.com/pricing).
+
+You want to see whare you're about to build? Go to the [KendoReact Chat Demo](https://weavykendochat.weavycloud.com/).
 
 ## Getting started with Weavy KendoReact Chat
-Just clone the repo and you should be up and running in no time. We have prepared a Weavy demo instance that you can use when  testing the chat. 
+Just clone the repo and you should be up and running in no time. Everything is prepared with a demo instance up and running so you can start playing around with it instantly.
 
 ### Scripts
 In the project directory, you can run:
@@ -21,8 +24,34 @@ The page will reload if you make edits.
 Builds the app for production to the  `build`  folder.  
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.  
+The build is minified and the filenames include the hashes.
+
 Your app is ready to be deployed!
+
+## Weavy Chat API demo instance
+The Weavy Chat API demo instance is setup at [https://showcase.weavycloud.com](https://showcase.weavycloud.com). This instance is **only** for demo and testing purposes and should never be used in a production environment. The demo instance is cleaned and reset every now and then.
+
+You are free to use the demo instance when you test and evaluate the **Weavy KendoReact Chat** for as long as you want. When you are ready try the Weavy Chat API in your app and with your users [sign up](https://www.weavy.com/account/signup) to get your license.
+
+## Authentication
+For demo purposes, we've created four predefined users you can sign in with. When you start the app you will be presented by a Sign In screen. 
+
+If you would like to automatically sign in with one of the predefined users, update the `useEffect()` method in the `user-provider.js` file.
+You can chooose from: `oliver`, `lilly`, `samara`, or `adam`.
+
+For example; `let username = "oliver";`
+
+By doing this you can add the chat to your app and sign in with different users, etc.
+
+> NOTE: This is **only** for demonstration purposes and lets you easily play around with the Chat API.
+
+## Moving pass the demo instance
+If you want to get up and running with your own Weavy Chat API; [sign up](https://www.weavy.com/account/signup) and follow the instuctions to set up your own backend.
+
+Once you have your own backend up and running you need to update two files in this repo:
+
+- `constants.js` - update `API_URL` so it points to your backend.
+- `user-provider.js` - update with your own tokens, following the instructions here; [Weavy JWT tokens](https://www.weavy.com/docs/client/authentication).
 
 ## Weavy 
 Weavy is <u>the</u> in-app  collaboration SDK & API that enables your users to engage each other to make faster, better decisions through contextual collaboration using in-app chat, activity feeds, secure file sharing, and more.
@@ -36,41 +65,3 @@ For more information about Weavy, head over to https://weavy.com.
 ## KendoReact
 KenoReact by Progress is the only React component library you need. KendoReact is a professional UI kit on a mission to help you  design & build business apps with React much faster.
 For more information, head over to the [KendoReact documentation](https://www.telerik.com/kendo-react-ui/).
-
-## Weavy demo instance
-The Weavy demo instance is setup at [https://showcase.weavycloud.com](https://showcase.weavycloud.com). This instance is **only** for demo and testing purposes and should never be used in a production environment. The demo instance is cleaned and reset every now and then.
-
-You are free to use the demo instance when you test and evaluate the **Weavy KendoReact Chat** for as long as you want. When you are ready to go live with the chat app, you should setup a new instance of Weavy as described below.
-
-If you want to see how it looks and works, check it out here [https://weavykendochat.weavycloud.com/](https://weavykendochat.weavycloud.com/)
-
-## Authentication
-Authentication should be handled by the host application and user identity and profile information is passed on to Weavy with JSON Web Tokens (JWT). A [Weavy Authentication Client](https://docs.weavy.com/server/rest/authentication) must be created in the Weavy instance and the token you create must include a claim that references that authentication client.
-
-For more details how to create the JWT, please take a look at the documentation for [Weavy JWT tokens](docs.weavy.com/client/authentication#creating-the-json-web-token).
-
-In the `src\components\Container.jsx` file, the JWT is passed as a Bearer Token token to the `/client/sign-in` end point in Weavy. When authentication is successful, an authentication cookie is returned and set. This cookie is then used in all api calls to Weavy.
-
-> **A note about authentication in the app** - 
-> When you start the app you will be presented by a Sign In screen. This is **only** for demonstration purposes and lets you choose one of the four predefined users available in the Weavy demo instance (https://showcase.weavycloud.com). This Sign In screen should be replaced with your own authentication logic (username/password) or if you already have an authenticated user, removed all togheter. Once you have an authenticated user, you must create a JWT and pass on to Weavy.
-
-
-
-## Setup a Weavy instance
-Ready to go live? Or maybe test against a local development instance? Great! Set up the [Server SDK](https://www.weavy.com/docs/server/get-started) to get started.
-The setup process is basically: 
-1. Clone the Weavy solution repo
-2. Create a database
-3. Build and test run.
-4. Publish the solution
-5. Create a Weavy Authentication Client
-6. Use the Weavy Authentication Client info when you create the user's JWTs.
-
-## Configuration
-The only configuration you need to change is the Weavy root url. In the `constants.js` file you need to change the `API_URL` to point to the Weavy instance you have setup. When cloning this repo, this setting will point to the Weavy demo instance at https://showcase.weavycloud.com.
-
-
-
-
-
-
