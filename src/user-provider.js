@@ -2,17 +2,18 @@
 import UserContext from './user-context';
 import RealTimeContext from "./realtime-context";
 import { useContext, useState, useEffect } from 'react';
-import { API_URL } from './constants';
+import { API_URL, DEMO } from './constants';
 import { useQueryClient } from 'react-query';
 import { useHistory } from "react-router-dom";
 
 const UserProvider = (props) => {
-    const [user, setUser] = useState(localStorage.getItem("usr"));
+    const [user, setUser] = useState(localStorage.getItem("token"));
     const { connect } = useContext(RealTimeContext);
     const queryClient = useQueryClient();
     let history = useHistory();
 
     // NOTE: hard coded, long lived, JWT Tokens that can be used for demo purposes. Authenticates users against showcase.weavycloud.com
+    // Requires DEMO = true in constants.js
     var users = [];
     users["oliver"] =
         "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJvbGl2ZXIiLCJuYW1lIjoiT2xpdmVyIFdpbnRlciIsImV4cCI6MjUxNjIzOTAyMiwiaXNzIjoic3RhdGljLWZvci1kZW1vIiwiY2xpZW50X2lkIjoiV2VhdnlEZW1vIiwiZGlyIjoiY2hhdC1kZW1vLWRpciIsImVtYWlsIjoib2xpdmVyLndpbnRlckBleGFtcGxlLmNvbSIsInVzZXJuYW1lIjoib2xpdmVyIn0.VuF_YzdhzSr5-tordh0QZbLmkrkL6GYkWfMtUqdQ9FM";
@@ -25,39 +26,48 @@ const UserProvider = (props) => {
 
 
     useEffect(() => {
-        let username = localStorage.getItem("usr");
-        if (username != null && users[username] != null) {
-            login(username);
+
+        if (DEMO) {
+            let token = localStorage.getItem("token");
+            if (token != null) {
+                login(token);
+            }
+        } else {
+            login(props.tokenFactory())
         }
+
     }, []);
 
+    const login = (token) => {
 
-    const login = (username) => {
-        
+        if (DEMO) {
+            token = users[token] || token;
+        }
+
         fetch(API_URL + "/client/sign-in", {
             method: "GET",
             credentials: "include",
             headers: {
                 Accept: "application/json",
-                Authorization: "Bearer " + users[username],
+                Authorization: "Bearer " + token,
             },
         })
             .then((res) => res.json())
             .then(() => {
-                update(username);
+                update(token);
             });
     }
 
     const logout = () => {
         setUser(null);
-        localStorage.removeItem("usr");
+        localStorage.removeItem("token");
         queryClient.invalidateQueries(["user"]);
-        history.push("/");        
+        history.push("/");
     }
 
-    const update = (username) => {
-        setUser(username);
-        localStorage.setItem("usr", username);
+    const update = (token) => {
+        setUser(token);
+        localStorage.setItem("token", token);
         queryClient.invalidateQueries(["user"]);
         connect();
         history.push("/");

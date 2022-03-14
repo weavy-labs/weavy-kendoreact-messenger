@@ -3,7 +3,7 @@ import { useQuery } from "react-query";
 import { Skeleton } from "@progress/kendo-react-indicators";
 import { Dialog } from "@progress/kendo-react-dialogs";
 import { Button } from "@progress/kendo-react-buttons";
-import { API_URL } from "../constants";
+import { API_URL, DEMO } from "../constants";
 import { DropDownList } from "@progress/kendo-react-dropdowns";
 import { Checkbox } from "@progress/kendo-react-inputs";
 import UserContext from "../user-context";
@@ -99,8 +99,11 @@ const Settings = () => {
     <Fragment>
       <div>
         <Button icon="cog" look="clear" onClick={toggleDialog} title="Settings"></Button>
-        <Button icon="logout" look="clear" onClick={signOut} title="Sign out"></Button>
-        
+        {DEMO && 
+          <Button icon="logout" look="clear" onClick={signOut} title="Sign out"></Button>        
+        }
+
+
       </div>
       {visible && (
         <Dialog title="Settings" onClose={toggleDialog} className="dialog">
