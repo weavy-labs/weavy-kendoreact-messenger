@@ -9,7 +9,7 @@ import Container from "./components/Container";
 // Create a client
 const queryClient = new QueryClient()
 
-// This function should return a valid token from your Weavy backend
+// This function should return a valid token from your backend or OAuth provider
 // Set DEMO = false in constants.js to use the generateToken function as the tokenactory passed to the UserProvider below.
 const generateToken = () => {
   // For more information how to create a JWT: https://www.weavy.com/docs/client/authentication
