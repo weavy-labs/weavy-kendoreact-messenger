@@ -36,22 +36,26 @@ You are free to use the demo instance when you test and evaluate the **Weavy Ken
 ## Authentication
 For demo purposes, we've created four predefined users you can sign in with. When you start the app you will be presented by a Sign In screen. 
 
-If you would like to automatically sign in with one of the predefined users, update the `useEffect()` method in the `user-provider.js` file.
-You can chooose from: `oliver`, `lilly`, `samara`, or `adam`.
+If you would like to automatically sign in with one of the pre-defined users, update the following files;
+- In `constant.js` change `DEMO` to `false`
+- In `app.js` add one of the four tokens below in the `generateToken()` function
 
-For example; `let username = "oliver";`
+- Oliver `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJvbGl2ZXIiLCJuYW1lIjoiT2xpdmVyIFdpbnRlciIsImV4cCI6MjUxNjIzOTAyMiwiaXNzIjoic3RhdGljLWZvci1kZW1vIiwiY2xpZW50X2lkIjoiV2VhdnlEZW1vIiwiZGlyIjoiY2hhdC1kZW1vLWRpciIsImVtYWlsIjoib2xpdmVyLndpbnRlckBleGFtcGxlLmNvbSIsInVzZXJuYW1lIjoib2xpdmVyIn0.VuF_YzdhzSr5-tordh0QZbLmkrkL6GYkWfMtUqdQ9FM`
+- Lilly `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJsaWxseSIsIm5hbWUiOiJMaWxseSBEaWF6IiwiZXhwIjoyNTE2MjM5MDIyLCJpc3MiOiJzdGF0aWMtZm9yLWRlbW8iLCJjbGllbnRfaWQiOiJXZWF2eURlbW8iLCJkaXIiOiJjaGF0LWRlbW8tZGlyIiwiZW1haWwiOiJsaWxseS5kaWF6QGV4YW1wbGUuY29tIiwidXNlcm5hbWUiOiJsaWxseSJ9.rQvgplTyCAfJYYYPKxVgPX0JTswls9GZppUwYMxRMY0`
+- Samara `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJzYW1hcmEiLCJuYW1lIjoiU2FtYXJhIEthdXIiLCJleHAiOjI1MTYyMzkwMjIsImlzcyI6InN0YXRpYy1mb3ItZGVtbyIsImNsaWVudF9pZCI6IldlYXZ5RGVtbyIsImRpciI6ImNoYXQtZGVtby1kaXIiLCJlbWFpbCI6InNhbWFyYS5rYXVyQGV4YW1wbGUuY29tIiwidXNlcm5hbWUiOiJzYW1hcmEifQ.UKLmVTsyN779VY9JLTLvpVDLc32Coem_0evAkzG47kM`
+- Adam `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZGFtIiwibmFtZSI6IkFkYW0gTWVyY2VyIiwiZXhwIjoyNTE2MjM5MDIyLCJpc3MiOiJzdGF0aWMtZm9yLWRlbW8iLCJjbGllbnRfaWQiOiJXZWF2eURlbW8iLCJkaXIiOiJjaGF0LWRlbW8tZGlyIiwiZW1haWwiOiJhZGFtLm1lcmNlckBleGFtcGxlLmNvbSIsInVzZXJuYW1lIjoiYWRhbSJ9.c4P-jeQko3F_-N4Ou0JQQREePQ602tNDhO1wYKBhjX8`
 
-By doing this you can automatically sign in with different users for demo purposes, for example, if you decide to repurpose this code to work with your existing app, etc.
+By doing this you can automatically sign in with different users for demo purposes, for example, if you decide to repurpose this code to work within your existing app, etc.
 
 > NOTE: This is **only** for demonstration purposes and lets you easily play around with the Chat API.
 
-## Moving pass the demo instance
+## Moving past the demo instance
 If you want to get up and running with your own Weavy Chat API; [sign up](https://www.weavy.com/account/signup) and follow the instuctions to set up your own backend.
 
 Once you have your own backend up and running you need to update two files in this repo:
 
-- `constants.js` - update `API_URL` so it points to your backend.
-- `user-provider.js` - update with your own tokens, following the instructions here; [Weavy JWT tokens](https://www.weavy.com/docs/client/authentication).
+- `constants.js` - update `API_URL` so it points to your backend, and set `DEMO` to `false`
+- `app.js` - add your own endpoint (your backend or OAuth) in `generateToken()` - for information about JWT Tokens and Weavy, follow the instructions here; [Weavy JWT tokens](https://www.weavy.com/docs/client/authentication).
 
 ## Weavy 
 Weavy is <u>the</u> in-app  collaboration SDK & API that enables your users to engage each other to make faster, better decisions through contextual collaboration using in-app chat, activity feeds, secure file sharing, and more.
